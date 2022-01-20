@@ -1,5 +1,5 @@
+### To run: ./gradlew run
 
-This is a system for measuring times in a race. There are two sub projects, called 'register' and 'result'.
+### To run / build a specific subproject (currently register & result) : ./gradlew :result:run
 
-
-
+### Currently no docs file in the repo like before, also some slight changes in the gradle files / structure from the other zero feature release
