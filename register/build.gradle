@@ -1,0 +1,56 @@
+plugins {
+    id 'application' // implicitly includes java plugin
+}
+
+// define variable with main class, used further down
+ext {
+    javaMainClass = "register.Program"
+}
+
+application {
+    mainClassName = javaMainClass
+    project.version = gradle.ext.version
+}
+
+// disable start script. JAR file is runnable any way?
+startScripts { enabled = false }
+
+// disable default zip and tar distribution. Handled by root project.
+distTar { enabled = false }
+distZip { enabled = false }
+
+// specify main class
+jar {
+    manifest {
+        attributes(
+            "Main-Class": javaMainClass,
+            "Developers": gradle.ext.devName
+        )
+    }
+}
+
+
+// Specify where to look for dependencies
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+// Declare that the task testCompile requires the JUnit framework
+dependencies {
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-commons
+    testCompile group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.7.0'
+
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0'
+
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.0'
+}
+
+// When running the task 'test'
+test {
+    useJUnitPlatform()
+    // Log passed/failed tests in the console (see also build/reports/tests):
+    testLogging.events 'passed', 'failed'
+}
