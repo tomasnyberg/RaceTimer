@@ -69,7 +69,7 @@ public class Program {
         button.addActionListener(e -> {
             LocalTime lt = LocalTime.now();
             String startNumber = input.getText();
-            String string = startNumber + ";" + lt.format(DateTimeFormatter.ofPattern("HH.mm.ss"));
+            String string = startNumber + "; " + lt.format(DateTimeFormatter.ofPattern("HH.mm.ss"));
 
             try {
                 Files.write(Paths.get("time.txt"), Collections.singleton(string), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
