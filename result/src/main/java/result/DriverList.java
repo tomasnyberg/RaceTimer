@@ -1,6 +1,7 @@
 package result;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DriverList {
 
@@ -9,6 +10,9 @@ public class DriverList {
     public DriverList() {
         this.driverList = new ArrayList<DriverEntry>();
     }
+
+
+    public ArrayList<DriverEntry> getList(){return driverList;}
 
     public void add(DriverEntry entry) {
         driverList.add(entry);
