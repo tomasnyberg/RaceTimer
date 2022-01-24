@@ -1,5 +1,6 @@
 package register;
 
+import result.TimeEntry;
 import result.marathon.MarathonResultRow;
 
 import javax.swing.*;
@@ -42,11 +43,11 @@ public class Program {
          * Modellen kan testas med junit. Behöver man testa GUI:t? Kan man ens göra det?
          */
 
-        DefaultListModel<MarathonResultRow> listModel = new DefaultListModel<>();
+        //DefaultListModel<MarathonResultRow> listModel = new DefaultListModel<>();
         MarathonTableModel tableModel = new MarathonTableModel("start");
 
-        tableModel.setValueAt(new MarathonResultRow("1", "John", LocalTime.now(), LocalTime.now()), 0, 0);
-        tableModel.setValueAt(new MarathonResultRow("12", "Jane", LocalTime.now(), LocalTime.now()), 1, 0);
+        tableModel.setValueAt(new TimeEntry("1", LocalTime.now()), 0, 0);
+        tableModel.setValueAt(new TimeEntry("12", LocalTime.now()), 1, 0);
 
         JTextField input = new JTextField(5);
         input.setFont(font);
@@ -68,8 +69,9 @@ public class Program {
         }
         button.addActionListener(e -> {
             LocalTime lt = LocalTime.now();
+            String time = lt.format(DateTimeFormatter.ofPattern("HH.mm.ss"));
             String startNumber = input.getText();
-            String string = startNumber + "; " + lt.format(DateTimeFormatter.ofPattern("HH.mm.ss"));
+            String string = startNumber + "; " + time;
 
             try {
                 Files.write(Paths.get("time.txt"), Collections.singleton(string), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
@@ -78,8 +80,8 @@ public class Program {
             }
 
             // Hur visar vi tiden i GUI:t!?
-            var mr = new MarathonResultRow(startNumber, "<empty>", lt, lt);
-            listModel.addElement(mr);
+            var mr = new TimeEntry(startNumber, lt);
+            //listModel.addElement(mr);
 
         });
         frame.add(topPanel, BorderLayout.NORTH);
