@@ -7,7 +7,7 @@ public class NameFileReader extends AbstractFileReader{
 
     @Override
     public String file() {
-        return "C:\\Users\\jojog\\team05\\result\\src\\test\\java\\result\\namnfil.txt";
+        return "../namnfil.txt";
     }
 
     @Override

@@ -21,7 +21,7 @@ public class TestFileReader {
 
     @Test
     void testfindfile(){
-        assertEquals(filereader.file(), "C:\\Users\\jojog\\team05\\result\\src\\test\\java\\result\\namnfil.txt");
+        assertEquals(filereader.file(), "../namnfil.txt");
     }
 
     @Test
