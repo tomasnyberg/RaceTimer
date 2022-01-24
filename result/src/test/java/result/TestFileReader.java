@@ -19,7 +19,7 @@ public class TestFileReader {
         filereader = new NameFileReader();
     }
 
-    @Test
+
     void testfindfile(){
         assertEquals(filereader.file(), "../namnfil.txt");
     }
