@@ -7,6 +7,10 @@ ext {
     javaMainClass = "register.Program"
 }
 
+dependencies {
+    implementation project(':result')
+}
+
 application {
     getMainClass().set(javaMainClass);
 }
