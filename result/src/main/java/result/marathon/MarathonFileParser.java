@@ -2,6 +2,7 @@ package result.marathon;
 
 import java.util.List;
 
+import result.DriverEntry;
 import result.TimeEntry;
 
 import java.io.BufferedReader;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public class MarathonFileParser {
     
 
-    private List<String> readFile(String path){
+    private static List<String> readFile(String path){
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
             List<String> list = new ArrayList<>();
@@ -28,35 +29,38 @@ public class MarathonFileParser {
         }
     }
 
-    private TimeEntry generateTimeEntry(String line) {
-
+    private static TimeEntry generateTimeEntry(String line) {
         String[] split = line.split("; ");
-
         String[] times = split[1].split(":");
-
         int hour = Integer.parseInt(times[0]);
         int minute = Integer.parseInt(times[1]);
         int second = Integer.parseInt(times[2]);
-
         LocalTime lt = LocalTime.of(hour, minute, second);
-
         return new TimeEntry(split[0], lt);
 
     }
 
-    private List<TimeEntry> generateTimeEntries(List<String> lines){
-
+    private static List<TimeEntry> generateTimeEntries(List<String> lines){
         List<TimeEntry> result = new ArrayList<>();
-
         for(String s: lines){
             result.add(generateTimeEntry(s));
         }
-
         return result;
-      }
+    }
 
-    public static List<MarathonResult> result(String endTimeFile, String startTimeFile){
-        return null;
+    public static List<MarathonResult> result(String startTimeFile, String endTimeFile){
+        List<TimeEntry> startTimeEntries = generateTimeEntries(readFile(startTimeFile));
+        List<TimeEntry> endTimeEntries = generateTimeEntries(readFile(endTimeFile));
+        // TODO get this from the right place, as specified from task M.2
+        List<DriverEntry> driverEntries = new ArrayList<>();
+        for(int i = 1; i <= endTimeEntries.size(); i++){
+            driverEntries.add(new DriverEntry(i + "", ""));
+        }
+        MarathonMatcher mm = new MarathonMatcher();
+        mm.addStartTimes(startTimeEntries);
+        mm.addEndTimes(endTimeEntries);
+        mm.addDrivers(driverEntries);
+        return mm.result();
     }
     
 }
