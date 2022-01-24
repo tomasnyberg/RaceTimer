@@ -17,7 +17,7 @@ public class TimeEntry {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj) { // Only checks equality based on start number
         if (obj.getClass().equals(TimeEntry.class)) {
             return ((TimeEntry) obj).number.equals(number);
         }
