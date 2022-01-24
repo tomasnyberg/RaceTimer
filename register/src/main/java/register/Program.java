@@ -33,7 +33,7 @@ public class Program {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new BorderLayout());
 
-        Font font = new Font("SansSerif", Font.BOLD, 20);
+        Font font = new Font("SansSerif", Font.BOLD, 30);
 
         /*
          * Vi måste göra testfall för registreringsprogrammet!
@@ -60,7 +60,7 @@ public class Program {
         resultTable.setFillsViewportHeight(true);
         resultTable.setFont(font);
         resultTable.getTableHeader().setFont(font);
-        resultTable.setRowHeight(24);
+        resultTable.setRowHeight(40);
         try {
             Files.createFile(Paths.get("time.txt"));
         } catch (IOException e2) {
