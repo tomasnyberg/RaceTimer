@@ -17,6 +17,9 @@ public class MarathonFormatter implements ResultFormatter<MarathonResult> {
         // driver name
         sb.append(driverResult.getName()).append(SEP).append(" ");
 
+        // total time
+        sb.append(driverResult.getTotal()).append(SEP).append(" ");
+
         // start time
         sb.append(driverResult.getStart()).append(SEP).append(" ");
 

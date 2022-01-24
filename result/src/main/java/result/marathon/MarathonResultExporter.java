@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public class MarathonResultExporter {
 
-    public static String HEADER = "StartNr; Starttid; Måltid";
+    public static String HEADER = "StartNr; Namn; Totaltid; Starttid; Måltid";
 
     private static ResultFormatter formatter = new MarathonFormatter();
     public static void export(String fileName, List<MarathonResult> results) throws java.io.IOException {

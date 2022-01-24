@@ -41,12 +41,12 @@ public class TestMarathonResultExporter {
 
         list.add(new MarathonResultRow("12", "test1", LocalTime.parse("11:00:00"), LocalTime.parse("12:00:00")));
         list.add(new MarathonResultRow("15", "test2", LocalTime.parse("09:00:00"), LocalTime.parse("12:30:00")));
-        list.add(new MarathonResultRow("1", "test3", LocalTime.parse("13:00:00"), LocalTime.parse("10:00:00")));
+        list.add(new MarathonResultRow("1", "test3", LocalTime.parse("02:00:00"), LocalTime.parse("10:00:01")));
         MarathonResultExporter.export(fileName, list);
 
-        expected.add("12; test1; 11:00:00; 12:00:00; ");
-        expected.add("15; test2; 09:00:00; 12:30:00; ");
-        expected.add("1; test3; 13:00:00; 10:00:00; ");
+        expected.add("12; test1; 01:00:00; 11:00:00; 12:00:00; ");
+        expected.add("15; test2; 03:30:00; 09:00:00; 12:30:00; ");
+        expected.add("1; test3; 08:00:01; 02:00:00; 10:00:01; ");
 
         assertEquals(readAllLines(), expected);
 
