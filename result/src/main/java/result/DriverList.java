@@ -11,7 +11,6 @@ public class DriverList {
         this.driverList = new ArrayList<DriverEntry>();
     }
 
-
     public ArrayList<DriverEntry> getList(){return driverList;}
 
     public void add(DriverEntry entry) {

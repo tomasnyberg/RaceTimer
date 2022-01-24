@@ -16,16 +16,14 @@ public abstract class AbstractFileReader {
 
 
  public void read(){
-     data= new ArrayList<String>();
-     try{
-
+     data = new ArrayList<String>();
+     try {
          FileReader fr = new FileReader(file());
          BufferedReader br = new BufferedReader(fr);
         while((line = br.readLine()) !=null) {
             String [] s = line.split("; ");
             data.add(s[0]);
             data.add(s[1]);
-
         }
      } catch (IOException e){
          System.out.println("FILE COULD NOT BE READ");

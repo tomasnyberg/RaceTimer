@@ -34,5 +34,11 @@ public class TestFileReader {
         assertEquals(filereader.data.get(11), "Erik Esson");
         assertEquals(filereader.data.size(), 12);
     }
-
+    void testCreateObject(){
+        "1", "Anders Asson"
+        2; Bengt Bsson
+        3; Chris Csson
+        4; David Dsson
+        5; Erik Esson
+    }
 }
