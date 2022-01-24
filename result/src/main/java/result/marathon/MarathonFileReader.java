@@ -4,31 +4,17 @@ import java.util.List;
 
 import result.DriverEntry;
 import result.TimeEntry;
+import util.AbstractFileReader;
+import util.NameFileReader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class MarathonFileParser {
+public class MarathonFileReader extends AbstractFileReader {
     
-
-    private static List<String> readFile(String path){
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
-            List<String> list = new ArrayList<>();
-            String line = reader.readLine();
-            while(line != null){
-                list.add(line);
-                line = reader.readLine();
-            }
-            return list;
-        } catch (Exception e){
-            System.out.println("Could not find path");
-            return null;
-        }
-    }
-
+    
     private static TimeEntry generateTimeEntry(String line) {
         String[] split = line.split("; ");
         String[] times = split[1].split(":");
@@ -52,10 +38,7 @@ public class MarathonFileParser {
         List<TimeEntry> startTimeEntries = generateTimeEntries(readFile(startTimeFile));
         List<TimeEntry> endTimeEntries = generateTimeEntries(readFile(endTimeFile));
         // TODO get this from the right place, as specified from task M.2
-        List<DriverEntry> driverEntries = new ArrayList<>();
-        for(int i = 1; i <= endTimeEntries.size(); i++){
-            driverEntries.add(new DriverEntry(i + "", ""));
-        }
+        List<DriverEntry> driverEntries = NameFileReader.result("../namnfil.txt");
         MarathonMatcher mm = new MarathonMatcher();
         mm.addStartTimes(startTimeEntries);
         mm.addEndTimes(endTimeEntries);
