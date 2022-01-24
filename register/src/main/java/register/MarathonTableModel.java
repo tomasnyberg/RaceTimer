@@ -2,22 +2,20 @@ package register;
 
 import result.TimeEntry;
 import result.marathon.MarathonResultRow;
+import util.TimeUtils;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MarathonTableModel extends AbstractTableModel {
-    private String type;
     private String[] columnNames = {
             "Startnummer",
             "Tid",
     };
     private List<TimeEntry> data = new ArrayList<>();
 
-    public MarathonTableModel(String type) {
-        this.type = type;
-    }
+    public MarathonTableModel() {}
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -56,7 +54,7 @@ public class MarathonTableModel extends AbstractTableModel {
             case 0:
                 return mr.getNumber();
             default:
-                return mr.getTime();
+                return TimeUtils.formatTime(mr.getTime());
         }
     }
 }
