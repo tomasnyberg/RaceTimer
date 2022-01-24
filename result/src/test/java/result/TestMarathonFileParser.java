@@ -12,10 +12,11 @@ public class TestMarathonFileParser {
     @Test
     public void testReadsAll(){
         // TODO: link to the correct place in repo, currently hard coded to my local file
-        String startFile = "C:\\Users\\Tomas\\Downloads\\Acceptanstester.zip\\Acceptanstester\\Maraton\\acceptanstestM1\\starttider.txt";
-        String endFile = "C:\\Users\\Tomas\\Downloads\\Acceptanstester.zip\\Acceptanstester\\Maraton\\acceptanstestM1\\maltider.txt";
+        String startFile = "C:\\Users\\ceken\\Downloads\\Acceptanstester (1)\\Acceptanstester\\Maraton\\acceptanstestM1_M3\\starttider.txt";
+        String endFile = "C:\\Users\\ceken\\Downloads\\Acceptanstester (1)\\Acceptanstester\\Maraton\\acceptanstestM1_M3\\maltider.txt";
         List<MarathonResult> list = MarathonFileParser.result(startFile, endFile);
         assertEquals(5, list.size());
     }
+
     
 }
