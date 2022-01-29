@@ -5,6 +5,7 @@ plugins {
 // define variable with main class, used further down
 ext {
     javaMainClass = "register.Program"
+    project.version = gradle.ext.version
 }
 
 dependencies {
@@ -22,7 +23,18 @@ startScripts { enabled = false }
 distTar { enabled = false }
 distZip { enabled = false }
 
+jar {
+    manifest {
+        attributes(
+            "Main-Class": javaMainClass,
+            "Developers": gradle.ext.devName
+        )
+    }
 
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
 
 // Specify where to look for dependencies
 repositories {
