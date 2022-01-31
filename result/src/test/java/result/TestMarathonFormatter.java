@@ -20,10 +20,11 @@ public class TestMarathonFormatter {
     private List<TimeEntry> startTimes;
     private List<TimeEntry> endTimes;
     private List<MarathonResult> result;
+    private String minimumTime = "00:00:00";
 
     @BeforeEach
     public void setup() {
-        marathonMatcher = new MarathonMatcher();
+        marathonMatcher = new MarathonMatcher(minimumTime);
         formatter = new MarathonFormatter();
         drivers = new ArrayList<>();
         startTimes = new ArrayList<>();

@@ -23,12 +23,12 @@ public class MarathonFileReader extends AbstractFileReader {
         return result;
     }
 
-    public static List<MarathonResult> result(String startTimeFile, String endTimeFile){
+    public static List<MarathonResult> result(String startTimeFile, String endTimeFile, String minimumTime){
         List<TimeEntry> startTimeEntries = generateTimeEntries(readFile(startTimeFile));
         List<TimeEntry> endTimeEntries = generateTimeEntries(readFile(endTimeFile));
         // TODO get this from the right place, as specified from task M.2
         List<DriverEntry> driverEntries = NameFileReader.result("../textfiles/namnfil.txt");
-        MarathonMatcher mm = new MarathonMatcher();
+        MarathonMatcher mm = new MarathonMatcher(minimumTime);
         mm.addStartTimes(startTimeEntries);
         mm.addEndTimes(endTimeEntries);
         mm.addDrivers(driverEntries);

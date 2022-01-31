@@ -10,12 +10,13 @@ import java.util.List;
 
 public class TestMarathonFileReader {
     private List<MarathonResult> list;
+    private String minimumTime = "00:00:00";
 
     @BeforeEach
     public void setUp(){
         String startFile = "../textfiles/starttider.txt";
         String endFile = "../textfiles/maltider.txt";
-        list = MarathonFileReader.result(startFile, endFile);
+        list = MarathonFileReader.result(startFile, endFile, minimumTime);
     }
 
     @Test

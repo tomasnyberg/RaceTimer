@@ -2,19 +2,21 @@ package result.marathon.error;
 
 import result.marathon.MarathonResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Decorator pattern to decorate marathon results with error messages.
- */
+/** Decorator pattern to decorate marathon results with error messages. */
 public abstract class MarathonDecorator implements MarathonResult {
 
-    public static final String MISSING_TIME = "--:--:--";
-
+    protected String ERROR_STRING;
     private MarathonResult result;
 
-    public MarathonDecorator(MarathonResult result) {
+    public List<String> errors;
+
+    public MarathonDecorator(MarathonResult result, String ERROR_STRING) {
         this.result = result;
+        this.ERROR_STRING = ERROR_STRING;
+        errors = new ArrayList<>();
     }
 
     @Override
@@ -44,6 +46,6 @@ public abstract class MarathonDecorator implements MarathonResult {
 
     @Override
     public List<String> getErrors() {
-        return result.getErrors();
+        return errors;
     }
 }
