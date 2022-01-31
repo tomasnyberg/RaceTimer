@@ -10,7 +10,7 @@ public class FileWriter {
     {
         lines.add(0, AbstractFileReader.readHeader());
         lines.add("\nResultatgenerering av team 05");
-        Files.write(Paths.get(fileName), lines);
+        Files.write(Paths.get(fileName), lines, StandardCharsets.UTF_8);
 
     }
 
