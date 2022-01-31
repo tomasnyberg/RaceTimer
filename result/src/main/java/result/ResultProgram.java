@@ -6,6 +6,7 @@ import result.marathon.MarathonFileReader;
 
 import java.io.IOException;
 import java.util.List;
+import java.time.LocalTime;
 
 
 /**
@@ -17,7 +18,16 @@ public class ResultProgram {
         String startTimeFile = "../starttider.txt";
         String endTimeFile = "../maltider.txt";
         String outFile = "../resultatFil.txt";
-        String minimumTime = "01:10:03";
+        String minimumTime = "00:00:00";
+
+        try {
+            minimumTime = args[0];
+            System.out.println(minimumTime);
+            LocalTime.parse(minimumTime);
+        } catch (Exception e) {
+            System.out.println("Invalid minimum time format. Enter time according to [hh:mm:ss]");
+            System.exit(0);
+        }
 
         List<MarathonResult> fileResults = MarathonFileReader.result(startTimeFile, endTimeFile, minimumTime);
         try {
