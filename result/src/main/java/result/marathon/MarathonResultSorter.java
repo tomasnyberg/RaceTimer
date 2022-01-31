@@ -12,7 +12,9 @@ public class MarathonResultSorter extends ResultSorter<MarathonResult> {
 
     @Override
     public List<MarathonResult> sortResults(List<MarathonResult> results) {
-        return new ArrayList<>();
+        List<MarathonResult> sorted = new ArrayList<>(results);
+        sorted.sort((mr1, mr2) -> mr1.getTotal().compareTo(mr2.getTotal()));
+        return sorted;
     }
 
 
