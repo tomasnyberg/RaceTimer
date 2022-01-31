@@ -24,10 +24,12 @@ public class MarathonFormatter implements ResultFormatter<MarathonResult> {
         sb.append(driverResult.getStart()).append(SEP).append(" ");
 
         // end time
-        sb.append(driverResult.getEnd()).append(SEP).append(" ");
+        sb.append(driverResult.getEnd());
 
         // errors in the extra error column
         boolean addComma = false;
+        if(driverResult.getErrors().size() > 0) sb.append(SEP).append(" ");
+        else sb.append(" ");
         for (String e : driverResult.getErrors()) {
             if (addComma) {
                 sb.append(", ");

@@ -52,9 +52,9 @@ public class TestMarathonFormatter {
 
         assertEquals(3, result.size());
 
-        String expectedResult1 = "01; Adam Asson; 01:00:00; 12:00:00; 13:00:00; ";
+        String expectedResult1 = "01; Adam Asson; 01:00:00; 12:00:00; 13:00:00 ";
         // String expectedResult2 = "02; Bodil Bsson; --:--:--; Start?; 13:00:00; ";
-        String expectedResult3 = "03; Caesar Csson; 00:58:00; 12:02:00; 13:00:00; ";
+        String expectedResult3 = "03; Caesar Csson; 00:58:00; 12:02:00; 13:00:00 ";
 
         assertEquals(expectedResult1, formatter.formatDriver(result.get(0)));
         //assertEquals(expectedResult2, formatter.formatDriver(result.get(1)));
@@ -83,9 +83,9 @@ public class TestMarathonFormatter {
 
         assertEquals(3, result.size());
 
-        String expectedResult1 = "01; Adam Asson; 01:00:00; 12:00:00; 13:00:00; ";
+        String expectedResult1 = "01; Adam Asson; 01:00:00; 12:00:00; 13:00:00 ";
         // String expectedResult2 = "02; Bodil Bsson; 12:01:00; Slut?; ";
-        String expectedResult3 = "03; Caesar Csson; 00:58:00; 12:02:00; 13:00:00; ";
+        String expectedResult3 = "03; Caesar Csson; 00:58:00; 12:02:00; 13:00:00 ";
 
         assertEquals(expectedResult1, formatter.formatDriver(result.get(0)));
         // assertEquals(expectedResult2, formatter.formatDriver(result.get(1)));
