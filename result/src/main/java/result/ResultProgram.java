@@ -1,6 +1,7 @@
 package result;
 
 import result.marathon.MarathonResultExporter;
+import result.marathon.MarathonResultSorter;
 import result.marathon.MarathonResult;
 import result.marathon.MarathonFileReader;
 
@@ -30,6 +31,7 @@ public class ResultProgram {
         }
 
         List<MarathonResult> fileResults = MarathonFileReader.result(startTimeFile, endTimeFile, minimumTime);
+        fileResults = new MarathonResultSorter().sortResults(fileResults);
         try {
             MarathonResultExporter.export(outFile, fileResults);
         } catch (IOException e) {
