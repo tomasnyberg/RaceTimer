@@ -23,7 +23,9 @@ public class MarathonFileReader extends AbstractFileReader {
         return result;
     }
 
+
     public static List<MarathonResult> result(String startTimeFile, String endTimeFile){
+
         List<TimeEntry> startTimeEntries = generateTimeEntries(readFile(startTimeFile));
         List<TimeEntry> endTimeEntries = generateTimeEntries(readFile(endTimeFile));
         // TODO get this from the right place, as specified from task M.2

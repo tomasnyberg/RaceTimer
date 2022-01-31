@@ -18,6 +18,7 @@ public class ResultProgram {
     public static void main(String[] args) {
         String startTimeFile = "../textfiles/starttider.txt";
         String endTimeFile = "../textfiles/maltider.txt";
+        String comment;
         String outFile = "../textfiles/resultatFil.txt";
 
         List<MarathonResult> fileResults = MarathonFileReader.result(startTimeFile, endTimeFile);

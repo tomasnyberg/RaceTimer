@@ -8,7 +8,10 @@ public class FileWriter {
 
     public static void dump(String fileName, List<String> lines) throws java.io.IOException
     {
+        lines.add(0, AbstractFileReader.readHeader());
+        lines.add("\nResultatgenerering av team 05");
         Files.write(Paths.get(fileName), lines);
+
     }
 
 }

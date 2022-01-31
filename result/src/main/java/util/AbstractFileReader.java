@@ -26,6 +26,10 @@ public abstract class AbstractFileReader {
         }
     }
 
+    public static String readHeader(){
+        return readFile("../textfiles/lopptitel.txt").get(0) + "\n";
+    }
+
     protected static TimeEntry generateTimeEntry(String line) {
         String[] split = line.split("; ");
         String[] times = split[1].split(":");
