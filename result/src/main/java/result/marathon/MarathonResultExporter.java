@@ -1,11 +1,9 @@
 package result.marathon;
 
-import result.Driver;
-import result.Result;
+
 import result.ResultFormatter;
 import util.FileWriter;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
