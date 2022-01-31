@@ -13,9 +13,9 @@ public class TestNameFileReader {
     AbstractFileReader fileReader;
     List<DriverEntry> driverList;
 
-    @BeforeEach 
+    @BeforeEach
     void setUp() {
-        driverList = NameFileReader.result("../namnfil.txt");
+        driverList = NameFileReader.result("../textfiles/namnfil.txt");
     }
 
     @Test
@@ -46,3 +46,4 @@ public class TestNameFileReader {
         assertEquals(mock5.getNumber(), e5.getNumber());
     }
 }
+
