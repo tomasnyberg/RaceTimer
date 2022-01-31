@@ -1,37 +1,25 @@
 package util;
 
-import result.DriverList;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public abstract class AbstractFileReader {
 
-    private static String line;
-    public static List<String> data;
-
-
- public void read(){
-     data = new ArrayList<String>();
-     try {
-         FileReader fr = new FileReader(file());
-         BufferedReader br = new BufferedReader(fr);
-        while((line = br.readLine()) !=null) {
-            String [] s = line.split("; ");
-            data.add(s[0]);
-            data.add(s[1]);
+    protected static List<String> readFile(String path){
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            List<String> list = new ArrayList<>();
+            String line = reader.readLine();
+            while(line != null){
+                list.add(line);
+                line = reader.readLine();
+            }
+            return list;
+        } catch (Exception e){
+            System.out.println("Could not find path");
+            return null;
         }
-     } catch (IOException e){
-         System.out.println("FILE COULD NOT BE READ");
-         e.printStackTrace();
-     }
- }
-
-    public abstract String file();
-    public abstract Object CreateObject();
-
+    }
 }

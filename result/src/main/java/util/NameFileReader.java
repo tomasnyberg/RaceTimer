@@ -1,22 +1,19 @@
 package util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import result.DriverEntry;
-import result.DriverList;
 
-public class NameFileReader extends AbstractFileReader{
+public class NameFileReader extends AbstractFileReader {
 
-    @Override
-    public String file() {
-        return "../namnfil.txt";
-    }
-
-    @Override
-    public Object CreateObject() {
-        DriverList driverList = new DriverList();
-        for(int i=2; i < data.size(); i+=2){
-            DriverEntry driver = new DriverEntry(data.get(i), data.get(i+1));
-            driverList.add(driver);
+    public static List<DriverEntry> result(String path) {
+        List<DriverEntry> result = new ArrayList<>();
+        List<String> list = readFile(path);
+        for(int i = 1; i < list.size(); i++){
+            String[] split = list.get(i).split("; ");
+            result.add(new DriverEntry(split[0], split[1]));
         }
-        return driverList;
+        return result;
     }
 }
