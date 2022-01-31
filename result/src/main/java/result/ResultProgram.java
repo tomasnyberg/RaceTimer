@@ -16,9 +16,9 @@ import util.FileWriter;
 public class ResultProgram {
 
     public static void main(String[] args) {
-        String startTimeFile = "../starttider.txt";
-        String endTimeFile = "../maltider.txt";
-        String outFile = "../resultatFil.txt";
+        String startTimeFile = "../textfiles/starttider.txt";
+        String endTimeFile = "../textfiles/maltider.txt";
+        String outFile = "../textfiles/resultatFil.txt";
 
         List<MarathonResult> fileResults = MarathonFileReader.result(startTimeFile, endTimeFile);
         try {

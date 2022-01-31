@@ -215,5 +215,5 @@ gradle-app.setting
 /time.txt
 
 ### temporary test files ###
-testFileWriter.txt
-testMarathonResultExporter.txt
+../textfiles/testFileWriter.txt
+../textfiles/testMarathonResultExporter.txt
