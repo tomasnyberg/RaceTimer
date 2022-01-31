@@ -31,7 +31,7 @@ public class GUI {
         // Register form and button
         JTextField input = new JTextField(5);
         input.setFont(font);
-        JLabel inputLabel = new JLabel("Startnumer: ");
+        JLabel inputLabel = new JLabel("Startnummer: ");
         inputLabel.setFont(font);
         JButton button = new JButton("Registrera");
         button.setFont(font);
@@ -59,7 +59,7 @@ public class GUI {
             String startNumber = input.getText();
 
             // Check validity of input
-            if (startNumber.charAt(0) != '0' && startNumber.matches("[0-9]+")) {
+            if (!startNumber.isEmpty() && startNumber.charAt(0) != '0' && startNumber.matches("[0-9]+")) {
                 String string = startNumber + "; " + time;
 
                 try {
@@ -71,6 +71,7 @@ public class GUI {
                 // Update view with new row
                 tableModel.setValueAt(new TimeEntry(startNumber, lt), 0, 0);
                 resultTable.repaint();
+                input.setText("");
             }
         });
 
@@ -81,9 +82,11 @@ public class GUI {
         topPanel.add(button);
         bottomPanel.add(resultTable.getTableHeader(), BorderLayout.PAGE_START);
         bottomPanel.add(resultTable, BorderLayout.CENTER);
-
+        
+        
         // Defaults
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        frame.getRootPane().setDefaultButton(button);
     }
 }
