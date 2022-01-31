@@ -18,7 +18,7 @@ public class TestMarathonMatcher {
   private List<TimeEntry> startTimes;
   private List<TimeEntry> endTimes;
   private List<MarathonResult> result;
-  private String minimumTime = "00:00:00";
+  private String minimumTime = "00:15:00";
 
   @BeforeEach
   public void setup() {
@@ -216,7 +216,7 @@ public class TestMarathonMatcher {
   }
 
   @Test
-  public void testMissingGoalTime() {
+  public void testMissingEndTime() {
 
     drivers.add(new DriverEntry("01", "Adam Asson"));
     drivers.add(new DriverEntry("02", "Bodil Bsson"));

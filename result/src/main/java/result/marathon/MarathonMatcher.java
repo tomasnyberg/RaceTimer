@@ -12,8 +12,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static result.marathon.error.MarathonDecorator.MISSING_TIME;
-
 public class MarathonMatcher extends Matcher<MarathonDriver, MarathonResult> {
 
   public MarathonMatcher(String minimumTime) {
