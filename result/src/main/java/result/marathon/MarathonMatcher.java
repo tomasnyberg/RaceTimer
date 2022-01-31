@@ -7,6 +7,8 @@ import result.marathon.error.ImpossibleTotalTime;
 import result.marathon.error.MarathonDecorator;
 import result.marathon.error.MissingEndTime;
 import result.marathon.error.MissingStartTime;
+import result.marathon.error.MultipleEndTimes;
+import result.marathon.error.MultipleStartTimes;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -30,17 +32,27 @@ public class MarathonMatcher extends Matcher<MarathonDriver, MarathonResult> {
                     && LocalTime.parse(result.getTotal()).isBefore(LocalTime.parse(minimumTime))
                 ? new ImpossibleTotalTime(result)
                 : result);
+
+    // Find multiple start times
+    errorFinders.add(
+      (driver, result) ->
+        driver.getStartTimes().size() > 1 ? new MultipleStartTimes(result, driver) : result);
+
+    // Find multiple end times
+    errorFinders.add(
+      (driver, result) ->
+        driver.getEndTimes().size() > 1 ? new MultipleEndTimes(result, driver) : result);
   }
 
   public void addStartTimes(List<TimeEntry> newTimes) {
     for (TimeEntry entry : newTimes) {
-      getDriver(entry.getNumber()).setStart(entry.getTime());
+      getDriver(entry.getNumber()).registerStart(entry.getTime());
     }
   }
 
   public void addEndTimes(List<TimeEntry> newTimes) {
     for (TimeEntry entry : newTimes) {
-      getDriver(entry.getNumber()).setEnd(entry.getTime());
+      getDriver(entry.getNumber()).registerEnd(entry.getTime());
     }
   }
 

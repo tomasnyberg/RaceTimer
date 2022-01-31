@@ -11,12 +11,12 @@ public abstract class MarathonDecorator implements MarathonResult {
     protected String ERROR_STRING;
     private MarathonResult result;
 
-    public List<String> errors;
+    public List<String> errors = new ArrayList<>();
 
     public MarathonDecorator(MarathonResult result, String ERROR_STRING) {
         this.result = result;
+        this.errors = result.getErrors();
         this.ERROR_STRING = ERROR_STRING;
-        errors = new ArrayList<>();
     }
 
     @Override
