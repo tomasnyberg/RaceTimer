@@ -174,22 +174,6 @@ public class TestMarathonMatcher {
   }
 
   @Test
-  public void testMultipleStartTimes() {
-
-    startTimes.add(new TimeEntry("01", LocalTime.parse("12:00:00")));
-    startTimes.add(new TimeEntry("01", LocalTime.parse("12:01:00")));
-    endTimes.add(new TimeEntry("01", LocalTime.parse("13:00:00")));
-
-    marathonMatcher.addStartTimes(startTimes);
-    marathonMatcher.addEndTimes(endTimes);
-
-    result = marathonMatcher.result();
-
-    MarathonResult resultRow = result.get(0);
-    assertEquals("Flera starttider? 12:01:00", resultRow.getErrors().get(0));
-  }
-
-  @Test
   public void testMissingStart() {
     drivers.add(new DriverEntry("01", "Adam Asson"));
     drivers.add(new DriverEntry("02", "Bodil Bsson"));
