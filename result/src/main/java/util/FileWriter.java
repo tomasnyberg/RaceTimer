@@ -8,7 +8,7 @@ public class FileWriter {
 
     public static void dump(String fileName, List<String> lines) throws java.io.IOException
     {
-        Files.write(Paths.get(fileName), lines);
+        Files.write(Paths.get(fileName), lines, StandardCharsets.UTF_8);
     }
 
 }
