@@ -215,3 +215,4 @@ gradle-app.setting
 !.vscode/extensions.json
 *.code-workspace
 /time.txt
+/resultatFil.txt

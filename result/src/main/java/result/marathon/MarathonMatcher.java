@@ -16,7 +16,7 @@ import static result.marathon.error.MarathonDecorator.MISSING_TIME;
 
 public class MarathonMatcher extends Matcher<MarathonDriver, MarathonResult> {
 
-  public MarathonMatcher() {
+  public MarathonMatcher(String minimumTime) {
 
     // Find missing start times
     errorFinders.add(
@@ -29,7 +29,7 @@ public class MarathonMatcher extends Matcher<MarathonDriver, MarathonResult> {
     errorFinders.add(
         (driver, result) ->
             !(result instanceof MarathonDecorator)
-                    && Integer.parseInt(result.getTotal().replace(":", "")) < 1500
+                    && LocalTime.parse(result.getTotal()).isBefore(LocalTime.parse(minimumTime))
                 ? new ImpossibleTotalTime(result)
                 : result);
   }

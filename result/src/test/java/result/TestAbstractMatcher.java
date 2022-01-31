@@ -15,10 +15,11 @@ public class TestAbstractMatcher {
     private MarathonMatcher matcher;
     private List<DriverEntry> drivers;
     private List<MarathonResult> result;
+    private String minimumTime = "00:00:00";
 
     @BeforeEach
     public void setup() {
-        matcher = new MarathonMatcher();
+        matcher = new MarathonMatcher(minimumTime);
         drivers = new ArrayList<>();
     }
 

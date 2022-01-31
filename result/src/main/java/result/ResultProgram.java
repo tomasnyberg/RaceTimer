@@ -5,9 +5,7 @@ import result.marathon.MarathonResult;
 import result.marathon.MarathonFileReader;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import util.FileWriter;
 
 
 /**
@@ -19,8 +17,9 @@ public class ResultProgram {
         String startTimeFile = "../starttider.txt";
         String endTimeFile = "../maltider.txt";
         String outFile = "../resultatFil.txt";
+        String minimumTime = "01:10:03";
 
-        List<MarathonResult> fileResults = MarathonFileReader.result(startTimeFile, endTimeFile);
+        List<MarathonResult> fileResults = MarathonFileReader.result(startTimeFile, endTimeFile, minimumTime);
         try {
             MarathonResultExporter.export(outFile, fileResults);
         } catch (IOException e) {
