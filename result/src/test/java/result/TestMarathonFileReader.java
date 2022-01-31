@@ -14,8 +14,8 @@ public class TestMarathonFileReader {
 
     @BeforeEach
     public void setUp(){
-        String startFile = "../textfiles/starttider.txt";
-        String endFile = "../textfiles/maltider.txt";
+        String startFile = "input/starttider.txt";
+        String endFile = "input/maltider.txt";
         list = MarathonFileReader.result(startFile, endFile, minimumTime);
     }
 

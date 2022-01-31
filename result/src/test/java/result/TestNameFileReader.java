@@ -15,7 +15,7 @@ public class TestNameFileReader {
 
     @BeforeEach
     void setUp() {
-        driverList = NameFileReader.result("../textfiles/namnfil.txt");
+        driverList = NameFileReader.result("input/namnfil.txt");
     }
 
     @Test

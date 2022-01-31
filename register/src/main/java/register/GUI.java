@@ -46,7 +46,7 @@ public class GUI {
 
         // Create file if not exists
         try {
-            Files.createFile(Paths.get("time.txt"));
+            Files.createFile(Paths.get("input/time.txt"));
         } catch (IOException e2) {
             System.out.print("File already exists");
 //            e2.printStackTrace();
@@ -63,7 +63,7 @@ public class GUI {
                 String string = startNumber + "; " + time;
 
                 try {
-                    Files.write(Paths.get("time.txt"), Collections.singleton(string), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+                    Files.write(Paths.get("input/time.txt"), Collections.singleton(string), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }

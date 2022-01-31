@@ -15,9 +15,9 @@ import java.time.LocalTime;
 public class ResultProgram {
 
     public static void main(String[] args) {
-        String startTimeFile = "../textfiles/starttider.txt";
-        String endTimeFile = "../textfiles/maltider.txt";
-        String outFile = "../textfiles/resultatFil.txt";
+        String startTimeFile = "input/starttider.txt";
+        String endTimeFile = "input/maltider.txt";
+        String outFile = "output/resultatFil.txt";
         String minimumTime = "00:00:00";
 
         try {
