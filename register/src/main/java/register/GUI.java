@@ -55,7 +55,7 @@ public class GUI {
         // Trigger save when clicking on button
         button.addActionListener(e -> {
             LocalTime lt = LocalTime.now();
-            String time = lt.format(DateTimeFormatter.ofPattern("HH.mm.ss"));
+            String time = lt.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
             String startNumber = input.getText();
 
             // Check validity of input
