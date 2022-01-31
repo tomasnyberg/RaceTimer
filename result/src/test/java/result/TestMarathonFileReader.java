@@ -13,8 +13,8 @@ public class TestMarathonFileReader {
 
     @BeforeEach
     public void setUp(){
-        String startFile = "../starttider.txt";
-        String endFile = "../maltider.txt";
+        String startFile = "../textfiles/starttider.txt";
+        String endFile = "../textfiles/maltider.txt";
         list = MarathonFileReader.result(startFile, endFile);
     }
 

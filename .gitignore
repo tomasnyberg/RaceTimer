@@ -214,4 +214,4 @@ gradle-app.setting
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
-/time.txt
+/result/src/test/java/res/time.txt
