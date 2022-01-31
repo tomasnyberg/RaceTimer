@@ -5,7 +5,7 @@ import result.marathon.MarathonResult;
 public class MissingStartTime extends MarathonDecorator {
 
     public MissingStartTime(MarathonResult result) {
-        super(result);
+        super(result, "--:--:--");
     }
 
     @Override
@@ -15,6 +15,6 @@ public class MissingStartTime extends MarathonDecorator {
 
     @Override
     public String getTotal() {
-        return MISSING_TIME;
+        return ERROR_STRING;
     }
 }

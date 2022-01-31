@@ -213,3 +213,7 @@ gradle-app.setting
 !.vscode/extensions.json
 *.code-workspace
 /time.txt
+
+### temporary test files ###
+../textfiles/testFileWriter.txt
+../textfiles/testMarathonResultExporter.txt

@@ -7,6 +7,10 @@
  * in the user manual at https://docs.gradle.org/7.3.3/userguide/multi_project_builds.html
  */
 
-rootProject.name = 'team05'
+rootProject.name = 'team05-race-clock'
+
+gradle.ext.version = 'v0.1'
+gradle.ext.devName = 'team05'
+
 include 'register'
 include 'result'

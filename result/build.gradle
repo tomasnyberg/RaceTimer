@@ -5,6 +5,7 @@ plugins {
 // define variable with main class, used further down
 ext {
     javaMainClass = "result.ResultProgram"
+    project.version = gradle.ext.version
 }
 
 application {
@@ -18,7 +19,14 @@ startScripts { enabled = false }
 distTar { enabled = false }
 distZip { enabled = false }
 
-
+jar {
+    manifest {
+        attributes(
+                "Main-Class": javaMainClass,
+                "Developers": gradle.ext.devName
+        )
+    }
+}
 
 // Specify where to look for dependencies
 repositories {
@@ -27,9 +35,16 @@ repositories {
 
 test {
     useJUnitPlatform()
+    testLogging.events 'passed', 'failed'
 }
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
+
+// run {
+//     if (project.hasProperty("minimumTime")) {
+//         args(minimumTime.split(", ")
+//     }
+// }
