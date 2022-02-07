@@ -12,6 +12,7 @@ public class VarvloppDriver {
     private static final String missing = "MISSING";
     private static final String invalidTime = "--:--:--";
     private static final String missingStartTime = "Start?";
+    private static final String missingEndTime = "Slut?";
     private static final String SEP = ";";
 
     private List<String> startTimes = new ArrayList<>();
@@ -101,7 +102,7 @@ public class VarvloppDriver {
     }
 
     private String getGoalTime() {
-        return "TODO";
+        return endTimes.isEmpty() ? missingEndTime : endTimes.get(endTimes.size()-1);
     }
 
     // V4 TODO

@@ -17,7 +17,7 @@ public class TestVarvloppDriver {
 
     @Test
     public void testToString() {
-        assertEquals("1; MISSING; 0; --:--:--; Start?; TODO", driver.toString());
+        assertEquals("1; MISSING; 0; --:--:--; Start?; Slut?", driver.toString());
         System.out.println(driver);
     }
 
@@ -27,7 +27,7 @@ public class TestVarvloppDriver {
         driver.addEndTime("13:00:00");
         driver.addEndTime("14:00:00");
         driver.addEndTime("15:00:00");
-        assertEquals("1; MISSING; 3; 03:00:00; 12:00:00; 13:00:00; 14:00:00; TODO", driver.toString());
+        assertEquals("1; MISSING; 3; 03:00:00; 12:00:00; 13:00:00; 14:00:00; 15:00:00", driver.toString());
         System.out.println(driver);
     }
 
@@ -38,7 +38,7 @@ public class TestVarvloppDriver {
         driver.addEndTime("13:00:00");
         driver.addEndTime("14:30:00");
         driver.addEndTime("15:00:00");
-        assertEquals("1; MISSING; 3; 03:00:00; 01:00:00; 01:30:00; 00:30:00; 12:00:00; 13:00:00; 14:30:00; TODO", driver.toString());
+        assertEquals("1; MISSING; 3; 03:00:00; 01:00:00; 01:30:00; 00:30:00; 12:00:00; 13:00:00; 14:30:00; 15:00:00", driver.toString());
         System.out.println(driver);
     }
 
@@ -49,7 +49,7 @@ public class TestVarvloppDriver {
         driver.addEndTime("13:00:00");
         driver.addEndTime("14:30:00");
         driver.addEndTime("15:00:00");
-        assertEquals("1; MISSING; 3; 03:00:00; 01:00:00; 01:30:00; 00:30:00; ; ; 12:00:00; 13:00:00; 14:30:00; ; ; TODO", driver.toString());
+        assertEquals("1; MISSING; 3; 03:00:00; 01:00:00; 01:30:00; 00:30:00; ; ; 12:00:00; 13:00:00; 14:30:00; ; ; 15:00:00", driver.toString());
         System.out.println(driver);
     }
 
@@ -59,7 +59,15 @@ public class TestVarvloppDriver {
         driver.addEndTime("13:00:00");
         driver.addEndTime("14:30:00");
         driver.addEndTime("15:00:00");
-        assertEquals("1; MISSING; 3; --:--:--; ; 01:30:00; 00:30:00; Start?; 13:00:00; 14:30:00; TODO", driver.toString());
+        assertEquals("1; MISSING; 3; --:--:--; ; 01:30:00; 00:30:00; Start?; 13:00:00; 14:30:00; 15:00:00", driver.toString());
+        System.out.println(driver);
+    }
+
+    @Test
+    public void testMissingEnd() {
+        driver.setMaxLaps(3);
+        driver.addStartTime("12:00:00");
+        assertEquals("1; MISSING; 0; --:--:--; ; ; ; 12:00:00; ; ; Slut?", driver.toString());
         System.out.println(driver);
     }
 }
