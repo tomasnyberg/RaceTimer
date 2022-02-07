@@ -62,10 +62,9 @@ public class MarathonTableModel extends AbstractTableModel {
                 return TimeUtils.formatTime(mr.getTime());
         }
     }
-    public LocalTime getMissingValueAt(int rowIndex, int columnIndex) {
-        TimeEntry mr = data.get(rowIndex);
-
-                return mr.getTime();
-        }
+    public LocalTime getTimeFromRow(int row) {
+        TimeEntry mr = data.get(row);
+        return mr.getTime();
+    }
 
 }
