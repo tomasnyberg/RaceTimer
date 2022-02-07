@@ -78,13 +78,16 @@ public class GUI {
 
           // Check validity of input
 
-          if(tableModel.getRowCount() >=1 &&  tableModel.getValueAt(0,0).equals("")){
-            tableModel.setValueAt(new TimeEntry(startNumber, tableModel.getMissingValueAt(0,1)), 0, 0);
 
+          if(tableModel.getRowCount() >=1 &&  tableModel.getValueAt(0,0).equals("")){
+            tableModel.setValueAt(new TimeEntry(startNumber, tableModel.getMissingValueAt(0,1)), 1, 1);
+            tableModel.deleteValue(0);
+            resultTable.repaint();
+            input.setText("");
+            input.requestFocusInWindow();
           }
 
-          if (!startNumber.isEmpty()
-              && !tableModel.getValueAt(0,0).equals("")
+          else if (!startNumber.isEmpty()
               && startNumber.charAt(0) != '0'
               && startNumber.matches("[0-9]+")) {
             String string = startNumber + "; " + time;

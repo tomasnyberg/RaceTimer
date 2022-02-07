@@ -48,6 +48,10 @@ public class MarathonTableModel extends AbstractTableModel {
         data.add(row, (TimeEntry) value);
     }
 
+    public void deleteValue(int index){
+        data.remove(index);
+    }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         TimeEntry mr = data.get(rowIndex);
