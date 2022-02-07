@@ -4,18 +4,16 @@ Date: 2022-01-31
 
 
 New stories in this release:
- - M1, M2, M3, M4.1, M4.2, M4.5, M5, M6, G3, G5(Marathon), G8
+ - F1, F2, F3, F4, F5
 
 
 All stories included:
- - M1, M2, M3, M4.1, M4.2, M4.5, M5, M6, G3, G5(Marathon), G8
+ - M1, M2, M3, M4.1, M4.2, M4.5, M5, M6, G3, G5(Marathon), G8, F1, F2, F3, F4, F5
 
 Files included:
- - register-v0.1.jar is the register program.
- - result-v0.1.jar is the result program.
+ - register-v0.1b.jar is the register program.
+ - result-v0.1b.jar is the result program.
  - The user manual is in docs/manual.pdf
- - In the input directory, the files starttider.txt and maltider.txt are located and are created by the user using the register program. It should also contain namnfil.txt, which should be created manually.
- - The output directory is where the result file resultatFil.txt is created after running the result program.
  - Acceptance tests are under directory acceptanstester/
 
 

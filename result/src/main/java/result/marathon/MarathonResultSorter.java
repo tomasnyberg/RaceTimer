@@ -26,18 +26,18 @@ public class MarathonResultSorter extends ResultSorter<MarathonResult> {
 
         @Override
         public int compare(MarathonResult mr1, MarathonResult mr2) {
-            if (!missingTime(mr1) && !missingTime(mr2)) {
-                return mr1.getTotal().compareTo(mr2.getTotal());
-            }
-            if(missingTime(mr1) && missingTime(mr2)) {
-                return mr1.getStart().compareTo(mr2.getStart());
-            }
-            return missingTime(mr1) ? 1:-1;
+            // If mr1 is missing start/end time and mr2 is not
+            if(holdingErrorThatAffectsSorting(mr1) && !holdingErrorThatAffectsSorting(mr2)) return 1;
+
+            // If mr2 is missing start/end time and mr1 is not
+            if(!holdingErrorThatAffectsSorting(mr1) && holdingErrorThatAffectsSorting(mr2)) return -1;
+
+            // If neither mr1 or mr2 are missing start/end time
+            return mr1.getTotal().compareTo(mr2.getTotal());
         }
 
-        public boolean missingTime(MarathonResult mr) {
-            return mr instanceof MissingEndTime || mr instanceof MissingStartTime;
+        private boolean holdingErrorThatAffectsSorting(MarathonResult mr) {
+            return mr.getStart().contains("Start?") || mr.getEnd().contains("Slut?");
         }
-
     }
 }

@@ -33,4 +33,9 @@ public class MarathonResultRow extends ResultRow implements MarathonResult {
         return TimeUtils.formatTime(Duration.between(start, end));
     }
 
+    @Override
+    public String toString() {
+        return getStart() + "; " + getEnd() + "; " + getTotal();
+    }
+
 }
