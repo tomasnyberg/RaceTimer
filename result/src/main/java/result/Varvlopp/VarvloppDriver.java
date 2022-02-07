@@ -13,6 +13,7 @@ public class VarvloppDriver {
     private static final String invalidTime = "--:--:--";
     private static final String missingStartTime = "Start?";
     private static final String missingEndTime = "Slut?";
+    private static final String multipleStartTimes = "Flera starttider?";
     private static final String SEP = ";";
 
     private List<String> startTimes = new ArrayList<>();
@@ -110,7 +111,15 @@ public class VarvloppDriver {
     // Example: 3; Chris Csson; 3; 01:03:06; 00:20:00; 00:20:00; 00:23:06; 12:02:00;
     // 12:22:00; 12:42:00; 13:05:06; Flera starttider? 12:05:00
     private String getErrors() {
-        return "";
+        StringBuilder sb =  new StringBuilder();
+        if (startTimes.size() > 1){
+            sb.append(multipleStartTimes);
+            for (int i = 1; i<startTimes.size(); ++i){
+                sb.append(" ");
+                sb.append(startTimes.get(i));
+            }
+        }
+        return sb.toString();
     }
 
     /*
