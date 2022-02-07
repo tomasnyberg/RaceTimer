@@ -77,7 +77,14 @@ public class GUI {
           String startNumber = input.getText();
 
           // Check validity of input
+
+          if(tableModel.getRowCount() >=1 &&  tableModel.getValueAt(0,0).equals("")){
+            tableModel.setValueAt(new TimeEntry(startNumber, tableModel.getMissingValueAt(0,1)), 0, 0);
+
+          }
+
           if (!startNumber.isEmpty()
+              && !tableModel.getValueAt(0,0).equals("")
               && startNumber.charAt(0) != '0'
               && startNumber.matches("[0-9]+")) {
             String string = startNumber + "; " + time;
@@ -97,7 +104,16 @@ public class GUI {
             resultTable.repaint();
             input.setText("");
             input.requestFocusInWindow();
+          } else if(startNumber.isEmpty()){
+            String string =  "; " + time;
+            tableModel.setValueAt(new TimeEntry(startNumber, lt), 0, 0);
+            resultTable.repaint();
+            input.setText("");
+            input.requestFocusInWindow();
+
           }
+
+
         });
 
     frame.add(topPanel, BorderLayout.NORTH);

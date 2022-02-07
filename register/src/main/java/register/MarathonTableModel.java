@@ -5,6 +5,7 @@ import result.marathon.MarathonResultRow;
 import util.TimeUtils;
 
 import javax.swing.table.AbstractTableModel;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,4 +58,10 @@ public class MarathonTableModel extends AbstractTableModel {
                 return TimeUtils.formatTime(mr.getTime());
         }
     }
+    public LocalTime getMissingValueAt(int rowIndex, int columnIndex) {
+        TimeEntry mr = data.get(rowIndex);
+
+                return mr.getTime();
+        }
+
 }
