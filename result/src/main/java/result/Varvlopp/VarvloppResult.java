@@ -21,14 +21,8 @@ public class VarvloppResult {
 
     // both read start times and end times read the times, so we have a method for the common things
     // returns something that the other methods can use to fill in the info for the drivers
-    private void readTimes(){
-
-    }
-
-    // Reads starttimes from a starttimefile, and sets the start times for the respective driver number
-    // If we have not seen this drivernumber so far, we create a new driver
-    public void readStartTimes(String startTimeFile){
-        List<String> lines = readFile(startTimeFile);
+    private void readTimes(String filePath, boolean start){
+        List<String> lines = readFile(filePath);
         for(String line: lines){
             String[] split = line.split("; ");
             String time = split[1];
@@ -36,23 +30,37 @@ public class VarvloppResult {
             boolean found = false;
             for(int i = 0; i < drivers.size(); i++){
                 if(drivers.get(i).getDriverNumber().equals(driverNumber)){
-                    drivers.get(i).addStartTime(time);
+                    if(start) {
+                        drivers.get(i).addStartTime(time);
+                    } else {
+                        drivers.get(i).addEndTime(time);
+                    }
                     found = true;
                     break;
                 }
             }
             if(!found){
                 VarvloppDriver driver = new VarvloppDriver(driverNumber);
-                driver.addStartTime(time);
+                if(start) {
+                    driver.addStartTime(time);
+                } else {
+                    driver.addEndTime(time);
+                }
                 drivers.add(driver);
             }
         }
     }
 
+    // Reads starttimes from a starttimefile, and sets the start times for the respective driver number
+    // If we have not seen this drivernumber so far, we create a new driver
+    public void readStartTimes(String startTimeFile){
+        readTimes(startTimeFile, true);
+    }
+
     // Reads endtimes from a file, and adds the end times for the respective driver number
     // If we have not seen this drivernumber so far, we create a new driver
     public void readEndTimes(String endTimeFile){
-        //TODO
+        readTimes(endTimeFile, false);
     }
 
     // Reads endtimes from a file, and adds the end times for the respective driver number
