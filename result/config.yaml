@@ -21,6 +21,12 @@ maraton:
 # Lap race related configurations
 varv:
   # Minimum amount of laps
-  minimumLaps: 500
+  massStart: false
   # Minimum time for one lap
   minimumTime: 10:00:00
+  # File path to start times
+  startTimesFile: input/starttider.txt
+  # File path to end times
+  endTimesFile:
+    - input/maltider1.txt
+    - input/maltider2.txt

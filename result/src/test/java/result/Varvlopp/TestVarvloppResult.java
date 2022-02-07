@@ -3,52 +3,62 @@ package result.Varvlopp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import result.config.Config;
+import result.config.Varv;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestVarvloppResult {
-    VarvloppResult vlr;
-    Config config;
+  VarvloppResult vlr;
+  Config config;
+  String startTime = "../Acceptanstester/V/1/input/starttider.txt";
+  List<String> endTimes = new ArrayList<>();
 
-    @BeforeEach
-    public void setup() {
-        config = new Config();
-        vlr = new VarvloppResult(config);
-    }
-    
-    @Test
-    public void testReadStartTimes(){
-        vlr.readStartTimes("../Acceptanstester/V/1/input/starttider.txt");
-        assertEquals(5, vlr.drivers.size());
-        // for(VarvloppDriver vd: vlr.drivers){
-        //     System.out.println(vd.toString());
-        // }
-    }
+  @BeforeEach
+  public void setup() {
+    endTimes.add("../Acceptanstester/V/2/input/maltider1.txt");
+    endTimes.add("../Acceptanstester/V/2/input/maltider2.txt");
+    config = new Config();
+    config.setNameFile("../Acceptanstester/V/1/input/namnfil.txt");
+    config.setVarv(new Varv(false, "00:00:00", startTime, endTimes));
+    vlr = new VarvloppResult(config);
+  }
 
-    @Test
-    public void testReadEndTimes() {
-        vlr.readEndTimes("../Acceptanstester/V/1/input/maltider.txt");
-        assertEquals(5, vlr.drivers.size());
-        // for(VarvloppDriver vd: vlr.drivers){
-        //     System.out.println(vd.toString());
-        // }
-    }
+  @Test
+  public void testReadStartTimes() {
+    vlr.readStartTimes();
+    assertEquals(5, vlr.drivers.size());
+    // for(VarvloppDriver vd: vlr.drivers){
+    //     System.out.println(vd.toString());
+    // }
+  }
 
-    @Test
-    public void testReadStartAndEndTimes() {
-        vlr.readStartTimes("../Acceptanstester/V/1/input/starttider.txt");
-        vlr.readEndTimes("../Acceptanstester/V/1/input/maltider.txt");
-        assertEquals(5, vlr.drivers.size());
+  @Test
+  public void testReadEndTimes() {
+    vlr.readEndTimes();
+    assertEquals(5, vlr.drivers.size());
+    // for(VarvloppDriver vd: vlr.drivers){
+    //     System.out.println(vd.toString());
+    // }
+  }
+
+  @Test
+  public void testReadStartAndEndTimes() {
+    vlr.readStartTimes();
+    vlr.readEndTimes();
+    assertEquals(5, vlr.drivers.size());
+  }
+
+  @Test
+  public void testReadNames() {
+    vlr.readNames();
+    assertEquals(5, vlr.drivers.size());
+    vlr.readStartTimes();
+    vlr.readEndTimes();
+    for (VarvloppDriver vd : vlr.drivers) {
+      System.out.println(vd.toString());
     }
-    
-    @Test
-    public void testReadNames(){
-        vlr.readNames("../Acceptanstester/V/1/input/namnfil.txt");
-        assertEquals(5, vlr.drivers.size());
-        vlr.readStartTimes("../Acceptanstester/V/1/input/starttider.txt");
-        vlr.readEndTimes("../Acceptanstester/V/1/input/maltider.txt");
-        for(VarvloppDriver vd: vlr.drivers){
-            System.out.println(vd.toString());
-        }
-    }
+  }
 }
