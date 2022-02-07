@@ -1,0 +1,13 @@
+type: varv
+title: Coolt race
+sorting: true
+resultFile: output/resultat.txt
+nameFile: input/namnfil.txt
+
+maraton:
+  minimumTime: 00:15:00
+  startTimesFile: input/starttider.txt
+  endTimesFile: input/maltider.txt
+
+varv:
+  minimumLaps: 500

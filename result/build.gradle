@@ -28,6 +28,10 @@ jar {
     }
 }
 
+dependencies {
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.1'
+}
+
 // Specify where to look for dependencies
 repositories {
     mavenCentral()
