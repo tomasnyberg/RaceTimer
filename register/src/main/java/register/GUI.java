@@ -52,6 +52,10 @@ public class GUI {
     inputLabel.setFont(font);
     JButton button = new JButton("Registrera");
     button.setFont(font);
+    JButton clearEmpty = new JButton("Ta bort tom"); // to remove row with no start number
+    clearEmpty.setFont(font);
+    clearEmpty.setBackground(Color.RED);
+    clearEmpty.setForeground(Color.WHITE);
 
     // Marathon table & JTable settings
     MarathonTableModel tableModel = new MarathonTableModel();
@@ -68,7 +72,7 @@ public class GUI {
       System.out.print("File already exists");
     }
 
-    // Trigger save when clicking on button
+    // Trigger save when clicking on register button
     String finalFile = filePath;
     button.addActionListener(
         e -> {
@@ -77,34 +81,56 @@ public class GUI {
           String startNumber = input.getText();
 
           // Check validity of input
-          if (!startNumber.isEmpty()
+
+          if (tableModel.getRowCount() > 0
+              && tableModel
+                  .getValueAt(0, 0)
+                  .equals("Saknar startnummer")
+              && startNumber.charAt(0) != '0'
+              && startNumber.matches("[0-9]+")) {
+            tableModel.setValueAt(
+                new TimeEntry(startNumber, tableModel.getTimeFromRow(0)), 1, 1);
+            tableModel.deleteValue(0);
+            String stampedTime = tableModel.getTimeFromRow(0).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+            String stringToWrite = startNumber + "; " + stampedTime;
+            writeToFile(finalFile, stringToWrite);
+            updateTableView(resultTable, input);
+          } else if (!startNumber.isEmpty() // if start number not empty, and start number is a number between 0-9 that does not start with 0
               && startNumber.charAt(0) != '0'
               && startNumber.matches("[0-9]+")) {
             String string = startNumber + "; " + time;
 
-            try {
-              Files.write(
-                  Paths.get(finalFile),
-                  Collections.singleton(string),
-                  StandardCharsets.UTF_8,
-                  StandardOpenOption.APPEND);
-            } catch (IOException e1) {
-              e1.printStackTrace();
-            }
+            writeToFile(finalFile, string);
 
             // Update view with new row
             tableModel.setValueAt(new TimeEntry(startNumber, lt), 0, 0);
-            resultTable.repaint();
-            input.setText("");
-            input.requestFocusInWindow();
+            updateTableView(resultTable, input);
+          } else if (startNumber.isEmpty()) {
+            String string = "; " + time;
+            System.out.println(startNumber);
+            startNumber = "Saknar startnummer";
+            tableModel.setValueAt(new TimeEntry(startNumber, lt), 0, 0);
+            updateTableView(resultTable, input);
           }
         });
+
+    // Trigger deletion of row without start number if latest row has no start number
+    clearEmpty.addActionListener(e -> {
+      if (tableModel.getRowCount() > 0
+              && tableModel
+              .getValueAt(0, 0)
+              .equals("Saknar startnummer")) {
+        tableModel.deleteValue(0);
+        updateTableView(resultTable, input);
+      }
+    });
 
     frame.add(topPanel, BorderLayout.NORTH);
     frame.add(bottomPanel, BorderLayout.CENTER);
     topPanel.add(inputLabel);
     topPanel.add(input);
     topPanel.add(button);
+    topPanel.add(clearEmpty);
     bottomPanel.add(resultTable.getTableHeader(), BorderLayout.PAGE_START);
     bottomPanel.add(resultTable, BorderLayout.CENTER);
 
@@ -112,5 +138,23 @@ public class GUI {
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     frame.setVisible(true);
     frame.getRootPane().setDefaultButton(button);
+  }
+
+  private static void updateTableView(JTable resultTable, JTextField input) {
+    resultTable.repaint();
+    input.setText("");
+    input.requestFocusInWindow();
+  }
+
+  private static void writeToFile(String filepath, String stringToSave) {
+    try {
+      Files.write(
+              Paths.get(filepath),
+              Collections.singleton(stringToSave),
+              StandardCharsets.UTF_8,
+              StandardOpenOption.APPEND);
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }
   }
 }

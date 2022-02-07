@@ -5,6 +5,7 @@ import result.marathon.MarathonResultRow;
 import util.TimeUtils;
 
 import javax.swing.table.AbstractTableModel;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,10 @@ public class MarathonTableModel extends AbstractTableModel {
         data.add(row, (TimeEntry) value);
     }
 
+    public void deleteValue(int index){
+        data.remove(index);
+    }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         TimeEntry mr = data.get(rowIndex);
@@ -57,4 +62,9 @@ public class MarathonTableModel extends AbstractTableModel {
                 return TimeUtils.formatTime(mr.getTime());
         }
     }
+    public LocalTime getTimeFromRow(int row) {
+        TimeEntry mr = data.get(row);
+        return mr.getTime();
+    }
+
 }
