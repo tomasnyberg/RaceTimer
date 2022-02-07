@@ -21,10 +21,10 @@ public class TestMarathonResultSorter {
 
   @BeforeEach
   public void setUp() {
-    String startFile = "../acceptanstester/Maraton/acceptanstestM1/starttider.txt";
-    String endFile = "../acceptanstester/Maraton/acceptanstestM1/maltider.txt";
-    String startFileIncorrect = "../acceptanstester/Maraton/acceptanstestM4/starttider.txt";
-    String endFileIncorrect = "../acceptanstester/Maraton/acceptanstestM4/maltider.txt";
+    String startFile = "../Acceptanstester/M/1/input/starttider.txt";
+    String endFile = "../Acceptanstester/M/1/input/maltider.txt";
+    String startFileIncorrect = "../Acceptanstester/M/4/input/starttider.txt";
+    String endFileIncorrect = "../Acceptanstester/M/4/input/maltider.txt";
     results = MarathonFileReader.result(startFile, endFile, minimumTime);
     sortedResults = new MarathonResultSorter().sortResults(results);
     incorrectResults = MarathonFileReader.result(startFileIncorrect, endFileIncorrect, minimumTime);

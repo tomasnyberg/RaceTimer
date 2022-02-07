@@ -16,6 +16,10 @@ public class VarvLoppDriver {
         this.driverNumber = driverNumber;
     }
 
+    public String getDriverNumber(){
+        return this.driverNumber;
+    }
+
     // Ange hur många varv som är max för att formatera toString korrekt
     public void setMaxLaps(int max) {
         this.maxLaps = max;
