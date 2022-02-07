@@ -2,9 +2,14 @@ package result.Varvlopp;
 
 import java.util.List;
 import java.util.ArrayList;
+import util.AbstractFileReader;
 
 public class VarvloppResult {
-    private List<VarvloppDriver> drivers = new ArrayList<>();
+    public List<VarvloppDriver> drivers;
+
+    public VarvloppResult(){
+        this.drivers = new ArrayList<>();
+    }
 
     // The only public method visible, reads in all the files and generates the result txt file.
     // Readds from args if they exist for specifying where files are, otherwise from config
@@ -22,7 +27,25 @@ public class VarvloppResult {
     // Reads starttimes from a starttimefile, and sets the start times for the respective driver number
     // If we have not seen this drivernumber so far, we create a new driver
     public void readStartTimes(String startTimeFile){
-        //TODO
+        List<String> lines = AbstractFileReader.readFile(startTimeFile);
+        for(String line: lines){
+            String[] split = line.split("; ");
+            String time = split[1];
+            String driverNumber = split[0];
+            boolean found = false;
+            for(int i = 0; i < drivers.size(); i++){
+                if(drivers.get(i).getDriverNumber().equals(driverNumber)){
+                    drivers.get(i).addStartTime(time);
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                VarvloppDriver driver = new VarvloppDriver(driverNumber);
+                driver.addStartTime(time);
+                drivers.add(driver);
+            }
+        }
     }
 
     // Reads endtimes from a file, and adds the end times for the respective driver number
