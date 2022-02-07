@@ -64,13 +64,9 @@ public class VarvloppDriver {
     }
 
     private String duration(String start, String end) {
-        LocalTime st = LocalTime().parse(start);
-        LocalTime en = LocalTime().parse(end);
+        LocalTime st = LocalTime.parse(start);
+        LocalTime en = LocalTime.parse(end);
         return TimeUtils.formatTime(Duration.between(st, en));
-    }
-
-    private LocalTime LocalTime() {
-        return null;
     }
 
     private List<String> generateVarvTimes() {
