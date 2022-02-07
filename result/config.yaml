@@ -3,7 +3,7 @@ type: varv
 # Title of the race
 title: Coolt race - 8 feb 2022
 # True if result file should be sorted according to placement, false if sorting should be disabled
-sorting: true
+sorting: false
 # File path to result file
 resultFile: output/resultat.txt
 # File path to name input file
@@ -21,7 +21,7 @@ maraton:
 # Lap race related configurations
 varv:
   # Minimum time for one lap
-  minimumTime: 10:00:00
+  minimumTime: 00:15:00
   # Mass start enabled
   massStart: false
   # Time to set all drivers starttime to for mass start
@@ -29,6 +29,6 @@ varv:
   # File path to start times
   startTimesFile: input/starttider.txt
   # File path to end times
-  endTimesFile:
+  endTimesFiles:
     - input/maltider1.txt
     - input/maltider2.txt
