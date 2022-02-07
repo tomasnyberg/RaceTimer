@@ -9,36 +9,39 @@ import java.io.IOException;
 import java.util.List;
 import java.time.LocalTime;
 
-
-/**
- * The main program. TODO!
- */
+/** The main program. TODO! */
 public class ResultProgram {
 
-    public static void main(String[] args) {
-        String startTimeFile = "input/starttider.txt";
-        String endTimeFile = "input/maltider.txt";
-        String outFile = "output/resultatFil.txt";
-        String minimumTime = "00:00:00";
+  public static void main(String[] args) {
+    String nameFile = "input/namnfil.txt";
+    String startTimeFile = "input/starttider.txt";
+    String endTimeFile = "input/maltider.txt";
+    String outFile = "output/resultatFil.txt";
+    String minimumTime = "00:00:00";
 
-        try {
-            minimumTime = args[0];
-            System.out.println(minimumTime);
-            LocalTime.parse(minimumTime);
-        } catch (Exception e) {
-            System.out.println("Invalid minimum time format. Enter time according to [hh:mm:ss]");
-            System.exit(0);
-        }
-
-        List<MarathonResult> fileResults = MarathonFileReader.result(startTimeFile, endTimeFile, minimumTime);
-        fileResults = new MarathonResultSorter().sortResults(fileResults);
-        try {
-            MarathonResultExporter.export(outFile, fileResults);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("This is the result program!");
+    try {
+      minimumTime = args[0];
+      nameFile = args[1];
+      startTimeFile = args[2];
+      endTimeFile = args[3];
+      outFile = args[4];
+      System.out.println(minimumTime);
+      LocalTime.parse(minimumTime);
+    } catch (Exception e) {
+      System.out.println(
+          "Invalid arguments. Arguments should follow format: minimumTime: <hh:mm:ss> nameFile: <File path with file extension> startTimeFile: <File path with file extension> endTimeFile: <File path with file extension> resultFile <File path with file extension>");
+      System.exit(0);
     }
 
+    List<MarathonResult> fileResults =
+        MarathonFileReader.result(nameFile, startTimeFile, endTimeFile, minimumTime);
+    fileResults = new MarathonResultSorter().sortResults(fileResults);
+    try {
+      MarathonResultExporter.export(outFile, fileResults);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    System.out.println("This is the result program!");
+  }
 }
