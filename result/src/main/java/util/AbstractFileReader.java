@@ -1,6 +1,7 @@
 package util;
 
 import result.TimeEntry;
+import result.config.Config;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,7 +9,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractFileReader {
+public class AbstractFileReader {
 
   protected static List<String> readFile(String path) {
     try {
