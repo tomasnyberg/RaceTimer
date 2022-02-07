@@ -24,3 +24,7 @@ varv:
   minimumLaps: 500
   # Minimum time for one lap
   minimumTime: 10:00:00
+  # Mass start enabled
+  massStart: false
+  # Time to set all drivers starttime to for mass start
+  timeForMassStart: 13:00:00
