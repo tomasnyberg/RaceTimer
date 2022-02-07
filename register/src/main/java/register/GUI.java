@@ -56,7 +56,7 @@ public class GUI {
     clearEmpty.setFont(font);
     clearEmpty.setBackground(Color.RED);
     clearEmpty.setForeground(Color.WHITE);
-
+    clearEmpty.setVisible(false);
     // Marathon table & JTable settings
     MarathonTableModel tableModel = new MarathonTableModel();
     JTable resultTable = new JTable(tableModel);
@@ -110,7 +110,9 @@ public class GUI {
             System.out.println(startNumber);
             startNumber = "Saknar startnummer";
             tableModel.setValueAt(new TimeEntry(startNumber, lt), 0, 0);
+            clearEmpty.setVisible(true);
             updateTableView(resultTable, input);
+
           }
         });
 
@@ -120,6 +122,7 @@ public class GUI {
               && tableModel
               .getValueAt(0, 0)
               .equals("Saknar startnummer")) {
+        clearEmpty.setVisible(false);
         tableModel.deleteValue(0);
         updateTableView(resultTable, input);
       }
