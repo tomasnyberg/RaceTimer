@@ -9,7 +9,7 @@
 
 rootProject.name = 'team05-race-clock'
 
-gradle.ext.version = 'v0.1'
+gradle.ext.version = 'v0.1b'
 gradle.ext.devName = 'team05'
 
 include 'register'
