@@ -3,6 +3,9 @@ package result.Varvlopp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import result.config.Config;
+import result.config.Varv;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestVarvloppDriver {
@@ -12,7 +15,10 @@ public class TestVarvloppDriver {
     @BeforeEach
     public void setup() {
         driverNumber = "1";
-        driver = new VarvloppDriver(driverNumber);
+        Varv varv = new Varv(500, "00:15:00");
+        Config config = new Config();
+        config.setVarv(varv);
+        driver = new VarvloppDriver(driverNumber, config);
     }
 
     @Test
@@ -81,6 +87,17 @@ public class TestVarvloppDriver {
         driver.addEndTime("14:30:00");
         driver.addEndTime("15:00:00");
         assertEquals("1; MISSING; 3; 03:00:00; 01:00:00; 01:30:00; 00:30:00; 12:00:00; 13:00:00; 14:30:00; 15:00:00; Flera starttider? 12:03:00 12:10:00", driver.toString());
+        System.out.println(driver);
+    }
+
+    @Test
+    public void testMinimumLapTime() {
+        driver.setMaxLaps(3);
+        driver.addStartTime("12:00:00");
+        driver.addEndTime("13:00:00");
+        driver.addEndTime("13:10:00");
+        driver.addEndTime("15:00:00");
+        assertEquals("1; MISSING; 3; 03:00:00; 01:00:00; 00:10:00; 01:50:00; 12:00:00; 13:00:00; 13:10:00; 15:00:00; Omöjlig varvtid?", driver.toString());
         System.out.println(driver);
     }
 }
