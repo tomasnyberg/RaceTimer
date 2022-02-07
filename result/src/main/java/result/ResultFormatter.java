@@ -18,6 +18,6 @@ public interface ResultFormatter<T extends Result> {
      * @param driverResult The result for one driver.
      * @return Properly formatted result row
      */
-    String formatDriver(T driverResult);
+    String formatDriver(T driverResult, boolean shouldSort);
 
 }

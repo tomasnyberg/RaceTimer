@@ -20,9 +20,11 @@ public class ResultProgram {
         String endTimeFile = "input/maltider.txt";
         String outFile = "output/resultatFil.txt";
         String minimumTime = "00:00:00";
+        boolean shouldSort = true;
 
         try {
             minimumTime = args[0];
+            shouldSort = args[1].equals("true");
             System.out.println(minimumTime);
             LocalTime.parse(minimumTime);
         } catch (Exception e) {
@@ -33,7 +35,7 @@ public class ResultProgram {
         List<MarathonResult> fileResults = MarathonFileReader.result(startTimeFile, endTimeFile, minimumTime);
         fileResults = new MarathonResultSorter().sortResults(fileResults);
         try {
-            MarathonResultExporter.export(outFile, fileResults);
+            MarathonResultExporter.export(outFile, fileResults, shouldSort);
         } catch (IOException e) {
             e.printStackTrace();
         }
