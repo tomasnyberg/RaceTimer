@@ -28,13 +28,13 @@ public class GUI {
         bottomPanel.setLayout(new BorderLayout());
         Font font = new Font("SansSerif", Font.BOLD, 30);
 
-        // Register form and button
+        // Register form and registerButton
         JTextField input = new JTextField(5);
         input.setFont(font);
         JLabel inputLabel = new JLabel("Startnummer: ");
         inputLabel.setFont(font);
-        JButton button = new JButton("Registrera");
-        button.setFont(font);
+        JButton registerButton = new JButton("Registrera");
+        registerButton.setFont(font);
 
         // Marathon table & JTable settings
         MarathonTableModel tableModel = new MarathonTableModel();
@@ -52,8 +52,8 @@ public class GUI {
 //            e2.printStackTrace();
         }
 
-        // Trigger save when clicking on button
-        button.addActionListener(e -> {
+        // Trigger save when clicking on registerButton
+        registerButton.addActionListener(e -> {
             LocalTime lt = LocalTime.now();
             String time = lt.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
             String startNumber = input.getText();
@@ -72,6 +72,7 @@ public class GUI {
                 tableModel.setValueAt(new TimeEntry(startNumber, lt), 0, 0);
                 resultTable.repaint();
                 input.setText("");
+                input.requestFocusInWindow();
             }
         });
 
@@ -79,7 +80,7 @@ public class GUI {
         frame.add(bottomPanel, BorderLayout.CENTER);
         topPanel.add(inputLabel);
         topPanel.add(input);
-        topPanel.add(button);
+        topPanel.add(registerButton);
         bottomPanel.add(resultTable.getTableHeader(), BorderLayout.PAGE_START);
         bottomPanel.add(resultTable, BorderLayout.CENTER);
         
@@ -87,6 +88,6 @@ public class GUI {
         // Defaults
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        frame.getRootPane().setDefaultButton(button);
+        frame.getRootPane().setDefaultButton(registerButton);
     }
 }
