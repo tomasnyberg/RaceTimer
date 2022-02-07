@@ -14,8 +14,8 @@ import java.util.stream.IntStream;
  */
 public class MarathonResultExporter {
 
-    public static String HEADER = "StartNr; Namn; Totaltid; Starttid; Måltid";
-    public static String SORTEDHEADER = "Rank; StartNr; Namn; Totaltid; Starttid; Måltid";
+    public static String HEADER = "StartNr; Namn; Totaltid; Start; Mål";
+    public static String SORTEDHEADER = "Rank; StartNr; Namn; Totaltid; Start; Mål";
 
     private static ResultFormatter formatter = new MarathonFormatter();
     public static void export(String fileName, List<MarathonResult> results, boolean shouldSort) throws java.io.IOException {

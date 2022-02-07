@@ -36,7 +36,8 @@ public class ResultProgram {
 
     List<MarathonResult> fileResults =
         MarathonFileReader.result(nameFile, startTimeFile, endTimeFile, minimumTime);
-    fileResults = new MarathonResultSorter().sortResults(fileResults);
+    fileResults = shouldSort ? new MarathonResultSorter().sortResults(fileResults) : fileResults; // sort if should sort
+
     try {
       MarathonResultExporter.export(outFile, fileResults, shouldSort);
     } catch (IOException e) {
