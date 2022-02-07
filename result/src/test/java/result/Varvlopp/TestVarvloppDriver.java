@@ -18,7 +18,7 @@ public class TestVarvloppDriver {
     @Test
     public void testToString() {
         System.out.println(driver);
-        assertEquals("1; MISSING; 0; TODO; TODO; TODO", driver.toString());
+        assertEquals("1; MISSING; 0; --:--:--; TODO; TODO", driver.toString());
     }
 
     @Test
