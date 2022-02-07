@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public class VarvloppResult {
+public class VarvloppResult{
     public List<VarvloppDriver> drivers;
     private Config config;
 
