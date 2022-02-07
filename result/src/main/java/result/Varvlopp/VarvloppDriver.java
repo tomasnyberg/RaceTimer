@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import result.config.Config;
 import util.TimeUtils;
 
 public class VarvloppDriver {
@@ -16,6 +17,7 @@ public class VarvloppDriver {
     private static final String multipleStartTimes = "Flera starttider?";
     private static final String SEP = ";";
 
+    private Config config = null;
     private List<String> startTimes = new ArrayList<>();
     private List<String> endTimes = new ArrayList<>();
     private String name = missing;
@@ -26,6 +28,10 @@ public class VarvloppDriver {
     // varvloppdriver
     public VarvloppDriver(String driverNumber) {
         this.driverNumber = driverNumber;
+    }
+    public VarvloppDriver(String driverNumber, Config config) {
+        this.driverNumber = driverNumber;
+        this.config = config;
     }
 
     public String getDriverNumber() {
@@ -112,6 +118,12 @@ public class VarvloppDriver {
     // 12:22:00; 12:42:00; 13:05:06; Flera starttider? 12:05:00
     private String getErrors() {
         StringBuilder sb =  new StringBuilder();
+
+        if (generateVarvTimes().stream().filter(x -> x != "")
+                .anyMatch(x -> LocalTime.parse(config.getVarv().getMinimumTime()).isAfter(LocalTime.parse(x)))) {
+            sb.append("Omöjlig varvtid? ");
+        }
+
         if (startTimes.size() > 1){
             sb.append(multipleStartTimes);
             for (int i = 1; i<startTimes.size(); ++i){
@@ -119,7 +131,8 @@ public class VarvloppDriver {
                 sb.append(startTimes.get(i));
             }
         }
-        return sb.toString();
+
+        return sb.toString().trim();
     }
 
     /*
