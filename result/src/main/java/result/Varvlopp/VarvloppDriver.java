@@ -1,23 +1,32 @@
 package result.Varvlopp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class VarvLoppDriver {
+public class VarvloppDriver {
+    private static final String missing = "MISSING";
+    private static final String invalidTime = "--:--:--";
+    private static final String SEP = ";";
+
     private List<String> startTimes = new ArrayList<>();
     private List<String> endTimes = new ArrayList<>();
-    private String name;
+    private String name = missing;
     private String driverNumber;
-    private int maxLaps;
+    private int maxLaps = 0;
 
     // När man hittar ett drivernumber man inte sett innan skapar man en ny
     // varvloppdriver
-    public VarvLoppDriver(String driverNumber) {
+    public VarvloppDriver(String driverNumber) {
         this.driverNumber = driverNumber;
     }
 
-    public String getDriverNumber(){
+    public String getDriverNumber() {
         return this.driverNumber;
+    }
+
+    public int getAmountOfLaps() {
+        return this.endTimes.size();
     }
 
     // Ange hur många varv som är max för att formatera toString korrekt
@@ -44,8 +53,8 @@ public class VarvLoppDriver {
         return "TODO";
     }
 
-    private String generateVarvTimes() {
-        return "TODO";
+    private List<String> generateVarvTimes() {
+        return new ArrayList<>();
     }
 
     private String getStartTime() {
@@ -54,7 +63,7 @@ public class VarvLoppDriver {
 
     // Return all the endtimes except for the last one
     private List<String> getLappings() {
-        return null;
+        return new ArrayList<>();
     }
 
     private String getGoalTime() {
@@ -69,17 +78,34 @@ public class VarvLoppDriver {
         return "";
     }
 
+    /*
+     * StartNr; Namn; #Varv; Totaltid; Varv1; Varv2; Varv3; Start; Varvning1;
+     * Varvning2; Mål
+     * Exempel på vad denna returnerar:
+     * "1; Anders Asson; 3; 01:23:34; 00:30:00; 00:30:00; 00:23:34; 12:00:00; 12:30:00; 13:00:00; 13:23:34"
+    */
     @Override
     public String toString() {
-        /*
-         * StartNr; Namn; #Varv; Totaltid; Varv1; Varv2; Varv3; Start; Varvning1;
-         * Varvning2; Mål
-         * Exempel på vad denna returnerar:
-         * "1; Anders Asson; 3; 01:23:34; 00:30:00; 00:30:00; 00:23:34; 12:00:00; 12:30:00; 13:00:00; 13:23:34"
-         */
-        return driverNumber + name + endTimes.size() + getTotalTime() + generateVarvTimes() + getStartTime()
-                + getLappings()
-                + getGoalTime() + getErrors();
+        List<String> columns = new ArrayList<>(
+            Arrays.asList(
+                driverNumber, name, "" + endTimes.size(), getTotalTime()
+            )
+        );
+        columns.addAll(generateVarvTimes());
+        columns.add(getStartTime());
+        columns.addAll(getLappings());
+        columns.add(getGoalTime());
+        columns.add(getErrors());
+
+        StringBuilder sb = new StringBuilder();
+        for (var column : columns) {
+            sb.append(column).append(SEP).append(' ');
+        }
+
+        // Remove the last separator and space
+        String result = sb.substring(0, sb.length() - 2);
+        result = result.endsWith("; ") ? result.substring(0, result.length() - 2) : result;
+        return result;
     }
 
 }

@@ -3,8 +3,8 @@ package result.Varvlopp;
 import java.util.List;
 import java.util.ArrayList;
 
-public class VarvLoppResult {
-    private List<VarvLoppDriver> drivers = new ArrayList<>();
+public class VarvloppResult {
+    private List<VarvloppDriver> drivers = new ArrayList<>();
 
     // The only public method visible, reads in all the files and generates the result txt file.
     // Readds from args if they exist for specifying where files are, otherwise from config
