@@ -8,9 +8,9 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractFileReader {
+public class AbstractFileReader {
 
-    protected static List<String> readFile(String path){
+    public static List<String> readFile(String path){
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
             List<String> list = new ArrayList<>();
