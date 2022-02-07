@@ -1,6 +1,7 @@
 package util;
 
 import result.TimeEntry;
+import result.config.Config;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
