@@ -15,7 +15,7 @@ public class TestVarvloppDriver {
     @BeforeEach
     public void setup() {
         driverNumber = "1";
-        Varv varv = new Varv(500, "00:15:00");
+        Varv varv = new Varv(500, "00:15:00", "14:59:00");
         Config config = new Config();
         config.setVarv(varv);
         driver = new VarvloppDriver(driverNumber, config);
@@ -76,6 +76,15 @@ public class TestVarvloppDriver {
         assertEquals("1; MISSING; 0; --:--:--; ; ; ; 12:00:00; ; ; Slut?", driver.toString());
         System.out.println(driver);
     }
+
+    @Test
+    public void testMissingGoalTime() {
+        driver.setMaxLaps(3);
+        driver.addStartTime("12:00:00");
+        driver.addEndTime("13:00:00");
+        assertEquals("1; MISSING; 1; --:--:--; 01:00:00; ; ; 12:00:00; 13:00:00; ; Slut?", driver.toString());
+        System.out.println(driver);
+    }
     
     @Test
     public void testMultipleStartTimes() {
@@ -91,6 +100,17 @@ public class TestVarvloppDriver {
     }
 
     @Test
+    public void testMultipleGoalTimes() {
+        driver.setMaxLaps(3);
+        driver.addStartTime("12:00:00");
+        driver.addEndTime("15:00:00");
+        driver.addEndTime("15:30:00");
+        driver.addEndTime("16:00:00");
+        assertEquals("1; MISSING; 1; 03:00:00; 03:00:00; ; ; 12:00:00; ; ; 15:00:00; Flera måltider? 15:30:00 16:00:00", driver.toString());
+        System.out.println(driver);
+    }
+
+    @Test
     public void testMinimumLapTime() {
         driver.setMaxLaps(3);
         driver.addStartTime("12:00:00");
@@ -100,4 +120,6 @@ public class TestVarvloppDriver {
         assertEquals("1; MISSING; 3; 03:00:00; 01:00:00; 00:10:00; 01:50:00; 12:00:00; 13:00:00; 13:10:00; 15:00:00; Omöjlig varvtid?", driver.toString());
         System.out.println(driver);
     }
+
+    
 }

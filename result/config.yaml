@@ -24,3 +24,5 @@ varv:
   minimumLaps: 500
   # Minimum time for one lap
   minimumTime: 10:00:00
+  # Race end time
+  raceEndTime: 13:00:00

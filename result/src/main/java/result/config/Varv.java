@@ -3,14 +3,16 @@ package result.config;
 public class Varv {
     private int minimumLaps;
     private String minimumTime;
+    private String raceEndTime;
 
     public Varv() {
       super();
     }
 
-    public Varv(int minimumLaps, String minimumTime) {
+    public Varv(int minimumLaps, String minimumTime, String raceEndTime) {
       this.minimumLaps = minimumLaps;
       this.minimumTime = minimumTime;
+      this.raceEndTime = raceEndTime;
     }
 
     public int getMinimumLaps() {
@@ -27,5 +29,13 @@ public class Varv {
 
     public void setMinimumTime(String minimumTime) {
       this.minimumTime = minimumTime;
+    }
+    
+    public String getRaceEndTime() {
+      return raceEndTime;
+    }
+  
+    public void setRaceEndTime(String raceEndTime) {
+      this.raceEndTime = raceEndTime;
     }
   }

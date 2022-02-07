@@ -15,11 +15,13 @@ public class VarvloppDriver {
     private static final String missingStartTime = "Start?";
     private static final String missingEndTime = "Slut?";
     private static final String multipleStartTimes = "Flera starttider?";
+    private static final String multipleGoalTimes = "Flera måltider?";
     private static final String SEP = ";";
 
     private Config config = null;
     private List<String> startTimes = new ArrayList<>();
-    private List<String> endTimes = new ArrayList<>();
+    private List<String> lapTimes = new ArrayList<>();
+    private List<String> goalTimes = new ArrayList<>(); 
     private String name = missing;
     private String driverNumber;
     private int maxLaps = 0;
@@ -39,7 +41,7 @@ public class VarvloppDriver {
     }
 
     public int getAmountOfLaps() {
-        return this.endTimes.size();
+        return this.lapTimes.size() + (Math.min(1, this.goalTimes.size()));
     }
 
     // Ange hur många varv som är max för att formatera toString korrekt
@@ -57,15 +59,18 @@ public class VarvloppDriver {
     }
 
     public void addEndTime(String endTime) {
-        endTimes.add(endTime);
+        if (LocalTime.parse(endTime).isAfter(LocalTime.parse(config.getVarv().getRaceEndTime())))
+            goalTimes.add(endTime);
+        else
+            lapTimes.add(endTime);
     }
 
     // return difference between last goaltime and first starttime
     // return "--:--:--" if can't calculate
     private String getTotalTime() {
         String totalTime = invalidTime;
-        if (!endTimes.isEmpty() && !startTimes.isEmpty()) {
-            totalTime = duration(startTimes.get(0), endTimes.get(endTimes.size() - 1));
+        if (!goalTimes.isEmpty() && !startTimes.isEmpty()) {
+            totalTime = duration(startTimes.get(0), goalTimes.get(0));
         }
 
         return totalTime;
@@ -80,7 +85,9 @@ public class VarvloppDriver {
     private List<String> generateVarvTimes() {
         List<String> times = new ArrayList<>();
         times.add(getStartTime());
-        times.addAll(endTimes);
+        times.addAll(lapTimes);
+        if (!goalTimes.isEmpty())
+            times.add(goalTimes.get(0));
 
         List<String> result = new ArrayList<>();
         for (int i = 0; i < maxLaps; ++i) {
@@ -98,10 +105,7 @@ public class VarvloppDriver {
 
     // Return all the endtimes except for the last one
     private List<String> getLappings() {
-        List<String> result = new ArrayList<>();
-        for(int i = 0; i < endTimes.size() - 1; i++){
-            result.add(endTimes.get(i));
-        }
+        List<String> result = new ArrayList<>(lapTimes);
         while(result.size() < maxLaps - 1){
             result.add("");
         }
@@ -109,7 +113,7 @@ public class VarvloppDriver {
     }
 
     private String getGoalTime() {
-        return endTimes.isEmpty() ? missingEndTime : endTimes.get(endTimes.size()-1);
+        return (goalTimes.isEmpty()) ? missingEndTime : goalTimes.get(0);
     }
 
     // V4 TODO
@@ -118,21 +122,32 @@ public class VarvloppDriver {
     // 12:22:00; 12:42:00; 13:05:06; Flera starttider? 12:05:00
     private String getErrors() {
         StringBuilder sb =  new StringBuilder();
-
-        if (generateVarvTimes().stream().filter(x -> x != "")
-                .anyMatch(x -> LocalTime.parse(config.getVarv().getMinimumTime()).isAfter(LocalTime.parse(x)))) {
+        if (
+            generateVarvTimes().stream().filter(x -> x != "")
+                .anyMatch(x -> LocalTime.parse(config.getVarv().getMinimumTime()).isAfter(LocalTime.parse(x)))
+            ) {
             sb.append("Omöjlig varvtid? ");
         }
-
+        
         if (startTimes.size() > 1){
             sb.append(multipleStartTimes);
             for (int i = 1; i<startTimes.size(); ++i){
                 sb.append(" ");
                 sb.append(startTimes.get(i));
             }
+            sb.append(" ");
+        }
+        
+        if (goalTimes.size() > 1){
+            sb.append(multipleGoalTimes);
+            for (int i = 1; i < goalTimes.size(); ++i){
+                sb.append(" ");
+                sb.append(goalTimes.get(i));
+            }
+            sb.append(" ");
         }
 
-        return sb.toString().trim();
+        return sb.toString().trim();  
     }
 
     /*
@@ -145,7 +160,7 @@ public class VarvloppDriver {
     public String toString() {
         List<String> columns = new ArrayList<>(
                 Arrays.asList(
-                        driverNumber, name, "" + endTimes.size(), getTotalTime()));
+                        driverNumber, name, "" + getAmountOfLaps(), getTotalTime()));
         columns.addAll(generateVarvTimes());
         columns.add(getStartTime());
         columns.addAll(getLappings());
