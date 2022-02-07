@@ -66,7 +66,25 @@ public class VarvloppResult {
     // Reads endtimes from a file, and adds the end times for the respective driver number
     // If we have not seen this drivernumber so far, we create a new driver
     public void readNames(String nameFile){
-        //TODO
+        List<String> lines = readFile(nameFile);
+        for(int i = 1; i < lines.size(); i++){
+            String[] split = lines.get(i).split("; ");
+            String driverNumber = split[0];
+            String name = split[1];
+            boolean found = false;
+            for(int j = 0; j < drivers.size(); j++){
+                if(drivers.get(j).getDriverNumber().equals(driverNumber)){
+                    found = true;
+                    drivers.get(j).setName(name);
+                    break;
+                }
+            }
+            if(!found){
+                VarvloppDriver driver = new VarvloppDriver(driverNumber);
+                driver.setName(name);
+                drivers.add(driver);
+            }
+        }
     }
 
     private List<String> readFile(String path) {

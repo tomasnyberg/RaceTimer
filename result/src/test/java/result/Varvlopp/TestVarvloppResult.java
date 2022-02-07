@@ -36,6 +36,14 @@ public class TestVarvloppResult {
         vlr.readStartTimes("../Acceptanstester/V/1/input/starttider.txt");
         vlr.readEndTimes("../Acceptanstester/V/1/input/maltider.txt");
         assertEquals(5, vlr.drivers.size());
+    }
+    
+    @Test
+    public void testReadNames(){
+        vlr.readNames("../Acceptanstester/V/1/input/namnfil.txt");
+        assertEquals(5, vlr.drivers.size());
+        vlr.readStartTimes("../Acceptanstester/V/1/input/starttider.txt");
+        vlr.readEndTimes("../Acceptanstester/V/1/input/maltider.txt");
         for(VarvloppDriver vd: vlr.drivers){
             System.out.println(vd.toString());
         }
