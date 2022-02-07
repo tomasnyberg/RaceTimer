@@ -4,6 +4,7 @@ public class Config {
   // Common values
   private String type;
   private String title;
+  private String footer;
   private boolean sorting;
   private String resultFile;
   private String nameFile;
@@ -17,6 +18,7 @@ public class Config {
   public Config(
       String type,
       String title,
+      String footer,
       boolean sorting,
       String resultFile,
       String nameFile,
@@ -24,6 +26,7 @@ public class Config {
       Varv varv) {
     this.type = type;
     this.title = title;
+    this.footer = footer;
     this.sorting = sorting;
     this.resultFile = resultFile;
     this.nameFile = nameFile;
@@ -61,6 +64,14 @@ public class Config {
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public void setFooter(String footer) {
+    this.footer = footer;
+  }
+
+  public String getFooter() {
+    return footer;
   }
 
   public String getType() {

@@ -43,9 +43,23 @@ public class VarvloppResult{
         d.setMaxLaps(max);
       }
       List<String> dumpList = new ArrayList<>();
+      dumpList.add(config.getTitle());
+      dumpList.add("");
+      String topLine = "StartNr; Namn; #Varv; Totaltid; ";
+      for(int i = 1; i <= max; i++){
+          topLine += "Varv" + i + "; ";
+      }
+      topLine += "Start; ";
+      for(int i = 1; i < max; i++){
+          topLine += "Varvning" + i + "; ";
+      }
+      topLine += "Mål";
+      dumpList.add(topLine);
       for(VarvloppDriver d: drivers){
         dumpList.add(d.toString());
       }
+      dumpList.add("");
+      dumpList.add(config.getFooter());
       try {
           FileWriter.dump(config, dumpList);
       } catch (Exception e){
