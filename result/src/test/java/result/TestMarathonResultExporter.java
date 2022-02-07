@@ -80,14 +80,15 @@ public class TestMarathonResultExporter {
         marathonMatcher.addEndTimes(endTimes);
 
         result = marathonMatcher.result();
+        result = new MarathonResultSorter().sortResults(result);
 
         MarathonResultExporter.export("testSortedExport.txt", result, true);
 
         List<String> fileResults = Files.readAllLines(Paths.get("testSortedExport.txt"));
 
-        String expectedResult1 = "1; 01; Adam Asson; 01:00:00; 12:00:00; 13:00:00";
-        String expectedResult2 = "2; 02; Bodil Bsson; --:--:--; --:--:--; 13:00:00";
-        String expectedResult3 = "3; 03; Caesar Csson; 00:58:00; 12:02:00; 13:00:00";
+        String expectedResult1 = "1; 03; Caesar Csson; 00:58:00; 12:02:00; 13:00:00";
+        String expectedResult2 = "2; 01; Adam Asson; 01:00:00; 12:00:00; 13:00:00";
+        String expectedResult3 = "3; 02; Bodil Bsson; --:--:--; --:--:--; 13:00:00";
 
         assertEquals(expectedResult1, fileResults.get(1));
         assertEquals(expectedResult2, fileResults.get(2));
