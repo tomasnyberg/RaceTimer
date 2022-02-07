@@ -1,8 +1,12 @@
 package result.Varvlopp;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import util.TimeUtils;
 
 public class VarvloppDriver {
     private static final String missing = "MISSING";
@@ -50,7 +54,18 @@ public class VarvloppDriver {
     // return difference between last goaltime and first starttime
     // return "--:--:--" if can't calculate
     private String getTotalTime() {
-        return "TODO";
+        String totalTime = invalidTime;
+        if(!endTimes.isEmpty() && !startTimes.isEmpty()){
+            LocalTime start = LocalTime().parse(startTimes.get(0));
+            LocalTime end = LocalTime().parse(endTimes.get(endTimes.size()-1));
+            totalTime = TimeUtils.formatTime(Duration.between(start, end));
+        }
+        return totalTime;
+    }
+
+
+    private LocalTime LocalTime() {
+        return null;
     }
 
     private List<String> generateVarvTimes() {
