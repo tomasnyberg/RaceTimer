@@ -86,7 +86,14 @@ public class VarvloppDriver {
 
     // Return all the endtimes except for the last one
     private List<String> getLappings() {
-        return new ArrayList<>();
+        List<String> result = new ArrayList<>();
+        for(int i = 0; i < endTimes.size() - 1; i++){
+            result.add(endTimes.get(i));
+        }
+        while(result.size() < maxLaps - 1){
+            result.add("");
+        }
+        return result;
     }
 
     private String getGoalTime() {
