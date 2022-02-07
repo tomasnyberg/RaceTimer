@@ -79,7 +79,12 @@ public class GUI {
           // Check validity of input
 
 
-          if(tableModel.getRowCount() >=1 &&  tableModel.getValueAt(0,0).equals("")){
+          if(tableModel.getRowCount() > 0 &&  
+             tableModel.getValueAt(0,0).equals("") && 
+             //startNumber.length() > 0 && 
+             startNumber.charAt(0) != '0' && 
+             startNumber.matches("[0-9]+"))
+             {
             tableModel.setValueAt(new TimeEntry(startNumber, tableModel.getMissingValueAt(0,1)), 1, 1);
             tableModel.deleteValue(0);
             resultTable.repaint();
