@@ -20,4 +20,14 @@ public class TestVarvloppDriver {
         System.out.println(driver);
         assertEquals("1; MISSING; 0; TODO; TODO; TODO", driver.toString());
     }
+
+    @Test
+    public void testGetLappings(){
+        driver.addStartTime("12:00:00");
+        driver.addEndTime("13:00:00");
+        driver.addEndTime("14:00:00");
+        driver.addEndTime("15:00:00");
+        assertEquals("1; MISSING; 3; TODO; TODO; 13:00:00; 14:00:00; TODO", driver.toString());
+        System.out.println(driver);
+    }
 }
