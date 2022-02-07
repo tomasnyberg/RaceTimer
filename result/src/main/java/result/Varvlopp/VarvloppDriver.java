@@ -56,7 +56,7 @@ public class VarvloppDriver {
     private String getTotalTime() {
         String totalTime = invalidTime;
         if (!endTimes.isEmpty() && !startTimes.isEmpty()) {
-            totalTime = duration(startTimes.get(0), startTimes.get(endTimes.size() - 1));
+            totalTime = duration(startTimes.get(0), endTimes.get(endTimes.size() - 1));
         }
 
         return totalTime;
