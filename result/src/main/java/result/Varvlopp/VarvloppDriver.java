@@ -9,7 +9,7 @@ import java.util.List;
 import result.config.Config;
 import util.TimeUtils;
 
-public class VarvloppDriver {
+public class VarvloppDriver implements Comparable<VarvloppDriver> {
     private static final String missing = "MISSING";
     private static final String invalidTime = "--:--:--";
     private static final String missingStartTime = "Start?";
@@ -163,4 +163,20 @@ public class VarvloppDriver {
         return result;
     }
 
+    @Override
+    public int compareTo(VarvloppDriver other) {
+        if(missingStartOrEnd() && !other.missingStartOrEnd()) return 1;
+
+        if(!missingStartOrEnd() && other.missingStartOrEnd()) return -1;
+
+        if(getAmountOfLaps() == other.getAmountOfLaps()) {
+            return getTotalTime().compareTo(other.getTotalTime());
+        } else {
+            return ((Integer) other.getAmountOfLaps()).compareTo((Integer) getAmountOfLaps());
+        }
+    }
+
+    private boolean missingStartOrEnd () {
+        return getStartTime().equals(invalidTime);
+    }
 }

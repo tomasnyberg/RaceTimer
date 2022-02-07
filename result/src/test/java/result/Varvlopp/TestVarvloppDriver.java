@@ -100,4 +100,16 @@ public class TestVarvloppDriver {
         assertEquals("1; MISSING; 3; 03:00:00; 01:00:00; 00:10:00; 01:50:00; 12:00:00; 13:00:00; 13:10:00; 15:00:00; Omöjlig varvtid?", driver.toString());
         System.out.println(driver);
     }
+
+    @Test
+    public void testDriverComparator() {
+        driver.addStartTime("00:00:00");
+        driver.addEndTime("01:00:00");
+        VarvloppDriver newDriver = new VarvloppDriver("2");
+        newDriver.addStartTime("00:00:00");
+        newDriver.addEndTime("01:00:00");
+        newDriver.addEndTime("02:00:00");
+        assertEquals(1, driver.getAmountOfLaps());
+        assertTrue(driver.compareTo(newDriver) > 0);
+    }
 }
