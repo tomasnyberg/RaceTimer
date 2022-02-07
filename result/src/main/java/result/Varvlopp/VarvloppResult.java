@@ -1,5 +1,7 @@
 package result.Varvlopp;
 
+import result.config.Config;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.io.BufferedReader;
@@ -7,9 +9,11 @@ import java.io.FileReader;
 
 public class VarvloppResult {
     public List<VarvloppDriver> drivers;
+    private Config config;
 
-    public VarvloppResult(){
+    public VarvloppResult(Config config){
         this.drivers = new ArrayList<>();
+        this.config = config;
     }
 
     // The only public method visible, reads in all the files and generates the result txt file.

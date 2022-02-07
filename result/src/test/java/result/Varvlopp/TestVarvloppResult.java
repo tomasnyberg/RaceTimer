@@ -2,15 +2,18 @@ package result.Varvlopp;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import result.config.Config;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestVarvloppResult {
     VarvloppResult vlr;
+    Config config;
 
     @BeforeEach
     public void setup() {
-        vlr = new VarvloppResult();
+        config = new Config();
+        vlr = new VarvloppResult(config);
     }
     
     @Test
