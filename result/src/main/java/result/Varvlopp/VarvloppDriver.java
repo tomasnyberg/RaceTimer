@@ -11,6 +11,9 @@ import util.TimeUtils;
 public class VarvloppDriver {
     private static final String missing = "MISSING";
     private static final String invalidTime = "--:--:--";
+    private static final String missingStartTime = "Start?";
+    private static final String missingEndTime = "Slut?";
+    private static final String multipleStartTimes = "Flera starttider?";
     private static final String SEP = ";";
 
     private List<String> startTimes = new ArrayList<>();
@@ -63,25 +66,28 @@ public class VarvloppDriver {
     }
 
     private String duration(String start, String end) {
-        LocalTime st = LocalTime().parse(start);
-        LocalTime en = LocalTime().parse(end);
+        LocalTime st = LocalTime.parse(start);
+        LocalTime en = LocalTime.parse(end);
         return TimeUtils.formatTime(Duration.between(st, en));
     }
 
-    private LocalTime LocalTime() {
-        return null;
-    }
-
     private List<String> generateVarvTimes() {
+        List<String> times = new ArrayList<>();
+        times.add(getStartTime());
+        times.addAll(endTimes);
+
         List<String> result = new ArrayList<>();
         for (int i = 0; i < maxLaps; ++i) {
-            // TODO:
+            if (i >= times.size() - 1 || times.get(i) == missingStartTime)
+                result.add("");
+            else
+                result.add(duration(times.get(i), times.get(i + 1)));
         }
         return result;
     }
 
     private String getStartTime() {
-        return "TODO";
+        return startTimes.isEmpty() ? missingStartTime : startTimes.get(0);
     }
 
     // Return all the endtimes except for the last one
@@ -97,7 +103,7 @@ public class VarvloppDriver {
     }
 
     private String getGoalTime() {
-        return "TODO";
+        return endTimes.isEmpty() ? missingEndTime : endTimes.get(endTimes.size()-1);
     }
 
     // V4 TODO
@@ -105,7 +111,15 @@ public class VarvloppDriver {
     // Example: 3; Chris Csson; 3; 01:03:06; 00:20:00; 00:20:00; 00:23:06; 12:02:00;
     // 12:22:00; 12:42:00; 13:05:06; Flera starttider? 12:05:00
     private String getErrors() {
-        return "";
+        StringBuilder sb =  new StringBuilder();
+        if (startTimes.size() > 1){
+            sb.append(multipleStartTimes);
+            for (int i = 1; i<startTimes.size(); ++i){
+                sb.append(" ");
+                sb.append(startTimes.get(i));
+            }
+        }
+        return sb.toString();
     }
 
     /*
