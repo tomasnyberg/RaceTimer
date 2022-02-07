@@ -11,6 +11,7 @@ import util.TimeUtils;
 public class VarvloppDriver {
     private static final String missing = "MISSING";
     private static final String invalidTime = "--:--:--";
+    private static final String missingStartTime = "Start?";
     private static final String SEP = ";";
 
     private List<String> startTimes = new ArrayList<>();
@@ -73,15 +74,22 @@ public class VarvloppDriver {
     }
 
     private List<String> generateVarvTimes() {
+        List<String> times = new ArrayList<>();
+        times.add(getStartTime());
+        times.addAll(endTimes);
+
         List<String> result = new ArrayList<>();
         for (int i = 0; i < maxLaps; ++i) {
-            // TODO:
+            if (i >= times.size() - 1 || times.get(i) == missingStartTime)
+                result.add("");
+            else
+                result.add(duration(times.get(i), times.get(i + 1)));
         }
         return result;
     }
 
     private String getStartTime() {
-        return "TODO";
+        return startTimes.isEmpty() ? missingStartTime : startTimes.get(0);
     }
 
     // Return all the endtimes except for the last one

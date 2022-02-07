@@ -17,17 +17,49 @@ public class TestVarvloppDriver {
 
     @Test
     public void testToString() {
+        assertEquals("1; MISSING; 0; --:--:--; Start?; TODO", driver.toString());
         System.out.println(driver);
-        assertEquals("1; MISSING; 0; --:--:--; TODO; TODO", driver.toString());
     }
 
     @Test
-    public void testGetLappings(){
+    public void testGetLappings() {
         driver.addStartTime("12:00:00");
         driver.addEndTime("13:00:00");
         driver.addEndTime("14:00:00");
         driver.addEndTime("15:00:00");
-        assertEquals("1; MISSING; 3; 03:00:00; TODO; 13:00:00; 14:00:00; TODO", driver.toString());
+        assertEquals("1; MISSING; 3; 03:00:00; 12:00:00; 13:00:00; 14:00:00; TODO", driver.toString());
+        System.out.println(driver);
+    }
+
+    @Test
+    public void testGenerateVarvTimes() {
+        driver.setMaxLaps(3);
+        driver.addStartTime("12:00:00");
+        driver.addEndTime("13:00:00");
+        driver.addEndTime("14:30:00");
+        driver.addEndTime("15:00:00");
+        assertEquals("1; MISSING; 3; 03:00:00; 01:00:00; 01:30:00; 00:30:00; 12:00:00; 13:00:00; 14:30:00; TODO", driver.toString());
+        System.out.println(driver);
+    }
+
+    @Test
+    public void testGreaterMaxLaps() {
+        driver.setMaxLaps(5);
+        driver.addStartTime("12:00:00");
+        driver.addEndTime("13:00:00");
+        driver.addEndTime("14:30:00");
+        driver.addEndTime("15:00:00");
+        assertEquals("1; MISSING; 3; 03:00:00; 01:00:00; 01:30:00; 00:30:00; ; ; 12:00:00; 13:00:00; 14:30:00; ; ; TODO", driver.toString());
+        System.out.println(driver);
+    }
+
+    @Test
+    public void testMissingStart() {
+        driver.setMaxLaps(3);
+        driver.addEndTime("13:00:00");
+        driver.addEndTime("14:30:00");
+        driver.addEndTime("15:00:00");
+        assertEquals("1; MISSING; 3; --:--:--; ; 01:30:00; 00:30:00; Start?; 13:00:00; 14:30:00; TODO", driver.toString());
         System.out.println(driver);
     }
 }
