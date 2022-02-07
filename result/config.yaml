@@ -2,6 +2,8 @@
 type: varv
 # Title of the race
 title: Coolt race - 8 feb 2022
+# Footer for result file
+footer: Resultat genererat av Team 05
 # True if result file should be sorted according to placement, false if sorting should be disabled
 sorting: false
 # File path to result file
