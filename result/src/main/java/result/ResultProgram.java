@@ -11,13 +11,14 @@ import java.time.LocalTime;
 
 /** The main program. TODO! */
 public class ResultProgram {
-
+// ./gradlew :result:run --args='00:00:00 input/namnfil.txt input/starttider.txt input/maltider.txt output/resultatFil.txt true'
   public static void main(String[] args) {
     String nameFile = "input/namnfil.txt";
     String startTimeFile = "input/starttider.txt";
     String endTimeFile = "input/maltider.txt";
     String outFile = "output/resultatFil.txt";
     String minimumTime = "00:00:00";
+    boolean shouldSort = true;
 
     try {
       minimumTime = args[0];
@@ -25,7 +26,7 @@ public class ResultProgram {
       startTimeFile = args[2];
       endTimeFile = args[3];
       outFile = args[4];
-      System.out.println(minimumTime);
+      shouldSort = args[5].equals("true");
       LocalTime.parse(minimumTime);
     } catch (Exception e) {
       System.out.println(
@@ -37,7 +38,7 @@ public class ResultProgram {
         MarathonFileReader.result(nameFile, startTimeFile, endTimeFile, minimumTime);
     fileResults = new MarathonResultSorter().sortResults(fileResults);
     try {
-      MarathonResultExporter.export(outFile, fileResults);
+      MarathonResultExporter.export(outFile, fileResults, shouldSort);
     } catch (IOException e) {
       e.printStackTrace();
     }
