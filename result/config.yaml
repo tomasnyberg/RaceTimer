@@ -20,11 +20,15 @@ maraton:
 
 # Lap race related configurations
 varv:
-  # Minimum amount of laps
-  minimumLaps: 500
   # Minimum time for one lap
   minimumTime: 10:00:00
   # Mass start enabled
   massStart: false
   # Time to set all drivers starttime to for mass start
   timeForMassStart: 13:00:00
+  # File path to start times
+  startTimesFile: input/starttider.txt
+  # File path to end times
+  endTimesFile:
+    - input/maltider1.txt
+    - input/maltider2.txt
