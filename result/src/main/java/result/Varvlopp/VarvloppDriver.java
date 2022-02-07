@@ -55,21 +55,29 @@ public class VarvloppDriver {
     // return "--:--:--" if can't calculate
     private String getTotalTime() {
         String totalTime = invalidTime;
-        if(!endTimes.isEmpty() && !startTimes.isEmpty()){
-            LocalTime start = LocalTime().parse(startTimes.get(0));
-            LocalTime end = LocalTime().parse(endTimes.get(endTimes.size()-1));
-            totalTime = TimeUtils.formatTime(Duration.between(start, end));
+        if (!endTimes.isEmpty() && !startTimes.isEmpty()) {
+            totalTime = duration(startTimes.get(0), startTimes.get(endTimes.size() - 1));
         }
+
         return totalTime;
     }
 
+    private String duration(String start, String end) {
+        LocalTime st = LocalTime().parse(start);
+        LocalTime en = LocalTime().parse(end);
+        return TimeUtils.formatTime(Duration.between(st, en));
+    }
 
     private LocalTime LocalTime() {
         return null;
     }
 
     private List<String> generateVarvTimes() {
-        return new ArrayList<>();
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < maxLaps; ++i) {
+            // TODO:
+        }
+        return result;
     }
 
     private String getStartTime() {
@@ -98,14 +106,12 @@ public class VarvloppDriver {
      * Varvning2; Mål
      * Exempel på vad denna returnerar:
      * "1; Anders Asson; 3; 01:23:34; 00:30:00; 00:30:00; 00:23:34; 12:00:00; 12:30:00; 13:00:00; 13:23:34"
-    */
+     */
     @Override
     public String toString() {
         List<String> columns = new ArrayList<>(
-            Arrays.asList(
-                driverNumber, name, "" + endTimes.size(), getTotalTime()
-            )
-        );
+                Arrays.asList(
+                        driverNumber, name, "" + endTimes.size(), getTotalTime()));
         columns.addAll(generateVarvTimes());
         columns.add(getStartTime());
         columns.addAll(getLappings());
