@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import result.Varvlopp.VarvloppResult;
 import result.marathon.MarathonResultExporter;
 import result.marathon.MarathonResultSorter;
 import result.marathon.MarathonResult;
@@ -64,6 +65,8 @@ public class ResultProgram {
       }
     } else if (config.getType().equals("varv")) {
       System.out.println("Programmet är inställt för Varvlopp");
+      VarvloppResult varvlopp = new VarvloppResult(config);
+      varvlopp.generateResult();
     } else {
       System.out.println("Ingen accepterad programtyp är vald");
     }

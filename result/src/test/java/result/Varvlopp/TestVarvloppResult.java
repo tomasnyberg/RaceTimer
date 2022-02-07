@@ -2,15 +2,20 @@ package result.Varvlopp;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import result.config.Config;
+import result.config.Maraton;
+import result.config.Varv;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestVarvloppResult {
     VarvloppResult vlr;
+    Config config;
 
     @BeforeEach
     public void setup() {
-        vlr = new VarvloppResult();
+        config = new Config("varv", "Coolt race - 8 feb 2022", true, "output/resultatFil.txt", "input/namnfil.txt", new Maraton("", "", ""), new Varv(3, "10:00:00"));
+        vlr = new VarvloppResult(config);
     }
     
     @Test
