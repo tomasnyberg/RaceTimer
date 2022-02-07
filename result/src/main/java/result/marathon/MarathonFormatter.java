@@ -8,7 +8,7 @@ import result.ResultFormatter;
 public class MarathonFormatter implements ResultFormatter<MarathonResult> {
 
     @Override
-    public String formatDriver(MarathonResult driverResult) {
+    public String formatDriver(MarathonResult driverResult, boolean shouldSort) {
         StringBuilder sb = new StringBuilder();
 
         // start number
@@ -27,19 +27,21 @@ public class MarathonFormatter implements ResultFormatter<MarathonResult> {
         sb.append(driverResult.getEnd());
 
         // errors in the extra error column
-        boolean addComma = false;
-        if(driverResult.getErrors().size() > 0) sb.append(SEP).append(" ");
-        else sb.append(" ");
-        for (String e : driverResult.getErrors()) {
-            if (addComma) {
-                sb.append(", ");
-            } else {
-                addComma = true;
+        if (!shouldSort) {
+            boolean addComma = false;
+            if (driverResult.getErrors().size() > 0) sb.append(SEP).append(" ");
+            else sb.append(" ");
+            for (String e : driverResult.getErrors()) {
+                if (addComma) {
+                    sb.append(", ");
+                } else {
+                    addComma = true;
+                }
+                sb.append(e);
             }
-            sb.append(e);
         }
 
-        return sb.toString();
+        return shouldSort ? sb.toString().replace("Start?", "--:--:--").replace("Slut?", "--:--:--") : sb.toString();
     }
 
 }
