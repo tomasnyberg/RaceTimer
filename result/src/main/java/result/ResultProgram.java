@@ -48,17 +48,24 @@ public class ResultProgram {
       }
     }
 
-    List<MarathonResult> fileResults =
-        MarathonFileReader.result(
-            config.getNameFile(),
-            config.getMaraton().getStartTimesFile(),
-            config.getMaraton().getEndTimesFile(),
-            config.getMaraton().getMinimumTime());
-    fileResults = new MarathonResultSorter().sortResults(fileResults);
-    try {
-      MarathonResultExporter.export(config, fileResults);
-    } catch (IOException e) {
-      e.printStackTrace();
+    if (config.getType().equals("maraton")) {
+      System.out.println("Programmet är inställt för Maraton");
+      List<MarathonResult> fileResults =
+              MarathonFileReader.result(
+                      config.getNameFile(),
+                      config.getMaraton().getStartTimesFile(),
+                      config.getMaraton().getEndTimesFile(),
+                      config.getMaraton().getMinimumTime());
+      fileResults = new MarathonResultSorter().sortResults(fileResults);
+      try {
+        MarathonResultExporter.export(config, fileResults);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    } else if (config.getType().equals("varv")) {
+      System.out.println("Programmet är inställt för Varvlopp");
+    } else {
+      System.out.println("Ingen accepterad programtyp är vald");
     }
 
     System.out.println("This is the result program!");
