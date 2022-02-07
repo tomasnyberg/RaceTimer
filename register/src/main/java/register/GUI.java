@@ -94,6 +94,7 @@ public class GUI {
             String stampedTime = tableModel.getTimeFromRow(0).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
             String stringToWrite = startNumber + "; " + stampedTime;
             writeToFile(finalFile, stringToWrite);
+            clearEmpty.setVisible(false);
             updateTableView(resultTable, input);
           } else if (!startNumber.isEmpty() // if start number not empty, and start number is a number between 0-9 that does not start with 0
               && startNumber.charAt(0) != '0'
@@ -104,6 +105,7 @@ public class GUI {
 
             // Update view with new row
             tableModel.setValueAt(new TimeEntry(startNumber, lt), 0, 0);
+            clearEmpty.setVisible(false);
             updateTableView(resultTable, input);
           } else if (startNumber.isEmpty()) {
             String string = "; " + time;
