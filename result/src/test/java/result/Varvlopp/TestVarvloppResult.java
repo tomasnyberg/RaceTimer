@@ -24,7 +24,7 @@ public class TestVarvloppResult {
     endTimes.add("../Acceptanstester/V/2/input/maltider2.txt");
     config = new Config();
     config.setNameFile("../Acceptanstester/V/1/input/namnfil.txt");
-    config.setVarv(new Varv(false, "00:00:00", "01:00:00", startTime, endTimes));
+    config.setVarv(new Varv("15:00:00", false, "00:00:00", "01:00:00", startTime, endTimes));
     vlr = new VarvloppResult(config);
   }
 

@@ -3,9 +3,9 @@ package result.config;
 import java.util.List;
 
 public class Varv {
-  private int minimumLaps;
-  private String minimumTime;
+  private String raceEndTime;
   private boolean massStart;
+  private String minimumTime;
   private String timeForMassStart;
   private String startTimesFile;
   private List<String> endTimesFiles;
@@ -15,11 +15,13 @@ public class Varv {
   }
 
   public Varv(
+      String raceEndTime,
       boolean massStart,
       String minimumTime,
       String timeForMassStart,
       String startTimesFile,
       List<String> endTimesFiles) {
+    this.raceEndTime = raceEndTime;
     this.massStart = massStart;
     this.minimumTime = minimumTime;
     this.timeForMassStart = timeForMassStart;
@@ -27,12 +29,12 @@ public class Varv {
     this.endTimesFiles = endTimesFiles;
   }
 
-  public int getMinimumLaps() {
-    return minimumLaps;
+  public String getRaceEndTime() {
+    return raceEndTime;
   }
 
-  public void setMinimumLaps(int minimumLaps) {
-    this.minimumLaps = minimumLaps;
+  public void setRaceEndTime(String raceEndTime) {
+    this.raceEndTime = raceEndTime;
   }
 
   public String getMinimumTime() {
