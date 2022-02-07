@@ -11,16 +11,41 @@ public class TestVarvloppResult {
     @BeforeEach
     public void setup() {
         vlr = new VarvloppResult();
-        //TODO : fetch this from config class instead of hardcoding
     }
     
     @Test
     public void testReadStartTimes(){
         vlr.readStartTimes("../Acceptanstester/V/1/input/starttider.txt");
         assertEquals(5, vlr.drivers.size());
+        // for(VarvloppDriver vd: vlr.drivers){
+        //     System.out.println(vd.toString());
+        // }
+    }
+
+    @Test
+    public void testReadEndTimes() {
+        vlr.readEndTimes("../Acceptanstester/V/1/input/maltider.txt");
+        assertEquals(5, vlr.drivers.size());
+        // for(VarvloppDriver vd: vlr.drivers){
+        //     System.out.println(vd.toString());
+        // }
+    }
+
+    @Test
+    public void testReadStartAndEndTimes() {
+        vlr.readStartTimes("../Acceptanstester/V/1/input/starttider.txt");
+        vlr.readEndTimes("../Acceptanstester/V/1/input/maltider.txt");
+        assertEquals(5, vlr.drivers.size());
+    }
+    
+    @Test
+    public void testReadNames(){
+        vlr.readNames("../Acceptanstester/V/1/input/namnfil.txt");
+        assertEquals(5, vlr.drivers.size());
+        vlr.readStartTimes("../Acceptanstester/V/1/input/starttider.txt");
+        vlr.readEndTimes("../Acceptanstester/V/1/input/maltider.txt");
         for(VarvloppDriver vd: vlr.drivers){
             System.out.println(vd.toString());
         }
     }
-
 }
