@@ -27,7 +27,7 @@ public class TestVarvloppDriver {
         driver.addEndTime("13:00:00");
         driver.addEndTime("14:00:00");
         driver.addEndTime("15:00:00");
-        assertEquals("1; MISSING; 3; TODO; TODO; 13:00:00; 14:00:00; TODO", driver.toString());
+        assertEquals("1; MISSING; 3; 03:00:00; TODO; 13:00:00; 14:00:00; TODO", driver.toString());
         System.out.println(driver);
     }
 }
