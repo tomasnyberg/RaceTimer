@@ -21,7 +21,7 @@ public class ResultProgram {
 
   public static void main(String[] args) {
     Config config = new Config();
-    
+
     if (args.length > 0) {
       try {
         config.setMaraton(new Maraton(args[0], args[2], args[3]));
@@ -47,10 +47,14 @@ public class ResultProgram {
     }
 
     List<MarathonResult> fileResults =
-        MarathonFileReader.result(config.getNameFile(), config.getMaraton().getStartTimesFile(), config.getMaraton().getEndTimesFile(), config.getMaraton().getMinimumTime());
+        MarathonFileReader.result(
+            config.getNameFile(),
+            config.getMaraton().getStartTimesFile(),
+            config.getMaraton().getEndTimesFile(),
+            config.getMaraton().getMinimumTime());
     fileResults = new MarathonResultSorter().sortResults(fileResults);
     try {
-      MarathonResultExporter.export(config.getResultFile(), fileResults);
+      MarathonResultExporter.export(config, fileResults);
     } catch (IOException e) {
       e.printStackTrace();
     }

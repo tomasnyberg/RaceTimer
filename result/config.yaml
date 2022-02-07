@@ -1,7 +1,7 @@
 # Type of race. Valid values: varv, maraton
-type: varv 
+type: varv
 # Title of the race
-title: Coolt race
+title: Coolt race - 8 feb 2022
 # True if result file should be sorted according to placement, false if sorting should be disabled
 sorting: true
 # File path to result file
