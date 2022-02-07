@@ -96,6 +96,7 @@ public class GUI {
             tableModel.setValueAt(new TimeEntry(startNumber, lt), 0, 0);
             resultTable.repaint();
             input.setText("");
+            input.requestFocusInWindow();
           }
         });
 
