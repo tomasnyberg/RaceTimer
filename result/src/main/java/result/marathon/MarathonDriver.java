@@ -17,47 +17,63 @@ public class MarathonDriver extends AbstractDriver {
 
     @Override
     public String getErrors() {
-        StringBuilder sb =  new StringBuilder();
-        boolean first = true;
+        List<String> errors = new ArrayList<>();
 
         // Multiple start times
         if (startTimes.size() > 1){
-            if (first)
-                first = false;
-            else
-                sb.append(ERROR_SEP + " ");
+            String temp = "";
+            temp += multipleStartTimes;
 
-            sb.append(multipleStartTimes);
-            for (int i = 1; i < startTimes.size(); i++){
-                sb.append(" ");
-                sb.append(startTimes.get(i));
+            for (int i = 1; i < startTimes.size(); i++) {
+                temp += " ";
+                temp += startTimes.get(i);
             }
+
+            errors.add(temp);
         }
 
         // Multiple goal times
-        if (goalTimes.size() > 1){
-            if (!first)
-                sb.append(ERROR_SEP + " ");
+        if (goalTimes.size() > 1) {
+            String temp = "";
+            temp += multipleGoalTimes;
 
-            sb.append(multipleGoalTimes);
-            for (int i = 1; i < goalTimes.size(); i++){
-                sb.append(" ");
-                sb.append(goalTimes.get(i));
+            for (int i = 1; i < goalTimes.size(); i++) {
+                temp += " ";
+                temp += goalTimes.get(i);
             }
+
+            errors.add(temp);
         }
 
         // Impossible total time
         String totalTime = getTotalTime();
         LocalTime minimumTime = LocalTime.parse(config.getMarathon().getMinimumTime());
-        if (totalTime != invalidTime) {
-            if(LocalTime.parse(totalTime).isBefore(minimumTime)) {
-                if (!first)
-                    sb.append(ERROR_SEP + " ");
-                sb.append(impossibleTotalTime);
+
+        if(!missingStartOrGoal()) { // if we have start and end
+            String temp = "";
+            if (goalTimeBeforeStartTime()) { // if goal time before start time
+                temp += impossibleTotalTime;
+                errors.add(temp);
+            } else if (LocalTime.parse(totalTime).isBefore(minimumTime)) {
+                temp = "";
+                temp += impossibleTotalTime;
+                errors.add(temp);
             }
         }
 
-        return sb.toString().trim();
+        StringBuilder errorBuilder = new StringBuilder();
+
+        for(int i = 0; i < errors.size(); i++) {
+            String sep = "";
+            if(i != errors.size()-1) sep = ERROR_SEP + " ";
+            errorBuilder.append(errors.get(i) + sep);
+        }
+
+        return errorBuilder.toString().trim();
+    }
+
+    private boolean missingStartOrGoal() {
+        return getStartTime().equals(missingStartTime) || getGoalTime().equals(missingGoalTime);
     }
 
     @Override
@@ -91,9 +107,9 @@ public class MarathonDriver extends AbstractDriver {
 
     @Override
     public int compareTo(AbstractDriver other) {
-        if(getErrors().length() == 0 && other.getErrors().length() != 0) return -1;
-        else if(getErrors().length() != 0 && other.getErrors().length() == 0) return 1;
-        else if(getErrors().length() != 0 && other.getErrors().length() != 0) return 0;
+        if(isErrors() && !other.isErrors()) return 1;
+        else if(!isErrors() && other.isErrors()) return -1;
+        else if(isErrors() && other.isErrors()) return 0;
         else return getTotalTime().compareTo(other.getTotalTime());
     }
 }

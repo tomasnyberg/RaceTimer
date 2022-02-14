@@ -1,13 +1,11 @@
 package result;
 
 import result.config.Config;
-import result.lap.LapDriver;
 import util.TimeUtils;
 
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractDriver implements Comparable<AbstractDriver> {
@@ -52,11 +50,15 @@ public abstract class AbstractDriver implements Comparable<AbstractDriver> {
     // return "--:--:--" if can't calculate
     public String getTotalTime() {
         String totalTime = invalidTime;
-        if (!goalTimes.isEmpty() && !startTimes.isEmpty()) {
+        if (!goalTimes.isEmpty() && !startTimes.isEmpty() && !goalTimeBeforeStartTime()) {
             totalTime = duration(startTimes.get(0), goalTimes.get(0));
         }
 
         return totalTime;
+    }
+
+    protected boolean goalTimeBeforeStartTime() {
+        return LocalTime.parse(getGoalTime()).isBefore(LocalTime.parse(getStartTime()));
     }
 
     protected String duration(String start, String end) {
@@ -74,5 +76,11 @@ public abstract class AbstractDriver implements Comparable<AbstractDriver> {
     }
 
     public abstract String getErrors();
+
+    public boolean isErrors() {
+        return getGoalTime().equals(missingGoalTime) ||
+                getStartTime().equals(missingStartTime) ||
+                !(getErrors().isBlank());
+    }
 
 }

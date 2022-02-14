@@ -44,7 +44,7 @@ public class ResultProgram {
     }
 
     if (config.getType().equals("marathon")) {
-      System.out.println("Programmet är inställt för Maraton");
+      System.out.println("Programmet är inställt för Marathon");
       MarathonResult marathonResult = new MarathonResult(config);
       marathonResult.generateResult();
     } else if (config.getType().equals("lap")) {

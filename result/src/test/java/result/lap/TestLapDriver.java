@@ -3,7 +3,6 @@ package result.lap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import result.AbstractDriver;
 import result.config.Config;
 import result.config.Lap;
 

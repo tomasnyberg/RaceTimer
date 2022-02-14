@@ -35,4 +35,4 @@ lap:
     - input/maltider1.txt
     - input/maltider2.txt
   # Race end time
-  raceEndTime: 13:00:00
+  raceEndTime: 14:00:00
