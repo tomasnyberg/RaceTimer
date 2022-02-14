@@ -31,6 +31,9 @@ jar {
         )
     }
 
+    //Added to fix build, not entirely certain that it won't break.
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }

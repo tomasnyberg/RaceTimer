@@ -49,12 +49,11 @@ public class ResultProgram {
 
     if (config.getType().equals("marathon")) {
       System.out.println("Programmet är inställt för Maraton");
-      List<MarathonResult> fileResults =
-              MarathonFileReader.result(
-                      config.getNameFile(),
-                      config.getMarathon().getStartTimesFile(),
-                      config.getMarathon().getGoalTimesFile(),
-                      config.getMarathon().getMinimumTime());
+      List<MarathonResult> fileResults = MarathonFileReader.result(
+          config.getNameFile(),
+          config.getMarathon().getStartTimesFile(),
+          config.getMarathon().getGoalTimesFile(),
+          config.getMarathon().getMinimumTime());
       fileResults = new MarathonResultSorter().sortResults(fileResults);
       try {
         MarathonResultExporter.export(config, fileResults);
