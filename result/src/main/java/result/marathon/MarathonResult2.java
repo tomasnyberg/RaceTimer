@@ -19,6 +19,9 @@ public class MarathonResult2 extends AbstractResult {
     @Override
     public void generateResult() {
         String topLine;
+        List<String> dumpList = new ArrayList<>();
+        dumpList.add(config.getTitle());
+        dumpList.add("");
 
         readStartTimes();
         readEndTimes();
@@ -27,16 +30,18 @@ public class MarathonResult2 extends AbstractResult {
         if(config.isSorting()){
             topLine = "Rank; StartNr; Namn; Totaltid; Start; Mål";
             Collections.sort(drivers);
-        }else {
-            topLine = "StartNr; Namn; Totaltid; Start; Mål";
-        }
+            dumpList.add(topLine);
+            for(int i = 0; i < drivers.size(); i++){
+                String rank = Integer.toString(i+1);
 
-        List<String> dumpList = new ArrayList<>();
-        dumpList.add(config.getTitle());
-        dumpList.add("");
-        dumpList.add(topLine);
-        for(AbstractDriver d: drivers){
-            dumpList.add(d.toString());
+                dumpList.add(rank + "; " + drivers.get(i).toString());
+            }
+        } else {
+            topLine = "StartNr; Namn; Totaltid; Start; Mål";
+            dumpList.add(topLine);
+            for(int i = 0; i < drivers.size(); i++){
+                dumpList.add(drivers.get(i).toString());
+            }
         }
         dumpList.add("");
         dumpList.add(config.getFooter());
@@ -47,20 +52,6 @@ public class MarathonResult2 extends AbstractResult {
         }
     }
 
-    @Override
-    protected void readTimes(String filePath, boolean start) {
-
-    }
-
-    @Override
-    protected void readStartTimes() {
-
-    }
-
-    @Override
-    protected void readEndTimes() {
-
-    }
 
     protected AbstractDriver newDriver(String driverNumber, Config config) {
         return new MarathonDriver2(driverNumber, config);
