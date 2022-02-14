@@ -1,15 +1,15 @@
 package result.config;
 
-public class Maraton {
+public class Marathon {
     private String minimumTime;
     private String startTimesFile;
     private String endTimesFile;
 
-    public Maraton() {
+    public Marathon() {
       super();
     }
 
-    public Maraton(String minimumTime, String startTimesFile, String endTimesFile) {
+    public Marathon(String minimumTime, String startTimesFile, String endTimesFile) {
       this.minimumTime = minimumTime;
       this.startTimesFile = startTimesFile;
       this.endTimesFile = endTimesFile;

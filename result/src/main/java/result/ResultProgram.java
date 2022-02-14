@@ -26,7 +26,7 @@ public class ResultProgram {
 
     if (args.length > 0) {
       try {
-        config.setMaraton(new Maraton(args[0], args[2], args[3]));
+        config.setMarathon(new Marathon(args[0], args[2], args[3]));
         config.setNameFile(args[1]);
         config.setResultFile(args[4]);
         config.setSorting(args[5].equals("true"));

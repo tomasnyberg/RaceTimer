@@ -2,7 +2,7 @@ package result.config;
 
 import java.util.List;
 
-public class Varv {
+public class Lap {
   private String raceEndTime;
   private boolean massStart;
   private String minimumTime;
@@ -10,11 +10,11 @@ public class Varv {
   private String startTimesFile;
   private List<String> endTimesFiles;
 
-  public Varv() {
+  public Lap() {
     super();
   }
 
-  public Varv(
+  public Lap(
       String raceEndTime,
       boolean massStart,
       String minimumTime,
