@@ -52,9 +52,18 @@ public class MarathonResult2 extends AbstractResult {
         }
     }
 
-
     protected AbstractDriver newDriver(String driverNumber, Config config) {
         return new MarathonDriver2(driverNumber, config);
+    }
+
+    public void readStartTimes() {
+        readTimes(config.getMarathon().getStartTimesFile(), true);
+    }
+
+    // Reads endtimes from a file, and adds the end times for the respective driver number
+    // If we have not seen this drivernumber so far, we create a new driver
+    public void readEndTimes() {
+        readTimes(config.getMarathon().getGoalTimesFile(), false);
     }
 
 }
