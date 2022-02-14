@@ -1,4 +1,4 @@
-package result.Varvlopp;
+package result.lap;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -9,7 +9,7 @@ import java.util.List;
 import result.config.Config;
 import util.TimeUtils;
 
-public class VarvloppDriver implements Comparable<VarvloppDriver> {
+public class LapDriver implements Comparable<LapDriver> {
     private static final String missing = "MISSING";
     private static final String invalidTime = "--:--:--";
     private static final String missingStartTime = "Start?";
@@ -27,11 +27,8 @@ public class VarvloppDriver implements Comparable<VarvloppDriver> {
     private int maxLaps = 0;
 
     // När man hittar ett drivernumber man inte sett innan skapar man en ny
-    // varvloppdriver
-    public VarvloppDriver(String driverNumber) {
-        this.driverNumber = driverNumber;
-    }
-    public VarvloppDriver(String driverNumber, Config config) {
+    // lapDriver
+    public LapDriver(String driverNumber, Config config) {
         this.driverNumber = driverNumber;
         this.config = config;
     }
@@ -59,7 +56,7 @@ public class VarvloppDriver implements Comparable<VarvloppDriver> {
     }
 
     public void addEndTime(String endTime) {
-        if (LocalTime.parse(endTime).isAfter(LocalTime.parse(config.getVarv().getRaceEndTime())))
+        if (LocalTime.parse(endTime).isAfter(LocalTime.parse(config.getLap().getRaceEndTime())))
             goalTimes.add(endTime);
         else
             lapTimes.add(endTime);
@@ -82,7 +79,7 @@ public class VarvloppDriver implements Comparable<VarvloppDriver> {
         return TimeUtils.formatTime(Duration.between(st, en));
     }
 
-    private List<String> generateVarvTimes() {
+    private List<String> generateLapTimes() {
         List<String> times = new ArrayList<>();
         times.add(getStartTime());
         times.addAll(lapTimes);
@@ -123,7 +120,7 @@ public class VarvloppDriver implements Comparable<VarvloppDriver> {
     private String getErrors() {
         StringBuilder sb =  new StringBuilder();
         if (
-            generateVarvTimes().stream().filter(x -> x != "")
+            generateLapTimes().stream().filter(x -> x != "")
                 .anyMatch(x -> LocalTime.parse(config.getVarv().getMinimumTime()).isAfter(LocalTime.parse(x)))
             ) {
             sb.append("Omöjlig varvtid? ");
@@ -161,7 +158,7 @@ public class VarvloppDriver implements Comparable<VarvloppDriver> {
         List<String> columns = new ArrayList<>(
                 Arrays.asList(
                         driverNumber, name, "" + getAmountOfLaps(), getTotalTime()));
-        columns.addAll(generateVarvTimes());
+        columns.addAll(generateLapTimes());
         columns.add(getStartTime());
         columns.addAll(getLappings());
         columns.add(getGoalTime());
@@ -179,7 +176,7 @@ public class VarvloppDriver implements Comparable<VarvloppDriver> {
     }
 
     @Override
-    public int compareTo(VarvloppDriver other) {
+    public int compareTo(LapDriver other) {
         if(missingStartOrEnd() && !other.missingStartOrEnd()) return 1;
 
         if(!missingStartOrEnd() && other.missingStartOrEnd()) return -1;
