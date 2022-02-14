@@ -5,7 +5,7 @@ title: Coolt race - 8 feb 2022
 # Footer for result file
 footer: Resultat genererat av Team 05
 # True if result file should be sorted according to placement, false if sorting should be disabled
-sorting: false
+sorting: true
 # File path to result file
 resultFile: output/resultat.txt
 # File path to name input file
@@ -18,7 +18,7 @@ marathon:
   # File path to start times
   startTimesFile: input/starttider.txt
   # File path to goal times
-  goalTimesFile: input/maltider.txt
+  goalTimesFile: input/maltider1.txt
 
 # Lap race related configurations
 lap:
