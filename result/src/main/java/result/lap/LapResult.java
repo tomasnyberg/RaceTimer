@@ -55,7 +55,7 @@ public class LapResult extends AbstractResult {
       topLine += "Mål";
       dumpList.add(topLine);
       for(AbstractDriver driver: drivers){
-        dumpList.add(d.toString());
+        dumpList.add(driver.toString());
       }
       dumpList.add("");
       dumpList.add(config.getFooter());

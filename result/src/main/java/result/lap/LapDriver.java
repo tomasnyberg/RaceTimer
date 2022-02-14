@@ -10,7 +10,7 @@ import result.AbstractDriver;
 import result.config.Config;
 import util.TimeUtils;
 
-public class LapDriver extends AbstractDriver implements Comparable<LapDriver> {
+public class LapDriver extends AbstractDriver {
     private List<String> lapTimes = new ArrayList<>();
     private int maxLaps = 0;
 
@@ -76,7 +76,7 @@ public class LapDriver extends AbstractDriver implements Comparable<LapDriver> {
     // Append to the end of the toString, in the last column any errors
     // Example: 3; Chris Csson; 3; 01:03:06; 00:20:00; 00:20:00; 00:23:06; 12:02:00;
     // 12:22:00; 12:42:00; 13:05:06; Flera starttider? 12:05:00
-    protected String getErrors() {
+    public String getErrors() {
         StringBuilder sb =  new StringBuilder();
         if (
             generateLapTimes().stream().filter(x -> x != "")
@@ -125,19 +125,15 @@ public class LapDriver extends AbstractDriver implements Comparable<LapDriver> {
     }
 
     @Override
-    public int compareTo(LapDriver other) {
-        if(missingStartOrEnd() && !other.missingStartOrEnd()) return 1;
+    public int compareTo(AbstractDriver other) {
+        if(getErrors().isBlank() && !other.getErrors().isBlank()) return 1;
 
-        if(!missingStartOrEnd() && other.missingStartOrEnd()) return -1;
+        if(!getErrors().isBlank() && other.getErrors().isBlank()) return -1;
 
-        if(getAmountOfLaps() == other.getAmountOfLaps()) {
+        if(getAmountOfLaps() == ((LapDriver) other).getAmountOfLaps()) {
             return getTotalTime().compareTo(other.getTotalTime());
         } else {
-            return ((Integer) other.getAmountOfLaps()).compareTo((Integer) getAmountOfLaps());
+            return ((Integer) ((LapDriver) other).getAmountOfLaps()).compareTo((Integer) getAmountOfLaps());
         }
-    }
-
-    private boolean missingStartOrEnd () {
-        return getStartTime().equals(invalidTime);
     }
 }
