@@ -21,7 +21,7 @@ public abstract class AbstractResult {
 
     // both read start times and end times read the times, so we have a method for the common things
   // returns something that the other methods can use to fill in the info for the drivers
-  private void readTimes(String filePath, boolean start) {
+    protected void readTimes(String filePath, boolean start) {
     List<String> lines = readFile(filePath);
     for (String line : lines) {
       String[] split = line.split("; ");
@@ -54,13 +54,13 @@ public abstract class AbstractResult {
   // Reads starttimes from a starttimefile, and sets the start times for the respective driver
   // number
   // If we have not seen this drivernumber so far, we create a new driver
-  protected void readStartTimes() {
+  public void readStartTimes() {
     readTimes(config.getLap().getStartTimesFile(), true);
   }
 
   // Reads endtimes from a file, and adds the end times for the respective driver number
   // If we have not seen this drivernumber so far, we create a new driver
-  protected void readEndTimes() {
+  public void readEndTimes() {
     for (String endFile : config.getLap().getGoalTimesFiles()) {
       readTimes(endFile, false);
     }
@@ -69,7 +69,7 @@ public abstract class AbstractResult {
 
     // Reads names from a file
     // If we have not seen this drivernumber so far, we create a new driver
-    protected void readNames() {
+    public void readNames() {
         List<String> lines = readFile(config.getNameFile());
         for (int i = 1; i < lines.size(); i++) {
             String[] split = lines.get(i).split("; ");
