@@ -7,9 +7,6 @@ import result.TimeEntry;
 import util.AbstractFileReader;
 import util.NameFileReader;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class MarathonFileReader extends AbstractFileReader {

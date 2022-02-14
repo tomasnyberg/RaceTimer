@@ -1,12 +1,8 @@
 package register;
 
-import result.TimeEntry;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -59,8 +55,8 @@ public class GUI {
     clearEmpty.setForeground(Color.WHITE);
     clearEmpty.setVisible(false);
 
-    // Marathon table & JTable settings
-    MarathonTableModel tableModel = new MarathonTableModel();
+    // Table & JTable settings
+    DataTableModel tableModel = new DataTableModel();
     JTable resultTable = new JTable(tableModel);
     resultTable.setFillsViewportHeight(true);
     resultTable.setFont(font);
