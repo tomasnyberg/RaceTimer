@@ -1,6 +1,7 @@
 package result;
 
 import result.config.Config;
+import result.lap.LapDriver;
 import util.TimeUtils;
 
 import java.time.Duration;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractDriver {
+public abstract class AbstractDriver implements Comparable<AbstractDriver> {
     protected static final String missing = "MISSING";
     protected static final String invalidTime = "--:--:--";
     protected static final String missingStartTime = "Start?";

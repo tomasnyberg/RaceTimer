@@ -34,7 +34,7 @@ public abstract class AbstractResult {
 
     // Reads names from a file
     // If we have not seen this drivernumber so far, we create a new driver
-    protected abstract void readNames() {
+    protected void readNames() {
         List<String> lines = readFile(config.getNameFile());
         for (int i = 1; i < lines.size(); i++) {
             String[] split = lines.get(i).split("; ");

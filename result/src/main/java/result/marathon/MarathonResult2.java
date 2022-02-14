@@ -20,6 +20,7 @@ public class MarathonResult2 extends AbstractResult {
     public void generateResult() {
         String topLine;
 
+        readStartTimes();
         readEndTimes();
         readNames();
 

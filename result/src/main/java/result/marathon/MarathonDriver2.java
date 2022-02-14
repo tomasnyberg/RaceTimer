@@ -7,7 +7,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarathonDriver2 extends AbstractDriver {
+public class MarathonDriver2 extends AbstractDriver implements Comparable<AbstractDriver> {
 
     protected static final String impossibleTotalTime = "Omöjlig totaltid?";
 
@@ -74,5 +74,10 @@ public class MarathonDriver2 extends AbstractDriver {
         String result = sb.substring(0, sb.length() - 2);
         result = result.endsWith("; ") ? result.substring(0, result.length() - 2) : result;
         return result;
+    }
+
+    @Override
+    public int compareTo(AbstractDriver other) {
+        return 0;
     }
 }
