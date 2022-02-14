@@ -16,13 +16,14 @@ public class MarathonDriver2 extends AbstractDriver {
     }
 
     @Override
-    protected String getErrors() {
+    public String getErrors() {
         StringBuilder sb =  new StringBuilder();
 
         // Multiple start times
         if (startTimes.size() > 1){
+            System.out.println("hello");
             sb.append(multipleStartTimes);
-            for (int i = 1; i<startTimes.size(); ++i){
+            for (int i = 1; i < startTimes.size(); i++){
                 sb.append(" ");
                 sb.append(startTimes.get(i));
             }
@@ -31,8 +32,9 @@ public class MarathonDriver2 extends AbstractDriver {
 
         // Multiple goal times
         if (goalTimes.size() > 1){
+            System.out.println("hello2");
             sb.append(multipleGoalTimes);
-            for (int i = 1; i < goalTimes.size(); ++i){
+            for (int i = 1; i < goalTimes.size(); i++){
                 sb.append(" ");
                 sb.append(goalTimes.get(i));
             }

@@ -54,18 +54,11 @@ public abstract class AbstractResult {
   // Reads starttimes from a starttimefile, and sets the start times for the respective driver
   // number
   // If we have not seen this drivernumber so far, we create a new driver
-  public void readStartTimes() {
-    readTimes(config.getLap().getStartTimesFile(), true);
-  }
+  public abstract void readStartTimes();
 
   // Reads endtimes from a file, and adds the end times for the respective driver number
   // If we have not seen this drivernumber so far, we create a new driver
-  public void readEndTimes() {
-    for (String endFile : config.getLap().getGoalTimesFiles()) {
-      readTimes(endFile, false);
-    }
-  }
-
+  public abstract void readEndTimes();
 
     // Reads names from a file
     // If we have not seen this drivernumber so far, we create a new driver

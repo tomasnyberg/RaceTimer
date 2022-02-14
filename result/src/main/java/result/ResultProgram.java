@@ -4,11 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import result.lap.LapResult;
-import result.marathon.MarathonResultExporter;
-import result.marathon.MarathonResultSorter;
-import result.marathon.MarathonResult;
+import result.marathon.*;
 import result.config.*;
-import result.marathon.MarathonFileReader;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -49,17 +46,8 @@ public class ResultProgram {
 
     if (config.getType().equals("marathon")) {
       System.out.println("Programmet är inställt för Maraton");
-      List<MarathonResult> fileResults = MarathonFileReader.result(
-          config.getNameFile(),
-          config.getMarathon().getStartTimesFile(),
-          config.getMarathon().getGoalTimesFile(),
-          config.getMarathon().getMinimumTime());
-      fileResults = new MarathonResultSorter().sortResults(fileResults);
-      try {
-        MarathonResultExporter.export(config, fileResults);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      MarathonResult2 marathonResult2 = new MarathonResult2(config);
+      marathonResult2.generateResult();
     } else if (config.getType().equals("lap")) {
       System.out.println("Programmet är inställt för Varvlopp");
       LapResult lap = new LapResult(config);
