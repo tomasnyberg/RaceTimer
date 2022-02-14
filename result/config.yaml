@@ -1,5 +1,5 @@
-# Type of race. Valid values: varv, maraton
-type: varv
+# Type of race. Valid values: lap, maraton
+type: lap
 # Title of the race
 title: Coolt race - 8 feb 2022
 # Footer for result file
@@ -12,7 +12,7 @@ resultFile: output/resultat.txt
 nameFile: input/namnfil.txt
 
 # Marathon related configurations
-maraton:
+marathon:
   # Minimum time for marathon race
   minimumTime: 00:15:00
   # File path to start times
@@ -21,7 +21,7 @@ maraton:
   endTimesFile: input/maltider.txt
 
 # Lap race related configurations
-varv:
+lap:
   # Minimum time for one lap
   minimumTime: 00:15:00
   # Mass start enabled

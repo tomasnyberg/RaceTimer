@@ -49,21 +49,21 @@ public class ResultProgram {
       }
     }
 
-    if (config.getType().equals("maraton")) {
+    if (config.getType().equals("marathon")) {
       System.out.println("Programmet är inställt för Maraton");
       List<MarathonResult> fileResults =
               MarathonFileReader.result(
                       config.getNameFile(),
-                      config.getMaraton().getStartTimesFile(),
-                      config.getMaraton().getEndTimesFile(),
-                      config.getMaraton().getMinimumTime());
+                      config.getMarathon().getStartTimesFile(),
+                      config.getMarathon().getEndTimesFile(),
+                      config.getMarathon().getMinimumTime());
       fileResults = new MarathonResultSorter().sortResults(fileResults);
       try {
         MarathonResultExporter.export(config, fileResults);
       } catch (IOException e) {
         e.printStackTrace();
       }
-    } else if (config.getType().equals("varv")) {
+    } else if (config.getType().equals("lap")) {
       System.out.println("Programmet är inställt för Varvlopp");
       VarvloppResult varvlopp = new VarvloppResult(config);
       varvlopp.generateResult();
