@@ -6,7 +6,6 @@ import result.config.Config;
 import java.time.LocalTime;
 
 public class MarathonDriver2 extends AbstractDriver {
-    protected static final String multipleEndTimes = "Flera måltider?";
 
     public MarathonDriver2(String driverNumber, Config config) {
         super(driverNumber, config);

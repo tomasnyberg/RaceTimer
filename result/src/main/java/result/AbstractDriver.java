@@ -13,13 +13,14 @@ public abstract class AbstractDriver {
     protected static final String missing = "MISSING";
     protected static final String invalidTime = "--:--:--";
     protected static final String missingStartTime = "Start?";
-    protected static final String missingEndTime = "Slut?";
+    protected static final String missingGoalTime = "Slut?";
     protected static final String multipleStartTimes = "Flera starttider?";
+    protected static final String multipleGoalTimes = "Flera måltider?";
     protected static final String SEP = ";";
 
     protected Config config = null;
     protected List<String> startTimes = new ArrayList<>();
-    protected List<String> endTimes = new ArrayList<>();
+    protected List<String> goalTimes = new ArrayList<>();
     protected String name = missing;
     protected String driverNumber;
     protected int maxLaps = 0;
@@ -43,16 +44,16 @@ public abstract class AbstractDriver {
         startTimes.add(startTime);
     }
 
-    public void addEndTime(String endTime) {
-        endTimes.add(endTime);
+    public void addGoalTime(String endTime) {
+        goalTimes.add(endTime);
     }
 
     // return difference between last goaltime and first starttime
     // return "--:--:--" if can't calculate
     protected String getTotalTime() {
         String totalTime = invalidTime;
-        if (!endTimes.isEmpty() && !startTimes.isEmpty()) {
-            totalTime = duration(startTimes.get(0), endTimes.get(endTimes.size() - 1));
+        if (!goalTimes.isEmpty() && !startTimes.isEmpty()) {
+            totalTime = duration(startTimes.get(0), goalTimes.get(goalTimes.size() - 1));
         }
 
         return totalTime;
@@ -70,7 +71,7 @@ public abstract class AbstractDriver {
 
 
     protected String getGoalTime() {
-        return endTimes.isEmpty() ? missingEndTime : endTimes.get(endTimes.size()-1);
+        return goalTimes.isEmpty() ? missingGoalTime : goalTimes.get(goalTimes.size()-1);
     }
 
 
