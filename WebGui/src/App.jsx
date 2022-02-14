@@ -4,14 +4,16 @@ import { Input, Container, VStack, HStack, Button, IconButton, Heading, useToast
   Tbody,
   Tr,
   Th,
+  SimpleGrid,
   useColorMode,
   useColorModeValue,
-  Td, } from '@chakra-ui/react'
+  Td,
+  Box, } from '@chakra-ui/react'
 import {SunIcon, MoonIcon} from "@chakra-ui/icons";
 
 function App() {
 
-  const { colorMode, toggleColorMode } = useColorMode()
+  const { toggleColorMode } = useColorMode()
   const icon = useColorModeValue(<MoonIcon/>, <SunIcon/>);
   
 
@@ -83,30 +85,38 @@ function App() {
     <HStack position="fixed" right="1rem" top="1rem" justify="end">
       <IconButton icon={icon} onClick={toggleColorMode} />
     </HStack>
-    <Container>
-      <Heading textAlign="center" marginY="2rem">Register Driver</Heading>
-      <form onSubmit={(event) => onSubmit(event)} style={{ marginBottom: '2rem' }}>
-        <VStack spacing="1rem">
-        <Input value={name} placeholder="Name" size="lg" onChange={(event) => handleNameChange(event.target.value)} />
-        <Button type="submit" size="lg" colorScheme="yellow">Add Driver</Button>
-        </VStack>
-      </form>
-      <Table variant='simple'>
-        <Thead>
-          <Tr>
-            <Th>Start Number</Th>
-            <Th>Name</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {drivers && drivers.map((driver, index) => (
-            <Tr key={index}>
-              <Td>{driver.startNumber}</Td>
-              <Td>{driver.name}</Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
+    <Container maxW='container.xl'>
+      <SimpleGrid columns={{sm: 1, md: 2}}>
+        <Box width="100%" height={{sm: "auto", md: "100vh"}} display="flex" alignItems="center" justifyContent="center">
+          <Box width="80%">
+            <Heading textAlign="center" marginY="2rem">Register Driver</Heading>
+            <form onSubmit={(event) => onSubmit(event)} style={{ marginBottom: '2rem' }}>
+              <VStack spacing="1rem">
+              <Input value={name} placeholder="Name" size="lg" onChange={(event) => handleNameChange(event.target.value)} />
+              <Button type="submit" size="lg" colorScheme="yellow">Add Driver</Button>
+              </VStack>
+            </form>
+          </Box>
+        </Box>
+        <Box height="100vh" overflowY="scroll">
+          <Table variant='simple'>
+            <Thead>
+              <Tr>
+                <Th>Start Number</Th>
+                <Th>Name</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {drivers && drivers.map((driver, index) => (
+                <Tr key={index}>
+                  <Td>{driver.startNumber}</Td>
+                  <Td>{driver.name}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </Box>
+      </SimpleGrid>
     </Container>
     </>
   );
