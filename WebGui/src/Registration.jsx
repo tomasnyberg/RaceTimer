@@ -1,22 +1,14 @@
 import {useEffect, useState} from 'react';
-import { Input, Container, VStack, HStack, Button, IconButton, Heading, useToast,   Table,
+import { Input, Container, VStack, Button, Heading, useToast,   Table,
   Thead,
   Tbody,
   Tr,
   Th,
   SimpleGrid,
-  useColorMode,
-  useColorModeValue,
   Td,
   Box, } from '@chakra-ui/react'
-import {SunIcon, MoonIcon} from "@chakra-ui/icons";
 
-function App() {
-
-  const { toggleColorMode } = useColorMode()
-  const icon = useColorModeValue(<MoonIcon/>, <SunIcon/>);
-  
-
+function Registration() {
   const toast = useToast();
   const [name, setName] = useState("");
   const [drivers, setDrivers] = useState([]);
@@ -82,12 +74,8 @@ function App() {
   
   return (
     <>
-    <HStack position="fixed" right="1rem" top="1rem" justify="end">
-      <IconButton icon={icon} onClick={toggleColorMode} />
-    </HStack>
-    <Container maxW='container.xl'>
       <SimpleGrid columns={{sm: 1, md: 2}}>
-        <Box width="100%" height={{sm: "auto", md: "100vh"}} display="flex" alignItems="center" justifyContent="center">
+        <Box width="100%" height={{sm: "auto", md: "92vh"}} display="flex" alignItems="center" justifyContent="center">
           <Box width="80%">
             <Heading textAlign="center" marginY="2rem">Register Driver</Heading>
             <form onSubmit={(event) => onSubmit(event)} style={{ marginBottom: '2rem' }}>
@@ -98,7 +86,7 @@ function App() {
             </form>
           </Box>
         </Box>
-        <Box height="100vh" overflowY="scroll">
+        <Box height={{sm: "auto", md: "92vh"}} overflowY="scroll">
           <Table variant='simple'>
             <Thead>
               <Tr>
@@ -117,9 +105,8 @@ function App() {
           </Table>
         </Box>
       </SimpleGrid>
-    </Container>
     </>
   );
 }
 
-export default App;
+export default Registration;
