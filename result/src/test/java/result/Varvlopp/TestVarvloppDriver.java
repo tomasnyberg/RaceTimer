@@ -146,4 +146,16 @@ public class TestVarvloppDriver {
     newDriver.addEndTime("15:05:00");
     driver.addEndTime("15:06:00");
   }
+
+  @Test
+  public void testExactFinalLapTime() {
+    driver.setMaxLaps(5);
+    driver.addStartTime("12:00:00");
+    driver.addEndTime("13:00:00");
+    driver.addEndTime("14:30:00");
+    driver.addEndTime("14:59:00");
+    driver.setName("Anton Asson");
+    assertEquals("1; Anton Asson; 3; 02:59:00; 01:00:00; 01:30:00; 00:29:00; ; ; 12:00:00; 13:00:00; 14:30:00; ; ; 14:59:00", driver.toString());
+    System.out.println(driver);
+  }
 }

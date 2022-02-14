@@ -59,7 +59,7 @@ public class VarvloppDriver implements Comparable<VarvloppDriver> {
     }
 
     public void addEndTime(String endTime) {
-        if (LocalTime.parse(endTime).isAfter(LocalTime.parse(config.getVarv().getRaceEndTime())))
+        if (!LocalTime.parse(config.getVarv().getRaceEndTime()).isAfter(LocalTime.parse(endTime)))
             goalTimes.add(endTime);
         else
             lapTimes.add(endTime);
