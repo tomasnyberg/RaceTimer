@@ -140,5 +140,10 @@ public class TestVarvloppDriver {
     newDriver.addEndTime("02:00:00");
     assertEquals(1, driver.getAmountOfLaps());
     assertTrue(driver.compareTo(newDriver) > 0);
+    driver.addEndTime("01:59:00");
+    // If they have an equal amount of laps but not a total time, don't sort
+    assertEquals(0, driver.compareTo(newDriver));
+    newDriver.addEndTime("15:05:00");
+    driver.addEndTime("15:06:00");
   }
 }
