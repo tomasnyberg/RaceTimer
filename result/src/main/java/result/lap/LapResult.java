@@ -70,4 +70,17 @@ public class LapResult extends AbstractResult {
   protected AbstractDriver newDriver(String driverNumber, Config config) {
     return new LapDriver(driverNumber, config);
   }
+
+    public void readStartTimes() {
+        readTimes(config.getLap().getStartTimesFile(), true);
+    }
+
+    // Reads endtimes from a file, and adds the end times for the respective driver number
+    // If we have not seen this drivernumber so far, we create a new driver
+    public void readEndTimes() {
+      for(String goalFile: config.getLap().getGoalTimesFiles()) {
+          readTimes(goalFile, false);
+      }
+    }
+
 }
