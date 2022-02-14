@@ -128,6 +128,20 @@ public class TestLapDriver {
   }
 
   @Test
+  public void testMultipleErrorColumns() {
+    driver.setMaxLaps(3);
+    driver.addStartTime("12:00:00");
+    driver.addStartTime("13:00:00");
+    driver.addGoalTime("15:00:00");
+    driver.addGoalTime("15:30:00");
+    driver.addGoalTime("16:00:00");
+    assertEquals(
+        "1; MISSING; 1; 03:00:00; 03:00:00; ; ; 12:00:00; ; ; 15:00:00; Flera starttider? 13:00:00, Flera måltider? 15:30:00 16:00:00",
+        driver.toString());
+    System.out.println(driver);
+  }
+
+  @Test
   public void testMinimumLapTime() {
     driver.setMaxLaps(3);
     driver.addStartTime("12:00:00");
