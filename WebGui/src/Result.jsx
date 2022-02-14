@@ -18,7 +18,7 @@ export default function Result() {
     
   return (
     <Box overflowX="scroll">
-      <Table>
+      <Table variant="striped">
         <Thead>
           <Tr>
             {header && header.map((headerItem, index) => <Th key={index}>{headerItem}</Th>)}

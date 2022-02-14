@@ -87,7 +87,7 @@ function Registration() {
           </Box>
         </Box>
         <Box height={{sm: "auto", md: "88vh"}} overflowY="scroll">
-          <Table variant='simple'>
+          <Table variant="striped">
             <Thead>
               <Tr>
                 <Th>Start Number</Th>
