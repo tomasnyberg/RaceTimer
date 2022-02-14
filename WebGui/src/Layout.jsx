@@ -11,8 +11,8 @@ export default function Layout({children}) {
       <Container maxW='container.xl' paddingY="1rem">
         <HStack justify="space-between" alignItems="center">
           <HStack spacing="2rem">
-            <Link to="/"><CLink>Result</CLink></Link>
-            <Link to="/registration"><CLink>Registration</CLink></Link>
+            <Link to="/">Result</Link>
+            <Link to="/registration">Registration</Link>
           </HStack>
           <IconButton icon={icon} onClick={toggleColorMode} />
         </HStack>

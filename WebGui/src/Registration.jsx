@@ -75,7 +75,7 @@ function Registration() {
   return (
     <>
       <SimpleGrid columns={{sm: 1, md: 2}}>
-        <Box width="100%" height={{sm: "auto", md: "92vh"}} display="flex" alignItems="center" justifyContent="center">
+        <Box width="100%" height={{sm: "auto", md: "88vh"}} display="flex" alignItems="center" justifyContent="center">
           <Box width="80%">
             <Heading textAlign="center" marginY="2rem">Register Driver</Heading>
             <form onSubmit={(event) => onSubmit(event)} style={{ marginBottom: '2rem' }}>
@@ -86,7 +86,7 @@ function Registration() {
             </form>
           </Box>
         </Box>
-        <Box height={{sm: "auto", md: "92vh"}} overflowY="scroll">
+        <Box height={{sm: "auto", md: "88vh"}} overflowY="scroll">
           <Table variant='simple'>
             <Thead>
               <Tr>

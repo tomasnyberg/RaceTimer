@@ -3,12 +3,20 @@ const fs = require('fs')
 const cors = require('cors')
 const app = express()
 const port = 4000
-const path = 'drivers.txt'
+const pathDrivers = 'drivers.txt'
+const pathResult = 'resultLap.txt'
 
 app.use(cors())
 app.use(express.json())
 
 const drivers = []
+const result = []
+let resultHeaders = []
+
+app.get('/results', async (req, res) => {
+  await readResultFile();
+  res.status(200).json({headers: resultHeaders, results:result});
+})
 
 app.get('/drivers', (req, res) => {
   res.status(200).json(drivers)
@@ -29,9 +37,9 @@ app.listen(port, () => {
 })
 
 function createAndLoadFile() {
-  if (fs.existsSync(path)) {
-    console.log(`Drivers file already exist at ${path}`)
-    fs.promises.readFile(path, "utf-8")
+  if (fs.existsSync(pathDrivers)) {
+    console.log(`Drivers file already exist at ${pathDrivers}`)
+    fs.promises.readFile(pathDrivers, "utf-8")
       .then((contents) => {
         contents.split(/\r?\n/).forEach((line, index) => {
           if (index !== 0 && line !== "") {
@@ -44,11 +52,29 @@ function createAndLoadFile() {
         })
       })
   } else {
-    fs.promises.appendFile(path, "StartNr; Namn\n")
-      .then(() => console.log(`Created driver file at ${path}`))
+    fs.promises.appendFile(pathDrivers, "StartNr; Namn\n")
+      .then(() => console.log(`Created driver file at ${pathDrivers}`))
       .catch((err) => {
         console.error(err)
         process.exit(1)
       })
+  }
+}
+
+async function readResultFile(){
+  result.splice(0, result.length);
+  resultHeaders.splice(0, resultHeaders.length);
+  if (fs.existsSync(pathResult)) {
+    const contents = await fs.promises.readFile(pathResult, "utf-8")
+    contents.split(/\r?\n/).forEach((line, index) => {
+      if(index === 2){
+        resultHeaders = resultHeaders.concat(line.split("; "));
+      }
+      if (index > 2 && index < (contents.split(/\r?\n/).length - 2) && line !== "") {
+        result.push(line.split("; "));
+      }
+    })
+  } else {
+    console.error("result file does not exist at " + pathResult);
   }
 }
