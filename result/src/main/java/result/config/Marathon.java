@@ -9,17 +9,17 @@ public class Marathon {
       super();
     }
 
-    public Marathon(String minimumTime, String startTimesFile, String endTimesFile) {
+    public Marathon(String minimumTime, String startTimesFile, String goalTimesFile) {
       this.minimumTime = minimumTime;
       this.startTimesFile = startTimesFile;
       this.goalTimesFile = goalTimesFile;
     }
 
-    public String getEndTimesFile() {
+    public String getGoalTimesFile() {
       return goalTimesFile;
     }
 
-    public void setEndTimesFile(String endTimesFile) {
+    public void setGoalTimesFile(String goalTimesFile) {
       this.goalTimesFile = goalTimesFile;
     }
 

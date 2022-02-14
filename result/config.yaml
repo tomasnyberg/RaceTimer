@@ -17,8 +17,8 @@ marathon:
   minimumTime: 00:15:00
   # File path to start times
   startTimesFile: input/starttider.txt
-  # File path to end times
-  endTimesFile: input/maltider.txt
+  # File path to goal times
+  goalTimesFile: input/maltider.txt
 
 # Lap race related configurations
 lap:
@@ -30,8 +30,8 @@ lap:
   timeForMassStart: 13:00:00
   # File path to start times
   startTimesFile: input/starttider.txt
-  # File path to end times
-  endTimesFiles:
+  # File path to goal times
+  goalTimesFiles:
     - input/maltider1.txt
     - input/maltider2.txt
   # Race end time
