@@ -133,11 +133,11 @@ public class LapDriver extends AbstractDriver {
 
     @Override
     public int compareTo(AbstractDriver other) {
-        if (getErrors().isBlank() && !other.getErrors().isBlank())
-            return 1;
-
-        if (!getErrors().isBlank() && other.getErrors().isBlank())
+        if (!isErrors() && other.isErrors())
             return -1;
+
+        if (isErrors() && !other.isErrors())
+            return 1;
 
         if (getAmountOfLaps() == ((LapDriver) other).getAmountOfLaps()) {
             return getTotalTime().compareTo(other.getTotalTime());

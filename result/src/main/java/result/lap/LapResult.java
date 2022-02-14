@@ -19,7 +19,7 @@ public class LapResult extends AbstractResult {
   // result txt file.
   // Readds from args if they exist for specifying where files are, otherwise from
   // config
-  // Takes in a config class (TODO) where we get the file paths etc.
+  // Takes in a config class where we get the file paths etc.
   public void generateResult() {
     readEndTimes();
     if (config.getLap().getMassStart()) {
@@ -30,9 +30,6 @@ public class LapResult extends AbstractResult {
       readStartTimes();
     }
     readNames();
-    if (config.isSorting()) {
-      Collections.sort(drivers);
-    }
     int max = 0;
     for (AbstractDriver d : drivers) {
       max = Math.max(((LapDriver) d).getAmountOfLaps(), max);
@@ -53,6 +50,9 @@ public class LapResult extends AbstractResult {
     }
     topLine += "Mål";
     dumpList.add(topLine);
+    if (config.isSorting()) {
+      Collections.sort(drivers);
+    }
     for (AbstractDriver driver : drivers) {
       dumpList.add(driver.toString());
     }

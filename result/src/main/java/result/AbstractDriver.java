@@ -73,4 +73,10 @@ public abstract class AbstractDriver implements Comparable<AbstractDriver> {
 
     public abstract String getErrors();
 
+    public boolean isErrors() {
+        return getGoalTime().equals(missingGoalTime) ||
+                getStartTime().equals(missingStartTime) ||
+                !(getErrors().isBlank());
+    }
+
 }

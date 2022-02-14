@@ -1,10 +1,10 @@
 Coolt race - 8 feb 2022
 
-StartNr; Namn; Totaltid; Start; Mål
-1; Anders Asson; 01:23:34; 12:00:00; 13:23:34
-2; Bengt Bsson; 01:14:16; 12:01:00; 13:15:16
-3; Chris Csson; 01:03:06; 12:02:00; 13:05:06
-4; David Dsson; 01:09:07; 12:03:00; 13:12:07
-5; Erik Esson; 01:12:07; 12:04:00; 13:16:07; Flera måltider? 13:17:07
+StartNr; Namn; #Varv; Totaltid; Varv1; Varv2; Varv3; Start; Varvning1; Varvning2; Mål
+3; Chris Csson; 2; 02:03:06; 01:03:06; 01:00:00; ; 12:02:00; 13:05:06; ; 14:05:06
+4; David Dsson; 2; 02:09:07; 01:09:07; 01:00:00; ; 12:03:00; 13:12:07; ; 14:12:07
+2; Bengt Bsson; 2; 02:14:16; 01:14:16; 01:00:00; ; 12:01:00; 13:15:16; ; 14:15:16
+1; Anders Asson; 2; 02:23:34; 01:23:34; 01:00:00; ; 12:00:00; 13:23:34; ; 14:23:34
+5; Erik Esson; 3; 02:12:07; 01:12:07; 00:01:00; 00:59:00; 12:04:00; 13:16:07; 13:17:07; 14:16:07; Omöjlig varvtid?
 
 Resultat genererat av Team 05
