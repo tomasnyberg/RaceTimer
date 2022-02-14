@@ -52,9 +52,16 @@ public class LapResult extends AbstractResult {
     dumpList.add(topLine);
     if (config.isSorting()) {
       Collections.sort(drivers);
-    }
-    for (AbstractDriver driver : drivers) {
-      dumpList.add(driver.toString());
+      for (AbstractDriver driver : drivers) {
+        if (!(driver.getErrors().length() == 0)) {
+          dumpList.add(driver.toString().substring(0, driver.toString().length() - driver.getErrors().length() - 2));
+        } else
+          dumpList.add(driver.toString());
+      }
+    } else {
+      for (AbstractDriver driver : drivers) {
+        dumpList.add(driver.toString());
+      }
     }
     dumpList.add("");
     dumpList.add(config.getFooter());

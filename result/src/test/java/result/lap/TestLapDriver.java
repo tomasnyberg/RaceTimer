@@ -154,20 +154,43 @@ public class TestLapDriver {
   }
 
   @Test
-  public void testDriverComparator() {
-    driver.addStartTime("00:00:00");
-    driver.addGoalTime("01:00:00");
+  public void testDriverComparatorMoreLaps() {
+    driver.addStartTime("13:00:00");
+    driver.addGoalTime("15:00:00");
     LapDriver newDriver = new LapDriver("2", config);
-    newDriver.addStartTime("00:00:00");
-    newDriver.addGoalTime("01:00:00");
-    newDriver.addGoalTime("02:00:00");
+    newDriver.addStartTime("13:00:00");
+    newDriver.addGoalTime("14:00:00");
+    newDriver.addGoalTime("15:00:00");
     assertEquals(1, driver.getAmountOfLaps());
+    assertEquals(2, newDriver.getAmountOfLaps());
     assertTrue(driver.compareTo(newDriver) > 0);
-    driver.addGoalTime("01:59:00");
-    // If they have an equal amount of laps but not a total time, don't sort
-    assertEquals(0, driver.compareTo(newDriver));
-    newDriver.addGoalTime("15:05:00");
-    driver.addGoalTime("15:06:00");
+  }
+
+  @Test
+  public void testDriverComparatorSameLaps() {
+    driver.addStartTime("13:00:00");
+    driver.addGoalTime("14:00:00");
+    driver.addGoalTime("15:15:00");
+    LapDriver newDriver = new LapDriver("2", config);
+    newDriver.addStartTime("13:00:00");
+    newDriver.addGoalTime("14:00:00");
+    newDriver.addGoalTime("15:00:00");
+    assertEquals(2, driver.getAmountOfLaps());
+    assertEquals(2, newDriver.getAmountOfLaps());
+    assertTrue(driver.compareTo(newDriver) > 0);
+  }
+
+  @Test
+  public void testDriverComparatorErrors() {
+    driver.addStartTime("13:00:00");
+    driver.addGoalTime("15:00:00");
+    LapDriver newDriver = new LapDriver("2", config);
+    newDriver.addStartTime("13:00:00");
+    newDriver.addGoalTime("14:00:00");
+    newDriver.addGoalTime("14:30:00");
+    assertEquals(1, driver.getAmountOfLaps());
+    assertEquals(2, newDriver.getAmountOfLaps());
+    assertTrue(driver.compareTo(newDriver) < 0);
   }
 
   @Test
