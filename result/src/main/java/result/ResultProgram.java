@@ -53,7 +53,7 @@ public class ResultProgram {
               MarathonFileReader.result(
                       config.getNameFile(),
                       config.getMarathon().getStartTimesFile(),
-                      config.getMarathon().getEndTimesFile(),
+                      config.getMarathon().getGoalTimesFile(),
                       config.getMarathon().getMinimumTime());
       fileResults = new MarathonResultSorter().sortResults(fileResults);
       try {

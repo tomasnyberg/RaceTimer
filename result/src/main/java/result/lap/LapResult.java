@@ -110,7 +110,7 @@ public class LapResult{
   // Reads endtimes from a file, and adds the end times for the respective driver number
   // If we have not seen this drivernumber so far, we create a new driver
   public void readEndTimes() {
-    for (String endFile : config.getLap().getEndTimesFiles()) {
+    for (String endFile : config.getLap().getGoalTimesFiles()) {
       readTimes(endFile, false);
     }
   }
