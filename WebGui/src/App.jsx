@@ -69,7 +69,7 @@ function App() {
     } else {
       toast({
         title: 'There was a problem',
-        description: "Name and Start Number cannot be empty",
+        description: "Name cannot be empty",
         status: 'error',
         duration: 9000,
         isClosable: true,
