@@ -11,18 +11,15 @@ import result.config.Config;
 import util.TimeUtils;
 
 public class LapDriver extends AbstractDriver implements Comparable<LapDriver> {
-    private Config config = null;
-    private List<String> startTimes = new ArrayList<>();
     private List<String> lapTimes = new ArrayList<>();
-    private List<String> goalTimes = new ArrayList<>(); 
-    private String name = missing;
-    private String driverNumber;
     private int maxLaps = 0;
 
     // När man hittar ett drivernumber man inte sett innan skapar man en ny
     // lapDriver
     public LapDriver(String driverNumber, Config config) {
         super(driverNumber, config);
+        this.driverNumber = driverNumber;
+        this.config = config;
     }
 
     public int getAmountOfLaps() {

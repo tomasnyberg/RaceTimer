@@ -3,6 +3,7 @@ package result.lap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import result.AbstractDriver;
 import result.config.Config;
 import result.config.Lap;
 
@@ -14,16 +15,16 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestLapDriver {
   private LapDriver driver;
   private String driverNumber;
-  String startTime = "../Acceptanstester/V/1/input/starttider.txt";
-  List<String> GoalTimes = new ArrayList<>();
+  String startTime = "../Acceptanstester/V/2/input/starttider.txt";
+  List<String> goalTimes = new ArrayList<>();
   Config config;
 
   @BeforeEach
   public void setup() {
-    GoalTimes.add("../Acceptanstester/V/2/input/maltider1.txt");
-    GoalTimes.add("../Acceptanstester/V/2/input/maltider2.txt");
+    goalTimes.add("../Acceptanstester/V/2/input/maltider1.txt");
+    goalTimes.add("../Acceptanstester/V/2/input/maltider2.txt");
     driverNumber = "1";
-    Lap lap = new Lap("14:59:00", false, "00:15:00", "01:00:00", startTime, GoalTimes);
+    Lap lap = new Lap("14:59:00", false, "00:15:00", "01:00:00", startTime, goalTimes);
     config = new Config();
     config.setLap(lap);
     driver = new LapDriver(driverNumber, config);
