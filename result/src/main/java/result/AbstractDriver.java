@@ -23,7 +23,7 @@ public abstract class AbstractDriver {
     protected List<String> goalTimes = new ArrayList<>();
     protected String name = missing;
     protected String driverNumber;
-    protected int maxLaps = 0;
+    //protected int maxLaps = 0;
 
 
     public AbstractDriver(String driverNumber, Config config) {
