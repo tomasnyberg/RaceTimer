@@ -1,0 +1,10 @@
+Coolt race - 8 feb 2022
+
+StartNr; Namn; Totaltid; Start; Mål
+1; Anders Asson; 01:23:34; 12:00:00; 13:23:34
+2; Bengt Bsson; --:--:--; 12:01:00; Slut?
+3; Chris Csson; 01:03:06; 12:02:00; 13:05:06
+4; David Dsson; 01:09:07; 12:03:00; 13:12:07
+5; Erik Esson; 00:00:-53; 12:04:00; 12:03:07; Flera starttider? 12:05:00, Flera måltider? 14:04:07, Omöjlig totaltid?
+
+Resultat genererat av Team 05
