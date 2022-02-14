@@ -50,7 +50,8 @@ public abstract class AbstractDriver implements Comparable<AbstractDriver> {
     // return "--:--:--" if can't calculate
     public String getTotalTime() {
         String totalTime = invalidTime;
-        if (!goalTimes.isEmpty() && !startTimes.isEmpty() && !goalTimeBeforeStartTime()) {
+//        if (!goalTimes.isEmpty() && !startTimes.isEmpty() && !goalTimeBeforeStartTime()) {
+        if (!goalTimes.isEmpty() && !startTimes.isEmpty()) {
             totalTime = duration(startTimes.get(0), goalTimes.get(0));
         }
 
