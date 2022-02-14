@@ -70,25 +70,35 @@ public class LapDriver extends AbstractDriver {
             sb.append(" ");
             sb.append(times.get(i));
         }
-        sb.append(" ");
     }
 
     // Append to the end of the toString, in the last column any errors
     // Example: 3; Chris Csson; 3; 01:03:06; 00:20:00; 00:20:00; 00:23:06; 12:02:00;
     // 12:22:00; 12:42:00; 13:05:06; Flera starttider? 12:05:00
     public String getErrors() {
+
+        boolean first = true;
+
         StringBuilder sb = new StringBuilder();
         if (generateLapTimes().stream().filter(x -> x != "")
                 .anyMatch(x -> x.contains("-")
                         || LocalTime.parse(config.getLap().getMinimumTime()).isAfter(LocalTime.parse(x)))) {
-            sb.append("Omöjlig varvtid? ");
+            if (first)
+                first = false;
+            sb.append("Omöjlig varvtid?");
         }
 
         if (startTimes.size() > 1) {
+            if (first)
+                first = false;
+            else
+                sb.append(ERROR_SEP + " ");
             errorAppender(startTimes, multipleStartTimes, sb);
         }
 
         if (goalTimes.size() > 1) {
+            if (!first)
+                sb.append(ERROR_SEP + " ");
             errorAppender(goalTimes, multipleGoalTimes, sb);
         }
 

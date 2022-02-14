@@ -18,13 +18,13 @@ public abstract class AbstractDriver implements Comparable<AbstractDriver> {
     protected static final String multipleStartTimes = "Flera starttider?";
     protected static final String multipleGoalTimes = "Flera måltider?";
     protected static final String SEP = ";";
+    protected static final String ERROR_SEP = ",";
 
     protected Config config = null;
     protected List<String> startTimes = new ArrayList<>();
     protected List<String> goalTimes = new ArrayList<>();
     protected String name = missing;
     protected String driverNumber;
-
 
     public AbstractDriver(String driverNumber, Config config) {
         this.driverNumber = driverNumber;
@@ -69,7 +69,6 @@ public abstract class AbstractDriver implements Comparable<AbstractDriver> {
         return startTimes.isEmpty() ? missingStartTime : startTimes.get(0);
     }
 
-
     protected String getGoalTime() {
         return (goalTimes.isEmpty()) ? missingGoalTime : goalTimes.get(0);
     }
@@ -77,5 +76,3 @@ public abstract class AbstractDriver implements Comparable<AbstractDriver> {
     public abstract String getErrors();
 
 }
-
-
