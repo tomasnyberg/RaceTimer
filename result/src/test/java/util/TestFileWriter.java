@@ -3,7 +3,6 @@ package util;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import result.config.Config;
-import util.FileWriter;
 
 import java.io.File;
 import java.nio.file.Files;

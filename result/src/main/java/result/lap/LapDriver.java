@@ -1,6 +1,5 @@
 package result.lap;
 
-import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +7,6 @@ import java.util.List;
 
 import result.AbstractDriver;
 import result.config.Config;
-import util.TimeUtils;
 
 public class LapDriver extends AbstractDriver {
     private List<String> lapTimes = new ArrayList<>();

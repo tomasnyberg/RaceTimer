@@ -3,7 +3,6 @@ package result.marathon;
 import result.AbstractDriver;
 import result.AbstractResult;
 import result.config.Config;
-import result.lap.LapDriver;
 import util.FileWriter;
 
 import java.util.ArrayList;
@@ -27,19 +26,19 @@ public class MarathonResult2 extends AbstractResult {
         readEndTimes();
         readNames();
 
-        if(config.isSorting()){
+        if (config.isSorting()) {
             topLine = "Rank; StartNr; Namn; Totaltid; Start; Mål";
             Collections.sort(drivers);
             dumpList.add(topLine);
-            for(int i = 0; i < drivers.size(); i++){
-                String rank = Integer.toString(i+1);
+            for (int i = 0; i < drivers.size(); i++) {
+                String rank = Integer.toString(i + 1);
 
                 dumpList.add(rank + "; " + drivers.get(i).toString());
             }
         } else {
             topLine = "StartNr; Namn; Totaltid; Start; Mål";
             dumpList.add(topLine);
-            for(int i = 0; i < drivers.size(); i++){
+            for (int i = 0; i < drivers.size(); i++) {
                 dumpList.add(drivers.get(i).toString());
             }
         }
@@ -47,7 +46,7 @@ public class MarathonResult2 extends AbstractResult {
         dumpList.add(config.getFooter());
         try {
             FileWriter.dump(config, dumpList);
-        } catch (Exception e){
+        } catch (Exception e) {
             //
         }
     }
@@ -60,7 +59,8 @@ public class MarathonResult2 extends AbstractResult {
         readTimes(config.getMarathon().getStartTimesFile(), true);
     }
 
-    // Reads endtimes from a file, and adds the end times for the respective driver number
+    // Reads endtimes from a file, and adds the end times for the respective driver
+    // number
     // If we have not seen this drivernumber so far, we create a new driver
     public void readEndTimes() {
         readTimes(config.getMarathon().getGoalTimesFile(), false);
