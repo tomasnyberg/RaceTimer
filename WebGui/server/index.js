@@ -15,12 +15,12 @@ app.get('/drivers', (req, res) => {
 })
 
 app.post('/drivers', (req, res) => {
-  const data = req.body
+  const data = {name: req.body.name, startNumber: drivers.length + 1}
   drivers.push(data)
   fs.promises.appendFile(path, `${data.startNumber}; ${data.name}\n`)
     .then(() => console.log("saved driver"))
     .catch((err) => console.error(err))
-  res.status(201).json(drivers)
+  res.status(201).json(data)
 })
 
 app.listen(port, () => {

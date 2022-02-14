@@ -10,7 +10,6 @@ function App() {
 
   const toast = useToast();
   const [name, setName] = useState("");
-  const [startNumber, setStartNumber] = useState();
   const [drivers, setDrivers] = useState([]);
 
   useEffect(() => {
@@ -28,31 +27,28 @@ function App() {
   function handleNameChange(value) {
     setName(value);
   }
-  function handleStartNumberChange(value) {
-    setStartNumber(value);
-  }
 
   function onSubmit(event) {
     event.preventDefault();
-    if (name && startNumber && startNumber > 0) {
+    if (name) {
       const data = {
         name: name,
-        startNumber: startNumber
       }
       fetch('http://localhost:4000/drivers', { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }, 
         body: JSON.stringify(data)
-      }).then(() => {
-        setName("");
-        setStartNumber(0);
-        fetchDrivers();
-        toast({
-          title: 'Driver was added',
-          description: `${name} with Start Number: ${startNumber} was registered`,
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
+      }).then((res) => {
+        res.json().then((data) => {
+          setName("");
+          fetchDrivers();
+          toast({
+            title: 'Driver was added',
+            description: `${data.name} with Start Number: ${data.startNumber} was registered`,
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          })
         })
       }).catch((err) => {
         toast({
@@ -81,7 +77,6 @@ function App() {
       <form onSubmit={(event) => onSubmit(event)} style={{ marginBottom: '2rem' }}>
         <VStack spacing="1rem">
         <Input value={name} placeholder="Name" size="lg" onChange={(event) => handleNameChange(event.target.value)} />
-        <Input value={startNumber} size="lg" placeholder="Start Number" type="number" onChange={(event) => handleStartNumberChange(event.target.value)} />
         <Button type="submit" size="lg" colorScheme="yellow">Add Driver</Button>
         </VStack>
       </form>
