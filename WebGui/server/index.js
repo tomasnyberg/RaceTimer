@@ -4,18 +4,18 @@ const cors = require('cors')
 const app = express()
 const port = 4000
 const pathDrivers = 'drivers.txt'
-const pathResult = 'resultLap.txt'
+const pathResult = 'resultatMarathon.txt'
 
 app.use(cors())
 app.use(express.json())
 
 const drivers = []
 const result = []
-let resultHeaders = []
+let resultHeader = []
 
 app.get('/results', async (req, res) => {
   await readResultFile();
-  res.status(200).json({headers: resultHeaders, results:result});
+  res.status(200).json({header: resultHeader, results:result});
 })
 
 app.get('/drivers', (req, res) => {
@@ -25,7 +25,7 @@ app.get('/drivers', (req, res) => {
 app.post('/drivers', (req, res) => {
   const data = {name: req.body.name, startNumber: drivers.length + 1}
   drivers.push(data)
-  fs.promises.appendFile(path, `${data.startNumber}; ${data.name}\n`)
+  fs.promises.appendFile(pathDrivers, `${data.startNumber}; ${data.name}\n`)
     .then(() => console.log("saved driver"))
     .catch((err) => console.error(err))
   res.status(201).json(data)
@@ -63,12 +63,12 @@ function createAndLoadFile() {
 
 async function readResultFile(){
   result.splice(0, result.length);
-  resultHeaders.splice(0, resultHeaders.length);
+  resultHeader.splice(0, resultHeader.length);
   if (fs.existsSync(pathResult)) {
     const contents = await fs.promises.readFile(pathResult, "utf-8")
     contents.split(/\r?\n/).forEach((line, index) => {
       if(index === 2){
-        resultHeaders = resultHeaders.concat(line.split("; "));
+        resultHeader = resultHeader.concat(line.split("; "));
       }
       if (index > 2 && index < (contents.split(/\r?\n/).length - 2) && line !== "") {
         result.push(line.split("; "));
