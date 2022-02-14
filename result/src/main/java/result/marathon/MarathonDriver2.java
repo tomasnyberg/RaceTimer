@@ -3,6 +3,8 @@ package result.marathon;
 import result.AbstractDriver;
 import result.config.Config;
 
+import java.time.LocalTime;
+
 public class MarathonDriver2 extends AbstractDriver {
 
     public MarathonDriver2(String driverNumber, Config config) {
@@ -11,6 +13,37 @@ public class MarathonDriver2 extends AbstractDriver {
 
     @Override
     protected String getErrors() {
-        return null;
+        StringBuilder sb =  new StringBuilder();
+        if (
+                generateLapTimes().stream().filter(x -> x != "")
+                        .anyMatch(x -> LocalTime.parse(config.getLap().getMinimumTime()).isAfter(LocalTime.parse(x)))
+        ) {
+            sb.append("Omöjlig varvtid? ");
+        }
+
+        if (startTimes.size() > 1){
+            sb.append(multipleStartTimes);
+            for (int i = 1; i<startTimes.size(); ++i){
+                sb.append(" ");
+                sb.append(startTimes.get(i));
+            }
+            sb.append(" ");
+        }
+
+        if (goalTimes.size() > 1){
+            sb.append(multipleGoalTimes);
+            for (int i = 1; i < goalTimes.size(); ++i){
+                sb.append(" ");
+                sb.append(goalTimes.get(i));
+            }
+            sb.append(" ");
+        }
+
+        return sb.toString().trim();
+    }
+
+    @Override
+    public String toString() {
+        return "";
     }
 }

@@ -10,19 +10,19 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractDriver {
-    private static final String missing = "MISSING";
-    private static final String invalidTime = "--:--:--";
-    private static final String missingStartTime = "Start?";
-    private static final String missingEndTime = "Slut?";
-    private static final String multipleStartTimes = "Flera starttider?";
-    private static final String SEP = ";";
+    protected static final String missing = "MISSING";
+    protected static final String invalidTime = "--:--:--";
+    protected static final String missingStartTime = "Start?";
+    protected static final String missingEndTime = "Slut?";
+    protected static final String multipleStartTimes = "Flera starttider?";
+    protected static final String SEP = ";";
 
-    private Config config = null;
-    private List<String> startTimes = new ArrayList<>();
-    private List<String> endTimes = new ArrayList<>();
-    private String name = missing;
-    private String driverNumber;
-    private int maxLaps = 0;
+    protected Config config = null;
+    protected List<String> startTimes = new ArrayList<>();
+    protected List<String> endTimes = new ArrayList<>();
+    protected String name = missing;
+    protected String driverNumber;
+    protected int maxLaps = 0;
 
 
     public AbstractDriver(String driverNumber, Config config) {
