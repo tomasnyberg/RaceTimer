@@ -4,6 +4,7 @@
 
 # Start Node
 # dependencies
+WebGui/drivers.txt
 WebGui/node_modules
 WebGui/.pnp
 .pnp.js
