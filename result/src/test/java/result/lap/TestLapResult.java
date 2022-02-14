@@ -2,6 +2,7 @@ package result.lap;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import result.AbstractDriver;
 import result.config.Config;
 import result.config.Lap;
 
@@ -11,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestLapResult {
-  LapResult lr;
+  private LapResult lr;
   Config config;
   String startTime = "../Acceptanstester/V/1/input/starttider.txt";
   List<String> endTimes = new ArrayList<>();
@@ -51,7 +52,7 @@ public class TestLapResult {
     assertEquals(5, lr.drivers.size());
     lr.readStartTimes();
     lr.readEndTimes();
-    for (LapDriver vd : lr.drivers) {
+    for (AbstractDriver vd : lr.drivers) {
       System.out.println(vd.toString());
     }
   }
