@@ -3,7 +3,7 @@ package result.config;
 public class Marathon {
     private String minimumTime;
     private String startTimesFile;
-    private String endTimesFile;
+    private String goalTimesFile;
 
     public Marathon() {
       super();
@@ -12,15 +12,15 @@ public class Marathon {
     public Marathon(String minimumTime, String startTimesFile, String endTimesFile) {
       this.minimumTime = minimumTime;
       this.startTimesFile = startTimesFile;
-      this.endTimesFile = endTimesFile;
+      this.goalTimesFile = goalTimesFile;
     }
 
     public String getEndTimesFile() {
-      return endTimesFile;
+      return goalTimesFile;
     }
 
     public void setEndTimesFile(String endTimesFile) {
-      this.endTimesFile = endTimesFile;
+      this.goalTimesFile = goalTimesFile;
     }
 
     public String getStartTimesFile() {

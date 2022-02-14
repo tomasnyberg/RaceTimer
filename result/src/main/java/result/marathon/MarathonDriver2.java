@@ -6,6 +6,7 @@ import result.config.Config;
 import java.time.LocalTime;
 
 public class MarathonDriver2 extends AbstractDriver {
+    protected static final String multipleEndTimes = "Flera måltider?";
 
     public MarathonDriver2(String driverNumber, Config config) {
         super(driverNumber, config);
@@ -14,12 +15,6 @@ public class MarathonDriver2 extends AbstractDriver {
     @Override
     protected String getErrors() {
         StringBuilder sb =  new StringBuilder();
-        if (
-                generateLapTimes().stream().filter(x -> x != "")
-                        .anyMatch(x -> LocalTime.parse(config.getLap().getMinimumTime()).isAfter(LocalTime.parse(x)))
-        ) {
-            sb.append("Omöjlig varvtid? ");
-        }
 
         if (startTimes.size() > 1){
             sb.append(multipleStartTimes);
@@ -30,11 +25,11 @@ public class MarathonDriver2 extends AbstractDriver {
             sb.append(" ");
         }
 
-        if (goalTimes.size() > 1){
-            sb.append(multipleGoalTimes);
-            for (int i = 1; i < goalTimes.size(); ++i){
+        if (endTimes.size() > 1){
+            sb.append(multipleEndTimes);
+            for (int i = 1; i < endTimes.size(); ++i){
                 sb.append(" ");
-                sb.append(goalTimes.get(i));
+                sb.append(endTimes.get(i));
             }
             sb.append(" ");
         }
