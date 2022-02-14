@@ -1,6 +1,6 @@
 package result;
 
-import result.Varvlopp.VarvloppDriver;
+import result.lap.LapDriver;
 import result.config.Config;
 
 import java.io.BufferedReader;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractResult {
-    public List<VarvloppDriver> drivers;
+    public List<AbstractDriver> drivers;
     private Config config;
 
     public AbstractResult(Config config){
