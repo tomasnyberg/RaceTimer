@@ -1,4 +1,4 @@
-package result.Varvlopp;
+package result.lap;
 
 import result.config.Config;
 
@@ -9,12 +9,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import util.FileWriter;
 
-public class VarvloppResult{
-    public List<VarvloppDriver> drivers;
+public class LapResult{
+    public List<LapDriver> drivers;
     private Config config;
 
 
-  public VarvloppResult(Config config) {
+  public LapResult(Config config) {
     this.drivers = new ArrayList<>();
     this.config = config;
   }
@@ -24,9 +24,9 @@ public class VarvloppResult{
   // Takes in a config class (TODO) where we get the file paths etc.
   public void generateResult() {
       readEndTimes();
-      if(config.getVarv().getMassStart()){
-          for(VarvloppDriver d: drivers){
-              d.addStartTime(config.getVarv().getTimeForMassStart());
+      if(config.getLap().getMassStart()){
+          for(LapDriver d: drivers){
+              d.addStartTime(config.getLap().getTimeForMassStart());
           }
       } else {
           readStartTimes();
@@ -36,10 +36,10 @@ public class VarvloppResult{
           Collections.sort(drivers);
       }
       int max = 0;
-      for(VarvloppDriver d: drivers){
+      for(LapDriver d: drivers){
           max = Math.max(d.getAmountOfLaps(), max);
       }
-      for(VarvloppDriver d: drivers){
+      for(LapDriver d: drivers){
         d.setMaxLaps(max);
       }
       List<String> dumpList = new ArrayList<>();
@@ -55,7 +55,7 @@ public class VarvloppResult{
       }
       topLine += "Mål";
       dumpList.add(topLine);
-      for(VarvloppDriver d: drivers){
+      for(LapDriver d: drivers){
         dumpList.add(d.toString());
       }
       dumpList.add("");
@@ -89,7 +89,7 @@ public class VarvloppResult{
         }
       }
       if (!found) {
-        VarvloppDriver driver = new VarvloppDriver(driverNumber, config);
+        LapDriver driver = new LapDriver(driverNumber, config);
         if (start) {
           driver.addStartTime(time);
         } else {
@@ -104,13 +104,13 @@ public class VarvloppResult{
   // number
   // If we have not seen this drivernumber so far, we create a new driver
   public void readStartTimes() {
-    readTimes(config.getVarv().getStartTimesFile(), true);
+    readTimes(config.getLap().getStartTimesFile(), true);
   }
 
   // Reads endtimes from a file, and adds the end times for the respective driver number
   // If we have not seen this drivernumber so far, we create a new driver
   public void readEndTimes() {
-    for (String endFile : config.getVarv().getEndTimesFiles()) {
+    for (String endFile : config.getLap().getEndTimesFiles()) {
       readTimes(endFile, false);
     }
   }
@@ -132,7 +132,7 @@ public class VarvloppResult{
         }
       }
       if (!found) {
-        VarvloppDriver driver = new VarvloppDriver(driverNumber, config);
+        LapDriver driver = new LapDriver(driverNumber, config);
         driver.setName(name);
         drivers.add(driver);
       }

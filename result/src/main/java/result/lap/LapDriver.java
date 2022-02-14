@@ -121,7 +121,7 @@ public class LapDriver implements Comparable<LapDriver> {
         StringBuilder sb =  new StringBuilder();
         if (
             generateLapTimes().stream().filter(x -> x != "")
-                .anyMatch(x -> LocalTime.parse(config.getVarv().getMinimumTime()).isAfter(LocalTime.parse(x)))
+                .anyMatch(x -> LocalTime.parse(config.getLap().getMinimumTime()).isAfter(LocalTime.parse(x)))
             ) {
             sb.append("Omöjlig varvtid? ");
         }
