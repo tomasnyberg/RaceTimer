@@ -31,11 +31,11 @@ public class LapDriver extends AbstractDriver {
         this.maxLaps = max;
     }
 
-    public void addGoalTime(String endTime) {
-        if (LocalTime.parse(endTime).isAfter(LocalTime.parse(config.getLap().getRaceEndTime())))
-            goalTimes.add(endTime);
+    public void addGoalTime(String goalTime) {
+        if (!LocalTime.parse(config.getLap().getRaceEndTime()).isAfter(LocalTime.parse(goalTime)))
+            goalTimes.add(goalTime);
         else
-            lapTimes.add(endTime);
+            lapTimes.add(goalTime);
     }
 
     private List<String> generateLapTimes() {
@@ -58,15 +58,15 @@ public class LapDriver extends AbstractDriver {
     // Return all the endtimes except for the last one
     private List<String> getLappings() {
         List<String> result = new ArrayList<>(lapTimes);
-        while(result.size() < maxLaps - 1){
+        while (result.size() < maxLaps - 1) {
             result.add("");
         }
         return result;
     }
 
-    private void errorAppender(List<String> times, String errorString, StringBuilder sb){
+    private void errorAppender(List<String> times, String errorString, StringBuilder sb) {
         sb.append(errorString);
-        for (int i = 1; i<times.size(); ++i){
+        for (int i = 1; i < times.size(); ++i) {
             sb.append(" ");
             sb.append(times.get(i));
         }
@@ -77,23 +77,22 @@ public class LapDriver extends AbstractDriver {
     // Example: 3; Chris Csson; 3; 01:03:06; 00:20:00; 00:20:00; 00:23:06; 12:02:00;
     // 12:22:00; 12:42:00; 13:05:06; Flera starttider? 12:05:00
     public String getErrors() {
-        StringBuilder sb =  new StringBuilder();
-        if (
-            generateLapTimes().stream().filter(x -> x != "")
-                .anyMatch(x -> LocalTime.parse(config.getLap().getMinimumTime()).isAfter(LocalTime.parse(x)))
-            ) {
+        StringBuilder sb = new StringBuilder();
+        if (generateLapTimes().stream().filter(x -> x != "")
+                .anyMatch(x -> x.contains("-")
+                        || LocalTime.parse(config.getLap().getMinimumTime()).isAfter(LocalTime.parse(x)))) {
             sb.append("Omöjlig varvtid? ");
         }
-        
-        if (startTimes.size() > 1){
+
+        if (startTimes.size() > 1) {
             errorAppender(startTimes, multipleStartTimes, sb);
         }
-        
-        if (goalTimes.size() > 1){
+
+        if (goalTimes.size() > 1) {
             errorAppender(goalTimes, multipleGoalTimes, sb);
         }
 
-        return sb.toString().trim();  
+        return sb.toString().trim();
     }
 
     /*
@@ -126,11 +125,13 @@ public class LapDriver extends AbstractDriver {
 
     @Override
     public int compareTo(AbstractDriver other) {
-        if(getErrors().isBlank() && !other.getErrors().isBlank()) return 1;
+        if (getErrors().isBlank() && !other.getErrors().isBlank())
+            return 1;
 
-        if(!getErrors().isBlank() && other.getErrors().isBlank()) return -1;
+        if (!getErrors().isBlank() && other.getErrors().isBlank())
+            return -1;
 
-        if(getAmountOfLaps() == ((LapDriver) other).getAmountOfLaps()) {
+        if (getAmountOfLaps() == ((LapDriver) other).getAmountOfLaps()) {
             return getTotalTime().compareTo(other.getTotalTime());
         } else {
             return ((Integer) ((LapDriver) other).getAmountOfLaps()).compareTo((Integer) getAmountOfLaps());
