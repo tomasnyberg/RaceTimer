@@ -158,4 +158,28 @@ public class TestVarvloppDriver {
     assertEquals("1; Anton Asson; 3; 02:59:00; 01:00:00; 01:30:00; 00:29:00; ; ; 12:00:00; 13:00:00; 14:30:00; ; ; 14:59:00", driver.toString());
     System.out.println(driver);
   }
+
+  @Test
+  public void testStartTimeAfterEndTime() {
+    driver.setMaxLaps(3);
+    driver.addStartTime("13:15:00");
+    driver.addEndTime("13:00:00");
+    driver.addEndTime("14:30:00");
+    driver.addEndTime("15:00:00");
+    assertEquals("1; MISSING; 3; 01:45:00; 00:-15:00; 01:30:00; 00:30:00; 13:15:00; 13:00:00; 14:30:00; 15:00:00; Omöjlig varvtid?",
+    driver.toString());
+    System.out.println(driver);
+  }
+
+  @Test
+  public void testStartTimeAfterLastEndTime() {
+    driver.setMaxLaps(3);
+    driver.addStartTime("16:15:00");
+    driver.addEndTime("13:00:00");
+    driver.addEndTime("14:30:00");
+    driver.addEndTime("15:00:00");
+    assertEquals("1; MISSING; 3; -1:-15:00; -3:-15:00; 01:30:00; 00:30:00; 16:15:00; 13:00:00; 14:30:00; 15:00:00; Omöjlig varvtid?",
+    driver.toString());
+    System.out.println(driver);
+  }
 }

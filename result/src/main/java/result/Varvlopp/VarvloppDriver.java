@@ -124,7 +124,7 @@ public class VarvloppDriver implements Comparable<VarvloppDriver> {
         StringBuilder sb =  new StringBuilder();
         if (
             generateVarvTimes().stream().filter(x -> x != "")
-                .anyMatch(x -> LocalTime.parse(config.getVarv().getMinimumTime()).isAfter(LocalTime.parse(x)))
+                .anyMatch(x -> x.contains("-") || LocalTime.parse(config.getVarv().getMinimumTime()).isAfter(LocalTime.parse(x)))
             ) {
             sb.append("Omöjlig varvtid? ");
         }
