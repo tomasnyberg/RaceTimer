@@ -10,7 +10,6 @@ import result.config.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 
 /** The main program. TODO! */
 public class ResultProgram {
@@ -46,8 +45,8 @@ public class ResultProgram {
 
     if (config.getType().equals("marathon")) {
       System.out.println("Programmet är inställt för Maraton");
-      MarathonResult2 marathonResult2 = new MarathonResult2(config);
-      marathonResult2.generateResult();
+      MarathonResult marathonResult = new MarathonResult(config);
+      marathonResult.generateResult();
     } else if (config.getType().equals("lap")) {
       System.out.println("Programmet är inställt för Varvlopp");
       LapResult lap = new LapResult(config);

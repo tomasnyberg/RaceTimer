@@ -3,16 +3,15 @@ package result.marathon;
 import result.AbstractDriver;
 import result.AbstractResult;
 import result.config.Config;
-import result.lap.LapDriver;
 import util.FileWriter;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MarathonResult2 extends AbstractResult {
+public class MarathonResult extends AbstractResult {
 
-    public MarathonResult2(Config config) {
+    public MarathonResult(Config config) {
         super(config);
     }
 
@@ -33,7 +32,6 @@ public class MarathonResult2 extends AbstractResult {
             dumpList.add(topLine);
             for(int i = 0; i < drivers.size(); i++){
                 String rank = Integer.toString(i+1);
-
                 dumpList.add(rank + "; " + drivers.get(i).toString());
             }
         } else {
@@ -53,7 +51,7 @@ public class MarathonResult2 extends AbstractResult {
     }
 
     protected AbstractDriver newDriver(String driverNumber, Config config) {
-        return new MarathonDriver2(driverNumber, config);
+        return new MarathonDriver(driverNumber, config);
     }
 
     public void readStartTimes() {

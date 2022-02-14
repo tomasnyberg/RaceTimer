@@ -7,38 +7,43 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarathonDriver2 extends AbstractDriver {
+public class MarathonDriver extends AbstractDriver {
 
     protected static final String impossibleTotalTime = "Omöjlig totaltid?";
 
-    public MarathonDriver2(String driverNumber, Config config) {
+    public MarathonDriver(String driverNumber, Config config) {
         super(driverNumber, config);
     }
 
     @Override
     public String getErrors() {
         StringBuilder sb =  new StringBuilder();
+        boolean first = true;
 
         // Multiple start times
         if (startTimes.size() > 1){
-            System.out.println("hello");
+            if (first)
+                first = false;
+            else
+                sb.append(ERROR_SEP + " ");
+
             sb.append(multipleStartTimes);
             for (int i = 1; i < startTimes.size(); i++){
                 sb.append(" ");
                 sb.append(startTimes.get(i));
             }
-            sb.append(" ");
         }
 
         // Multiple goal times
         if (goalTimes.size() > 1){
-            System.out.println("hello2");
+            if (!first)
+                sb.append(ERROR_SEP + " ");
+
             sb.append(multipleGoalTimes);
             for (int i = 1; i < goalTimes.size(); i++){
                 sb.append(" ");
                 sb.append(goalTimes.get(i));
             }
-            sb.append(" ");
         }
 
         // Impossible total time
@@ -46,8 +51,9 @@ public class MarathonDriver2 extends AbstractDriver {
         LocalTime minimumTime = LocalTime.parse(config.getMarathon().getMinimumTime());
         if (totalTime != invalidTime) {
             if(LocalTime.parse(totalTime).isBefore(minimumTime)) {
+                if (!first)
+                    sb.append(ERROR_SEP + " ");
                 sb.append(impossibleTotalTime);
-                sb.append(" ");
             }
         }
 
@@ -75,15 +81,19 @@ public class MarathonDriver2 extends AbstractDriver {
         // Remove the last separator and space
         String result = sb.substring(0, sb.length() - 2);
         result = result.endsWith("; ") ? result.substring(0, result.length() - 2) : result;
+
+        if (config.isSorting()) {
+            result = result.replace(missingStartTime, invalidTime).replace(missingGoalTime, invalidTime);
+        }
+
         return result;
     }
 
     @Override
     public int compareTo(AbstractDriver other) {
-        if(getErrors().length() == 0 && getErrors().length() != 0) return 1;
-        else if(getErrors().length() != 0 && getErrors().length() == 0) return -1;
-        else if(getErrors().length() != 0 && getErrors().length() != 0) return 0;
+        if(getErrors().length() == 0 && other.getErrors().length() != 0) return -1;
+        else if(getErrors().length() != 0 && other.getErrors().length() == 0) return 1;
+        else if(getErrors().length() != 0 && other.getErrors().length() != 0) return 0;
         else return getTotalTime().compareTo(other.getTotalTime());
-
     }
 }
