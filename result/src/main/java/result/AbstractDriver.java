@@ -6,24 +6,23 @@ import util.TimeUtils;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractDriver {
-    private static final String missing = "MISSING";
-    private static final String invalidTime = "--:--:--";
-    private static final String missingStartTime = "Start?";
-    private static final String missingEndTime = "Slut?";
-    private static final String multipleStartTimes = "Flera starttider?";
-    private static final String SEP = ";";
+public abstract class AbstractDriver implements Comparable<AbstractDriver> {
+    protected static final String missing = "MISSING";
+    protected static final String invalidTime = "--:--:--";
+    protected static final String missingStartTime = "Start?";
+    protected static final String missingGoalTime = "Slut?";
+    protected static final String multipleStartTimes = "Flera starttider?";
+    protected static final String multipleGoalTimes = "Flera måltider?";
+    protected static final String SEP = ";";
+    protected static final String ERROR_SEP = ",";
 
-    private Config config = null;
-    private List<String> startTimes = new ArrayList<>();
-    private List<String> endTimes = new ArrayList<>();
-    private String name = missing;
-    private String driverNumber;
-    private int maxLaps = 0;
-
+    protected Config config = null;
+    protected List<String> startTimes = new ArrayList<>();
+    protected List<String> goalTimes = new ArrayList<>();
+    protected String name = missing;
+    protected String driverNumber;
 
     public AbstractDriver(String driverNumber, Config config) {
         this.driverNumber = driverNumber;
@@ -43,19 +42,23 @@ public abstract class AbstractDriver {
         startTimes.add(startTime);
     }
 
-    public void addEndTime(String endTime) {
-        endTimes.add(endTime);
+    public void addGoalTime(String goalTime) {
+        goalTimes.add(goalTime);
     }
 
     // return difference between last goaltime and first starttime
     // return "--:--:--" if can't calculate
-    protected String getTotalTime() {
+    public String getTotalTime() {
         String totalTime = invalidTime;
-        if (!endTimes.isEmpty() && !startTimes.isEmpty()) {
-            totalTime = duration(startTimes.get(0), endTimes.get(endTimes.size() - 1));
+        if (!goalTimes.isEmpty() && !startTimes.isEmpty() && !goalTimeBeforeStartTime()) {
+            totalTime = duration(startTimes.get(0), goalTimes.get(0));
         }
 
         return totalTime;
+    }
+
+    protected boolean goalTimeBeforeStartTime() {
+        return LocalTime.parse(getGoalTime()).isBefore(LocalTime.parse(getStartTime()));
     }
 
     protected String duration(String start, String end) {
@@ -68,14 +71,16 @@ public abstract class AbstractDriver {
         return startTimes.isEmpty() ? missingStartTime : startTimes.get(0);
     }
 
-
     protected String getGoalTime() {
-        return endTimes.isEmpty() ? missingEndTime : endTimes.get(endTimes.size()-1);
+        return (goalTimes.isEmpty()) ? missingGoalTime : goalTimes.get(0);
     }
 
+    public abstract String getErrors();
 
-    protected abstract String getErrors();
+    public boolean isErrors() {
+        return getGoalTime().equals(missingGoalTime) ||
+                getStartTime().equals(missingStartTime) ||
+                !(getErrors().isBlank());
+    }
 
 }
-
-

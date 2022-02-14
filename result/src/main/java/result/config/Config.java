@@ -8,8 +8,8 @@ public class Config {
   private boolean sorting;
   private String resultFile;
   private String nameFile;
-  private Maraton maraton;
-  private Varv varv;
+  private Marathon marathon;
+  private Lap lap;
 
   public Config() {
     super();
@@ -22,32 +22,32 @@ public class Config {
       boolean sorting,
       String resultFile,
       String nameFile,
-      Maraton maraton,
-      Varv varv) {
+      Marathon marathon,
+      Lap lap) {
     this.type = type;
     this.title = title;
     this.footer = footer;
     this.sorting = sorting;
     this.resultFile = resultFile;
     this.nameFile = nameFile;
-    this.maraton = maraton;
-    this.varv = varv;
+    this.marathon = marathon;
+    this.lap = lap;
   }
 
-  public Varv getVarv() {
-    return varv;
+  public Lap getLap() {
+    return lap;
   }
 
-  public void setVarv(Varv varv) {
-    this.varv = varv;
+  public void setLap(Lap lap) {
+    this.lap = lap;
   }
 
-  public Maraton getMaraton() {
-    return maraton;
+  public Marathon getMarathon() {
+    return marathon;
   }
 
-  public void setMaraton(Maraton maraton) {
-    this.maraton = maraton;
+  public void setMarathon(Marathon marathon) {
+    this.marathon = marathon;
   }
 
   public boolean isSorting() {

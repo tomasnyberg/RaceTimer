@@ -1,27 +1,27 @@
-# Type of race. Valid values: varv, maraton
-type: varv
+# Type of race. Valid values: lap, marathon
+type: marathon
 # Title of the race
 title: Coolt race - 8 feb 2022
 # Footer for result file
 footer: Resultat genererat av Team 05
 # True if result file should be sorted according to placement, false if sorting should be disabled
-sorting: false
+sorting: true
 # File path to result file
 resultFile: output/resultat.txt
 # File path to name input file
 nameFile: input/namnfil.txt
 
 # Marathon related configurations
-maraton:
+marathon:
   # Minimum time for marathon race
   minimumTime: 00:15:00
   # File path to start times
   startTimesFile: input/starttider.txt
-  # File path to end times
-  endTimesFile: input/maltider.txt
+  # File path to goal times
+  goalTimesFile: input/maltider1.txt
 
 # Lap race related configurations
-varv:
+lap:
   # Minimum time for one lap
   minimumTime: 00:15:00
   # Mass start enabled
@@ -30,9 +30,9 @@ varv:
   timeForMassStart: 13:00:00
   # File path to start times
   startTimesFile: input/starttider.txt
-  # File path to end times
-  endTimesFiles:
+  # File path to goal times
+  goalTimesFiles:
     - input/maltider1.txt
     - input/maltider2.txt
   # Race end time
-  raceEndTime: 13:00:00
+  raceEndTime: 14:00:00

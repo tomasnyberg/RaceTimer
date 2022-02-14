@@ -1,21 +1,15 @@
 package result;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import result.Varvlopp.VarvloppResult;
-import result.marathon.MarathonResultExporter;
-import result.marathon.MarathonResultSorter;
-import result.marathon.MarathonResult;
+import result.lap.LapResult;
+import result.marathon.*;
 import result.config.*;
-import result.marathon.MarathonFileReader;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-import java.time.LocalTime;
 
 /** The main program. TODO! */
 public class ResultProgram {
@@ -26,7 +20,7 @@ public class ResultProgram {
 
     if (args.length > 0) {
       try {
-        config.setMaraton(new Maraton(args[0], args[2], args[3]));
+        config.setMarathon(new Marathon(args[0], args[2], args[3]));
         config.setNameFile(args[1]);
         config.setResultFile(args[4]);
         config.setSorting(args[5].equals("true"));
@@ -49,23 +43,14 @@ public class ResultProgram {
       }
     }
 
-    if (config.getType().equals("maraton")) {
-      System.out.println("Programmet är inställt för Maraton");
-      List<MarathonResult> fileResults = MarathonFileReader.result(
-          config.getNameFile(),
-          config.getMaraton().getStartTimesFile(),
-          config.getMaraton().getEndTimesFile(),
-          config.getMaraton().getMinimumTime());
-      fileResults = new MarathonResultSorter().sortResults(fileResults);
-      try {
-        MarathonResultExporter.export(config, fileResults);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    } else if (config.getType().equals("varv")) {
+    if (config.getType().equals("marathon")) {
+      System.out.println("Programmet är inställt för Marathon");
+      MarathonResult marathonResult = new MarathonResult(config);
+      marathonResult.generateResult();
+    } else if (config.getType().equals("lap")) {
       System.out.println("Programmet är inställt för Varvlopp");
-      VarvloppResult varvlopp = new VarvloppResult(config);
-      varvlopp.generateResult();
+      LapResult lap = new LapResult(config);
+      lap.generateResult();
     } else {
       System.out.println("Ingen accepterad programtyp är vald");
     }

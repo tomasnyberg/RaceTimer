@@ -1,7 +1,5 @@
 package register;
 
-import result.TimeEntry;
-import result.marathon.MarathonResultRow;
 import util.TimeUtils;
 
 import javax.swing.table.AbstractTableModel;
@@ -9,14 +7,14 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarathonTableModel extends AbstractTableModel {
+public class DataTableModel extends AbstractTableModel {
     private String[] columnNames = {
             "Startnummer",
             "Tid",
     };
     private List<TimeEntry> data = new ArrayList<>();
 
-    public MarathonTableModel() {}
+    public DataTableModel() {}
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
