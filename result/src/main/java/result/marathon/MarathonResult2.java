@@ -44,8 +44,6 @@ public class MarathonResult2 extends AbstractResult {
         } catch (Exception e){
             //
         }
-
-    }
     }
 
     @Override
@@ -54,12 +52,17 @@ public class MarathonResult2 extends AbstractResult {
     }
 
     @Override
-    protected void readEndTimes() {
+    protected void readStartTimes() {
 
     }
 
     @Override
-    protected void readNames(String nameFile) {
+    protected void readEndTimes() {
 
     }
+
+    protected AbstractDriver newDriver(String driverNumber, Config config) {
+        return new MarathonDriver2(driverNumber, config);
+    }
+
 }

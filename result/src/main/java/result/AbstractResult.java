@@ -34,7 +34,29 @@ public abstract class AbstractResult {
 
     // Reads names from a file
     // If we have not seen this drivernumber so far, we create a new driver
-    protected abstract void readNames();
+    protected abstract void readNames() {
+        List<String> lines = readFile(config.getNameFile());
+        for (int i = 1; i < lines.size(); i++) {
+            String[] split = lines.get(i).split("; ");
+            String driverNumber = split[0];
+            String name = split[1];
+            boolean found = false;
+            for (int j = 0; j < drivers.size(); j++) {
+                if (drivers.get(j).getDriverNumber().equals(driverNumber)) {
+                    found = true;
+                    drivers.get(j).setName(name);
+                    break;
+                }
+            }
+            if (!found) {
+                AbstractDriver driver = newDriver(driverNumber, config);
+                driver.setName(name);
+                drivers.add(driver);
+            }
+        }
+    }
+
+    protected abstract AbstractDriver newDriver(String driverNumber, Config config);
 
     protected List<String> readFile(String path) {
         try {
