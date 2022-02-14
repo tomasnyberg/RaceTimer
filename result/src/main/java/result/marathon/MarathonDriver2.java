@@ -5,7 +5,6 @@ import result.config.Config;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MarathonDriver2 extends AbstractDriver {
@@ -55,28 +54,25 @@ public class MarathonDriver2 extends AbstractDriver {
 
     @Override
     public String toString() {
-//        List<String> columns;
-//        if (config.isSorting()) {
-//            columns = new ArrayList<>(
-//                    Arrays.asList(
-//                            driverNumber, name, getTotalTime()));
-//        } else {
-//
-//        }
-//
-//        columns.add(getStartTime());
-//        columns.add(getGoalTime());
-//        columns.add(getErrors());
-//
-//        StringBuilder sb = new StringBuilder();
-//        for (var column : columns) {
-//            sb.append(column).append(SEP).append(' ');
-//        }
-//
-//        // Remove the last separator and space
-//        String result = sb.substring(0, sb.length() - 2);
-//        result = result.endsWith("; ") ? result.substring(0, result.length() - 2) : result;
-//        return result;
-        return "";
+        List<String> columns = new ArrayList<>();
+        columns.add(driverNumber);
+        columns.add(name);
+        columns.add(getTotalTime());
+        columns.add(getStartTime());
+        columns.add(getGoalTime());
+
+        if (!config.isSorting()) {
+            columns.add(getErrors());
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (String column : columns) {
+            sb.append(column).append(SEP).append(' ');
+        }
+
+        // Remove the last separator and space
+        String result = sb.substring(0, sb.length() - 2);
+        result = result.endsWith("; ") ? result.substring(0, result.length() - 2) : result;
+        return result;
     }
 }
