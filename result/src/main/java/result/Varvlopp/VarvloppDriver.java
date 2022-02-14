@@ -17,6 +17,7 @@ public class VarvloppDriver implements Comparable<VarvloppDriver> {
     private static final String multipleStartTimes = "Flera starttider?";
     private static final String multipleGoalTimes = "Flera måltider?";
     private static final String SEP = ";";
+    private static final String ERROR_SEPARATOR = ",";
 
     private Config config = null;
     private List<String> startTimes = new ArrayList<>();
@@ -121,30 +122,33 @@ public class VarvloppDriver implements Comparable<VarvloppDriver> {
     // Example: 3; Chris Csson; 3; 01:03:06; 00:20:00; 00:20:00; 00:23:06; 12:02:00;
     // 12:22:00; 12:42:00; 13:05:06; Flera starttider? 12:05:00
     private String getErrors() {
+        boolean first = true;
         StringBuilder sb =  new StringBuilder();
         if (
             generateVarvTimes().stream().filter(x -> x != "")
                 .anyMatch(x -> x.contains("-") || LocalTime.parse(config.getVarv().getMinimumTime()).isAfter(LocalTime.parse(x)))
             ) {
-            sb.append("Omöjlig varvtid? ");
+            if(first) first = false;
+            sb.append("Omöjlig varvtid?");
         }
         
         if (startTimes.size() > 1){
+            if(first) first = false;
+            else sb.append(ERROR_SEPARATOR + " ");
             sb.append(multipleStartTimes);
             for (int i = 1; i<startTimes.size(); ++i){
                 sb.append(" ");
                 sb.append(startTimes.get(i));
             }
-            sb.append(" ");
         }
         
         if (goalTimes.size() > 1){
+            if(!first) sb.append(ERROR_SEPARATOR + " ");
             sb.append(multipleGoalTimes);
             for (int i = 1; i < goalTimes.size(); ++i){
                 sb.append(" ");
                 sb.append(goalTimes.get(i));
             }
-            sb.append(" ");
         }
 
         return sb.toString().trim();  
