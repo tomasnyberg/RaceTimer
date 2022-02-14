@@ -1,7 +1,7 @@
 import React from 'react'
-import { HStack, IconButton, Container, useColorMode, Link as CLink, useColorModeValue } from '@chakra-ui/react'
+import { HStack, IconButton, Container, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import {SunIcon, MoonIcon} from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Layout({children}) {
   const { toggleColorMode } = useColorMode()
@@ -11,8 +11,16 @@ export default function Layout({children}) {
       <Container maxW='container.xl' paddingY="1rem">
         <HStack justify="space-between" alignItems="center">
           <HStack spacing="2rem">
-            <Link to="/">Result</Link>
-            <Link to="/registration">Registration</Link>
+            <NavLink style={({ isActive }) => {
+              return {
+                textDecoration: isActive ? 'underline' : 'none'
+              };
+            }} to="/">Result</NavLink>
+            <NavLink style={({ isActive }) => {
+              return {
+                textDecoration: isActive ? 'underline' : 'none'
+              };
+            }} to="/registration">Registration</NavLink>
           </HStack>
           <IconButton icon={icon} onClick={toggleColorMode} />
         </HStack>
