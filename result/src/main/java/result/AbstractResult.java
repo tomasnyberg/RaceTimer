@@ -10,7 +10,7 @@ import java.util.List;
 
 public abstract class AbstractResult {
     public List<AbstractDriver> drivers;
-    private Config config;
+    protected Config config;
 
     public AbstractResult(Config config){
         this.drivers = new ArrayList<>();
@@ -25,19 +25,16 @@ public abstract class AbstractResult {
 
     // Reads starttimes from a starttimefile, and sets the start times for the respective driver number
     // If we have not seen this drivernumber so far, we create a new driver
-    protected void readStartTimes(String startTimeFile){
-        readTimes(startTimeFile, true);
-    }
+    protected abstract void readStartTimes();
 
     // Reads endtimes from a file, and adds the end times for the respective driver number
     // If we have not seen this drivernumber so far, we create a new driver
-    protected void readEndTimes(String endTimeFile){
-        readTimes(endTimeFile, false);
-    }
+    protected abstract void readEndTimes();
+
 
     // Reads names from a file
     // If we have not seen this drivernumber so far, we create a new driver
-    protected abstract void readNames(String nameFile);
+    protected abstract void readNames();
 
     protected List<String> readFile(String path) {
         try {
