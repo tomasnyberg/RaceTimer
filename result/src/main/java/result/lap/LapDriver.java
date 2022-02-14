@@ -23,12 +23,6 @@ public class LapDriver extends AbstractDriver implements Comparable<LapDriver> {
     // lapDriver
     public LapDriver(String driverNumber, Config config) {
         super(driverNumber, config);
-        this.driverNumber = driverNumber;
-        this.config = config;
-    }
-
-    public String getDriverNumber() {
-        return this.driverNumber;
     }
 
     public int getAmountOfLaps() {
@@ -40,37 +34,11 @@ public class LapDriver extends AbstractDriver implements Comparable<LapDriver> {
         this.maxLaps = max;
     }
 
-    // Set the name of this driver, match drivers with drivernumber
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void addStartTime(String startTime) {
-        startTimes.add(startTime);
-    }
-
-    public void addEndTime(String endTime) {
+    public void addGoalTime(String endTime) {
         if (LocalTime.parse(endTime).isAfter(LocalTime.parse(config.getLap().getRaceEndTime())))
             goalTimes.add(endTime);
         else
             lapTimes.add(endTime);
-    }
-
-    // return difference between last goaltime and first starttime
-    // return "--:--:--" if can't calculate
-    protected String getTotalTime() {
-        String totalTime = invalidTime;
-        if (!goalTimes.isEmpty() && !startTimes.isEmpty()) {
-            totalTime = duration(startTimes.get(0), goalTimes.get(0));
-        }
-
-        return totalTime;
-    }
-
-    protected String duration(String start, String end) {
-        LocalTime st = LocalTime.parse(start);
-        LocalTime en = LocalTime.parse(end);
-        return TimeUtils.formatTime(Duration.between(st, en));
     }
 
     private List<String> generateLapTimes() {
@@ -90,10 +58,6 @@ public class LapDriver extends AbstractDriver implements Comparable<LapDriver> {
         return result;
     }
 
-    protected String getStartTime() {
-        return startTimes.isEmpty() ? missingStartTime : startTimes.get(0);
-    }
-
     // Return all the endtimes except for the last one
     private List<String> getLappings() {
         List<String> result = new ArrayList<>(lapTimes);
@@ -103,9 +67,6 @@ public class LapDriver extends AbstractDriver implements Comparable<LapDriver> {
         return result;
     }
 
-    protected String getGoalTime() {
-        return (goalTimes.isEmpty()) ? missingGoalTime : goalTimes.get(0);
-    }
     private void errorAppender(List<String> times, String errorString, StringBuilder sb){
         sb.append(errorString);
         for (int i = 1; i<times.size(); ++i){
@@ -114,7 +75,7 @@ public class LapDriver extends AbstractDriver implements Comparable<LapDriver> {
         }
         sb.append(" ");
     }
-    // V4 TODO
+
     // Append to the end of the toString, in the last column any errors
     // Example: 3; Chris Csson; 3; 01:03:06; 00:20:00; 00:20:00; 00:23:06; 12:02:00;
     // 12:22:00; 12:42:00; 13:05:06; Flera starttider? 12:05:00

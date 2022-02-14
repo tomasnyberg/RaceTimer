@@ -71,7 +71,7 @@ public abstract class AbstractDriver {
 
 
     protected String getGoalTime() {
-        return goalTimes.isEmpty() ? missingGoalTime : goalTimes.get(goalTimes.size()-1);
+        return (goalTimes.isEmpty()) ? missingGoalTime : goalTimes.get(0);
     }
 
 

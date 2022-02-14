@@ -82,7 +82,7 @@ public class LapResult{
           if (start) {
             drivers.get(i).addStartTime(time);
           } else {
-            drivers.get(i).addEndTime(time);
+            drivers.get(i).addGoalTime(time);
           }
           found = true;
           break;
@@ -93,7 +93,7 @@ public class LapResult{
         if (start) {
           driver.addStartTime(time);
         } else {
-          driver.addEndTime(time);
+          driver.addGoalTime(time);
         }
         drivers.add(driver);
       }
@@ -110,7 +110,7 @@ public class LapResult{
   // Reads endtimes from a file, and adds the end times for the respective driver number
   // If we have not seen this drivernumber so far, we create a new driver
   public void readEndTimes() {
-    for (String endFile : config.getLap().getEndTimesFiles()) {
+    for (String endFile : config.getLap().getGoalTimesFiles()) {
       readTimes(endFile, false);
     }
   }
