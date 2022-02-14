@@ -1,26 +1,26 @@
 package result.config;
 
-public class Maraton {
+public class Marathon {
     private String minimumTime;
     private String startTimesFile;
-    private String endTimesFile;
+    private String goalTimesFile;
 
-    public Maraton() {
+    public Marathon() {
       super();
     }
 
-    public Maraton(String minimumTime, String startTimesFile, String endTimesFile) {
+    public Marathon(String minimumTime, String startTimesFile, String goalTimesFile) {
       this.minimumTime = minimumTime;
       this.startTimesFile = startTimesFile;
-      this.endTimesFile = endTimesFile;
+      this.goalTimesFile = goalTimesFile;
     }
 
-    public String getEndTimesFile() {
-      return endTimesFile;
+    public String getGoalTimesFile() {
+      return goalTimesFile;
     }
 
-    public void setEndTimesFile(String endTimesFile) {
-      this.endTimesFile = endTimesFile;
+    public void setGoalTimesFile(String goalTimesFile) {
+      this.goalTimesFile = goalTimesFile;
     }
 
     public String getStartTimesFile() {

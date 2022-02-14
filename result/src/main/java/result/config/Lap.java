@@ -2,31 +2,31 @@ package result.config;
 
 import java.util.List;
 
-public class Varv {
+public class Lap {
   private String raceEndTime;
   private boolean massStart;
   private String minimumTime;
   private String timeForMassStart;
   private String startTimesFile;
-  private List<String> endTimesFiles;
+  private List<String> goalTimesFiles;
 
-  public Varv() {
+  public Lap() {
     super();
   }
 
-  public Varv(
+  public Lap(
       String raceEndTime,
       boolean massStart,
       String minimumTime,
       String timeForMassStart,
       String startTimesFile,
-      List<String> endTimesFiles) {
+      List<String> goalTimesFiles) {
     this.raceEndTime = raceEndTime;
     this.massStart = massStart;
     this.minimumTime = minimumTime;
     this.timeForMassStart = timeForMassStart;
     this.startTimesFile = startTimesFile;
-    this.endTimesFiles = endTimesFiles;
+    this.goalTimesFiles = goalTimesFiles;
   }
 
   public String getRaceEndTime() {
@@ -61,12 +61,12 @@ public class Varv {
     this.timeForMassStart = timeForMassStart;
   }
 
-  public List<String> getEndTimesFiles() {
-    return endTimesFiles;
+  public List<String> getGoalTimesFiles() {
+    return goalTimesFiles;
   }
 
-  public void setEndTimesFiles(List<String> endTimesFiles) {
-    this.endTimesFiles = endTimesFiles;
+  public void setGoalTimesFiles(List<String> goalTimesFiles) {
+    this.goalTimesFiles = goalTimesFiles;
   }
 
   public String getStartTimesFile() {
