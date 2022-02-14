@@ -82,7 +82,7 @@ public class LapResult{
           if (start) {
             drivers.get(i).addStartTime(time);
           } else {
-            drivers.get(i).addEndTime(time);
+            drivers.get(i).addGoalTime(time);
           }
           found = true;
           break;
@@ -93,7 +93,7 @@ public class LapResult{
         if (start) {
           driver.addStartTime(time);
         } else {
-          driver.addEndTime(time);
+          driver.addGoalTime(time);
         }
         drivers.add(driver);
       }

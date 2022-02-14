@@ -44,8 +44,8 @@ public abstract class AbstractDriver {
         startTimes.add(startTime);
     }
 
-    public void addGoalTime(String endTime) {
-        goalTimes.add(endTime);
+    public void addGoalTime(String goalTime) {
+        goalTimes.add(goalTime);
     }
 
     // return difference between last goaltime and first starttime
@@ -53,7 +53,7 @@ public abstract class AbstractDriver {
     protected String getTotalTime() {
         String totalTime = invalidTime;
         if (!goalTimes.isEmpty() && !startTimes.isEmpty()) {
-            totalTime = duration(startTimes.get(0), goalTimes.get(goalTimes.size() - 1));
+            totalTime = duration(startTimes.get(0), goalTimes.get(0));
         }
 
         return totalTime;
@@ -71,7 +71,7 @@ public abstract class AbstractDriver {
 
 
     protected String getGoalTime() {
-        return goalTimes.isEmpty() ? missingGoalTime : goalTimes.get(goalTimes.size()-1);
+        return (goalTimes.isEmpty()) ? missingGoalTime : goalTimes.get(0);
     }
 
 
