@@ -51,7 +51,7 @@ public abstract class AbstractDriver implements Comparable<AbstractDriver> {
 
     // return difference between last goaltime and first starttime
     // return "--:--:--" if can't calculate
-    protected String getTotalTime() {
+    public String getTotalTime() {
         String totalTime = invalidTime;
         if (!goalTimes.isEmpty() && !startTimes.isEmpty()) {
             totalTime = duration(startTimes.get(0), goalTimes.get(0));
@@ -75,12 +75,7 @@ public abstract class AbstractDriver implements Comparable<AbstractDriver> {
         return (goalTimes.isEmpty()) ? missingGoalTime : goalTimes.get(0);
     }
 
-
-    protected abstract String getErrors();
-
-    protected boolean missingStartOrGoal() {
-        return getStartTime().equals(missingStartTime) || getGoalTime().equals(missingGoalTime);
-    }
+    public abstract String getErrors();
 
 }
 

@@ -78,6 +78,10 @@ public class MarathonDriver2 extends AbstractDriver {
 
     @Override
     public int compareTo(AbstractDriver other) {
-        return 0;
+        if(getErrors().length() == 0 && getErrors().length() != 0) return 1;
+        else if(getErrors().length() != 0 && getErrors().length() == 0) return -1;
+        else if(getErrors().length() != 0 && getErrors().length() != 0) return 0;
+        else return getTotalTime().compareTo(other.getTotalTime());
+
     }
 }
