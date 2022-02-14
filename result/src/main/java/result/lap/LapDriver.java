@@ -6,18 +6,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import result.AbstractDriver;
 import result.config.Config;
 import util.TimeUtils;
 
-public class LapDriver implements Comparable<LapDriver> {
-    private static final String missing = "MISSING";
-    private static final String invalidTime = "--:--:--";
-    private static final String missingStartTime = "Start?";
-    private static final String missingEndTime = "Slut?";
-    private static final String multipleStartTimes = "Flera starttider?";
-    private static final String multipleGoalTimes = "Flera måltider?";
-    private static final String SEP = ";";
-
+public class LapDriver extends AbstractDriver implements Comparable<LapDriver> {
     private Config config = null;
     private List<String> startTimes = new ArrayList<>();
     private List<String> lapTimes = new ArrayList<>();
@@ -29,6 +22,7 @@ public class LapDriver implements Comparable<LapDriver> {
     // När man hittar ett drivernumber man inte sett innan skapar man en ny
     // lapDriver
     public LapDriver(String driverNumber, Config config) {
+        super(driverNumber, config);
         this.driverNumber = driverNumber;
         this.config = config;
     }
@@ -64,7 +58,7 @@ public class LapDriver implements Comparable<LapDriver> {
 
     // return difference between last goaltime and first starttime
     // return "--:--:--" if can't calculate
-    private String getTotalTime() {
+    protected String getTotalTime() {
         String totalTime = invalidTime;
         if (!goalTimes.isEmpty() && !startTimes.isEmpty()) {
             totalTime = duration(startTimes.get(0), goalTimes.get(0));
@@ -73,7 +67,7 @@ public class LapDriver implements Comparable<LapDriver> {
         return totalTime;
     }
 
-    private String duration(String start, String end) {
+    protected String duration(String start, String end) {
         LocalTime st = LocalTime.parse(start);
         LocalTime en = LocalTime.parse(end);
         return TimeUtils.formatTime(Duration.between(st, en));
@@ -96,7 +90,7 @@ public class LapDriver implements Comparable<LapDriver> {
         return result;
     }
 
-    private String getStartTime() {
+    protected String getStartTime() {
         return startTimes.isEmpty() ? missingStartTime : startTimes.get(0);
     }
 
@@ -109,15 +103,22 @@ public class LapDriver implements Comparable<LapDriver> {
         return result;
     }
 
-    private String getGoalTime() {
-        return (goalTimes.isEmpty()) ? missingEndTime : goalTimes.get(0);
+    protected String getGoalTime() {
+        return (goalTimes.isEmpty()) ? missingGoalTime : goalTimes.get(0);
     }
-
+    private void errorAppender(List<String> times, String errorString, StringBuilder sb){
+        sb.append(errorString);
+        for (int i = 1; i<times.size(); ++i){
+            sb.append(" ");
+            sb.append(times.get(i));
+        }
+        sb.append(" ");
+    }
     // V4 TODO
     // Append to the end of the toString, in the last column any errors
     // Example: 3; Chris Csson; 3; 01:03:06; 00:20:00; 00:20:00; 00:23:06; 12:02:00;
     // 12:22:00; 12:42:00; 13:05:06; Flera starttider? 12:05:00
-    private String getErrors() {
+    protected String getErrors() {
         StringBuilder sb =  new StringBuilder();
         if (
             generateLapTimes().stream().filter(x -> x != "")
@@ -127,21 +128,11 @@ public class LapDriver implements Comparable<LapDriver> {
         }
         
         if (startTimes.size() > 1){
-            sb.append(multipleStartTimes);
-            for (int i = 1; i<startTimes.size(); ++i){
-                sb.append(" ");
-                sb.append(startTimes.get(i));
-            }
-            sb.append(" ");
+            errorAppender(startTimes, multipleStartTimes, sb);
         }
         
         if (goalTimes.size() > 1){
-            sb.append(multipleGoalTimes);
-            for (int i = 1; i < goalTimes.size(); ++i){
-                sb.append(" ");
-                sb.append(goalTimes.get(i));
-            }
-            sb.append(" ");
+            errorAppender(goalTimes, multipleGoalTimes, sb);
         }
 
         return sb.toString().trim();  
