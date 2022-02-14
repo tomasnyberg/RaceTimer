@@ -16,6 +16,7 @@ public class TestVarvloppDriver {
   private String driverNumber;
   String startTime = "../Acceptanstester/V/1/input/starttider.txt";
   List<String> endTimes = new ArrayList<>();
+  private Config config;
 
   @BeforeEach
   public void setup() {
@@ -23,7 +24,7 @@ public class TestVarvloppDriver {
     endTimes.add("../Acceptanstester/V/2/input/maltider2.txt");
     driverNumber = "1";
     Varv varv = new Varv("14:59:00", false, "00:15:00", "01:00:00", startTime, endTimes);
-    Config config = new Config();
+    config = new Config();
     config.setVarv(varv);
     driver = new VarvloppDriver(driverNumber, config);
   }
@@ -133,7 +134,7 @@ public class TestVarvloppDriver {
   public void testDriverComparator() {
     driver.addStartTime("00:00:00");
     driver.addEndTime("01:00:00");
-    VarvloppDriver newDriver = new VarvloppDriver("2");
+    VarvloppDriver newDriver = new VarvloppDriver("2", config);
     newDriver.addStartTime("00:00:00");
     newDriver.addEndTime("01:00:00");
     newDriver.addEndTime("02:00:00");
