@@ -1,12 +1,19 @@
 import {useEffect, useState} from 'react';
-import { Input, Container, VStack, Button, Heading, useToast,   Table,
+import { Input, Container, VStack, HStack, Button, IconButton, Heading, useToast,   Table,
   Thead,
   Tbody,
   Tr,
   Th,
+  useColorMode,
+  useColorModeValue,
   Td, } from '@chakra-ui/react'
+import {SunIcon, MoonIcon} from "@chakra-ui/icons";
 
 function App() {
+
+  const { colorMode, toggleColorMode } = useColorMode()
+  const icon = useColorModeValue(<MoonIcon/>, <SunIcon/>);
+  
 
   const toast = useToast();
   const [name, setName] = useState("");
@@ -72,6 +79,10 @@ function App() {
 
   
   return (
+    <>
+    <HStack position="fixed" right="1rem" top="1rem" justify="end">
+      <IconButton icon={icon} onClick={toggleColorMode} />
+    </HStack>
     <Container>
       <Heading textAlign="center" marginY="2rem">Register Driver</Heading>
       <form onSubmit={(event) => onSubmit(event)} style={{ marginBottom: '2rem' }}>
@@ -97,6 +108,7 @@ function App() {
         </Tbody>
       </Table>
     </Container>
+    </>
   );
 }
 
