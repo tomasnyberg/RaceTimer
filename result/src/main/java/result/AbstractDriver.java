@@ -78,6 +78,10 @@ public abstract class AbstractDriver implements Comparable<AbstractDriver> {
 
     protected abstract String getErrors();
 
+    protected boolean missingStartOrGoal() {
+        return getStartTime() == missingStartTime || getGoalTime() == missingGoalTime;
+    }
+
 }
 
 
