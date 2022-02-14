@@ -26,6 +26,11 @@ jar {
                 "Developers": gradle.ext.devName
         )
     }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 // Specify where to look for dependencies
