@@ -55,23 +55,7 @@ public class LapResult extends AbstractResult {
       topLine += "Varvning" + i + "; ";
     }
     topLine += "Mål";
-    /*
-        if (config.isSorting()) {
-            topLine = "Rank; StartNr; Namn; Totaltid; Start; Mål";
-            Collections.sort(drivers);
-            dumpList.add(topLine);
-            for (int i = 0; i < drivers.size(); i++) {
-                String rank = Integer.toString(i + 1);
-                dumpList.add(rank + "; " + drivers.get(i).toString());
-            }
-        } else {
-            topLine = "StartNr; Namn; Totaltid; Start; Mål";
-            dumpList.add(topLine);
-            for (int i = 0; i < drivers.size(); i++) {
-                dumpList.add(drivers.get(i).toString());
-            }
-        }
-    */
+
     if (config.isSorting()) {
       topLine = "Rank; " + topLine;
       dumpList.add(topLine);
