@@ -2,6 +2,9 @@ package result.config;
 
 import java.util.List;
 
+/**
+ * Config values specific for lap races
+ */
 public class Lap {
   private String raceEndTime;
   private boolean massStart;

@@ -1,5 +1,8 @@
 package result.config;
 
+/**
+ * Config values for marathon race
+ */
 public class Marathon {
     private String minimumTime;
     private String startTimesFile;

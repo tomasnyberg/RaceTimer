@@ -11,10 +11,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-/** The main program. TODO! */
+/** The main program.*/
 public class ResultProgram {
-  // ./gradlew :result:run --args='00:00:00 input/namnfil.txt input/starttider.txt
-  // input/maltider.txt output/resultatFil.txt true'
+
+  /**
+   * The main method for the program
+   * If no arguments are passed, the program will use the config file as standard. If arguments are passed, they need to follow this format:
+   * @param args minimumTime: <hh:mm:ss>> nameFile: <File path with file extension> startTimeFile: <File path with file extension> endTimeFile: <File path with file extension> resultFile <File path with file extension>
+   */
   public static void main(String[] args) {
     Config config = new Config();
 

@@ -7,6 +7,9 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Abstract class for generating the result of a race
+ */
 public abstract class AbstractResult {
   public List<AbstractDriver> drivers;
   protected Config config;
@@ -28,10 +31,12 @@ public abstract class AbstractResult {
     return split;
   }
 
-  // both read start times and end times read the times, so we have a method for
-  // the common things
-  // returns something that the other methods can use to fill in the info for the
-  // drivers
+  /**
+   * Method for reading both start and end times from a text file
+   * If we have not seen the driver number before, we create a new driver
+   * @param filePath file path to the input text file
+   * @param start true if the times to be read are start times, false if they are goal times
+   */
   protected void readTimes(String filePath, boolean start) {
     List<String> lines = readFile(filePath);
     for (String line : lines) {
@@ -62,19 +67,14 @@ public abstract class AbstractResult {
     }
   }
 
-  // Reads starttimes from a starttimefile, and sets the start times for the
-  // respective driver
-  // number
-  // If we have not seen this drivernumber so far, we create a new driver
   public abstract void readStartTimes();
 
-  // Reads endtimes from a file, and adds the end times for the respective driver
-  // number
-  // If we have not seen this drivernumber so far, we create a new driver
   public abstract void readEndTimes();
 
-  // Reads names from a file
-  // If we have not seen this drivernumber so far, we create a new driver
+  /**
+   * Read names from a file
+   * If we have not seen a driver number so far, we create a new driver
+   */
   public void readNames() {
     List<String> lines = readFile(config.getNameFile());
     for (int i = 1; i < lines.size(); i++) {
@@ -99,6 +99,11 @@ public abstract class AbstractResult {
 
   protected abstract AbstractDriver newDriver(String driverNumber, Config config);
 
+  /**
+   * General method reading files
+   * @param path file path to the text file
+   * @return a list of strings containing the lines in the text file
+   */
   protected List<String> readFile(String path) {
     try {
       BufferedReader reader = new BufferedReader(new FileReader(path));

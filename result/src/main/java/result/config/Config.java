@@ -1,5 +1,9 @@
 package result.config;
 
+/**
+ * A class representing the common values between different types of races
+ * These values are collected from the config.yaml file automatically
+ */
 public class Config {
   // Common values
   private String type;

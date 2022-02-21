@@ -10,22 +10,20 @@ import java.util.Collections;
 import util.FileWriter;
 
 /**
- * Class for generating a result for a marathon race
+ * Class for generating a result for a lap race
  */
 public class LapResult extends AbstractResult {
   /**
    *
-   * @param config
+   * @param config a config file
    */
   public LapResult(Config config) {
     super(config);
   }
 
-  // The only public method visible, reads in all the files and generates the
-  // result txt file.
-  // Readds from args if they exist for specifying where files are, otherwise from
-  // config
-  // Takes in a config class where we get the file paths etc.
+  /**
+   * Method for generating the result. Generates a result.txt file
+   */
   public void generateResult() {
     readEndTimes();
     if (config.getLap().getMassStart()) {
@@ -55,23 +53,6 @@ public class LapResult extends AbstractResult {
       topLine += "Varvning" + i + "; ";
     }
     topLine += "Mål";
-    /*
-        if (config.isSorting()) {
-            topLine = "Rank; StartNr; Namn; Totaltid; Start; Mål";
-            Collections.sort(drivers);
-            dumpList.add(topLine);
-            for (int i = 0; i < drivers.size(); i++) {
-                String rank = Integer.toString(i + 1);
-                dumpList.add(rank + "; " + drivers.get(i).toString());
-            }
-        } else {
-            topLine = "StartNr; Namn; Totaltid; Start; Mål";
-            dumpList.add(topLine);
-            for (int i = 0; i < drivers.size(); i++) {
-                dumpList.add(drivers.get(i).toString());
-            }
-        }
-    */
     if (config.isSorting()) {
       topLine = "Rank; " + topLine;
       dumpList.add(topLine);
@@ -95,21 +76,28 @@ public class LapResult extends AbstractResult {
 
   }
 
+  /**
+   * @param driverNumber String with a driver number
+   * @param config a config file
+   * @return Generates a Lap driver
+   */
   protected AbstractDriver newDriver(String driverNumber, Config config) {
     return new LapDriver(driverNumber, config);
   }
 
+  /**
+   * Method for reading start times from a text file
+   */
   public void readStartTimes() {
     readTimes(config.getLap().getStartTimesFile(), true);
   }
 
-  // Reads endtimes from a file, and adds the end times for the respective driver
-  // number
-  // If we have not seen this drivernumber so far, we create a new driver
+  /**
+   * Reads end times from a text file and adds the end times for the respective driver number
+   */
   public void readEndTimes() {
     for (String goalFile : config.getLap().getGoalTimesFiles()) {
       readTimes(goalFile, false);
     }
   }
-
 }
