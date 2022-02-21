@@ -49,16 +49,32 @@ public class LapResult extends AbstractResult {
       topLine += "Varvning" + i + "; ";
     }
     topLine += "Mål";
-    dumpList.add(topLine);
+    /*
+        if (config.isSorting()) {
+            topLine = "Rank; StartNr; Namn; Totaltid; Start; Mål";
+            Collections.sort(drivers);
+            dumpList.add(topLine);
+            for (int i = 0; i < drivers.size(); i++) {
+                String rank = Integer.toString(i + 1);
+                dumpList.add(rank + "; " + drivers.get(i).toString());
+            }
+        } else {
+            topLine = "StartNr; Namn; Totaltid; Start; Mål";
+            dumpList.add(topLine);
+            for (int i = 0; i < drivers.size(); i++) {
+                dumpList.add(drivers.get(i).toString());
+            }
+        }
+    */
     if (config.isSorting()) {
+      topLine = "Rank; " + topLine;
+      dumpList.add(topLine);
       Collections.sort(drivers);
-      for (AbstractDriver driver : drivers) {
-        if (!(driver.getErrors().length() == 0)) {
-          dumpList.add(driver.toString().substring(0, driver.toString().length() - driver.getErrors().length() - 2));
-        } else
-          dumpList.add(driver.toString());
+      for (int i = 0; i < drivers.size(); i++) {
+        dumpList.add(Integer.toString(i + 1) + "; " + drivers.get(i).toString());
       }
     } else {
+      dumpList.add(topLine);
       for (AbstractDriver driver : drivers) {
         dumpList.add(driver.toString());
       }
