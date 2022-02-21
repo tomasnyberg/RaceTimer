@@ -20,7 +20,7 @@ const result = []
 let resultHeader = []
 
 app.get('/results', async (req, res) => {
-  var child = require('child_process').spawn('java', ['-jar', 'result-v0.1b.jar']);
+  var child = require('child_process').spawn('java', ['-jar', 'result-v0.2.jar']);
   child.on('exit', async (code) => {
     if(child.exitCode === 0){
       await readResultFile();
