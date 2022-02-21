@@ -118,7 +118,10 @@ public class LapDriver extends AbstractDriver {
         columns.add(getStartTime());
         columns.addAll(getLappings());
         columns.add(getGoalTime());
-        columns.add(getErrors());
+
+        if (!config.isSorting()) {
+            columns.add(getErrors());
+        }
 
         StringBuilder sb = new StringBuilder();
         for (var column : columns) {
@@ -128,6 +131,11 @@ public class LapDriver extends AbstractDriver {
         // Remove the last separator and space
         String result = sb.substring(0, sb.length() - 2);
         result = result.endsWith("; ") ? result.substring(0, result.length() - 2) : result;
+
+        if (config.isSorting()) {
+            result = result.replace(missingStartTime, invalidTime).replace(missingGoalTime, invalidTime);
+        }
+
         return result;
     }
 
