@@ -6,6 +6,8 @@ const app = express()
 const port = 4000
 const pathDrivers = 'drivers.txt'
 const pathResult = './output/resultat.txt'
+const pathStartTime = './input/starttider.txt'
+const pathEndTime = './input/maltider.txt'
 
 app.use(cors())
 app.use(express.json())
@@ -14,6 +16,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const drivers = []
+const startTimes = []
+const endTimes = []
 const result = []
 let resultHeader = []
 
@@ -41,6 +45,47 @@ app.post('/drivers', (req, res) => {
     .catch((err) => console.error(err))
   res.status(201).json(data)
 })
+// localhost:4000/drivers
+// [Get, Post, Put, Delete]
+
+app.get('/start', (req, res) => {
+  res.status(200).json(startTimes)
+})
+
+app.post('/start', (req, res) => {
+  const data = {startNumber: req.body.startNumber, time: req.body.time}
+  startTimes.push(data)
+  fs.promises.appendFile(pathStartTime, `${data.startNumber}; ${data.time}\n`)
+    .then(() => console.log("Saved time"))
+    .catch((err) => console.error(err))
+  res.status(201).json(data)
+})
+
+app.get('/start', (req, res) => {
+  res.status(200).json(startTimes)
+})
+
+app.post('/start', (req, res) => {
+  const data = {startNumber: req.body.startNumber, time: req.body.time}
+  startTimes.push(data)
+  fs.promises.appendFile(pathStartTime, `${data.startNumber}; ${data.time}\n`)
+    .then(() => console.log("Saved time"))
+    .catch((err) => console.error(err))
+  res.status(201).json(data)
+})
+
+app.get('/end', (req, res) => {
+  res.status(200).json(endTimes)
+})
+
+app.post('/end', (req, res) => {
+  const data = {startNumber: req.body.startNumber, time: req.body.time}
+  endTimes.push(data)
+  fs.promises.appendFile(pathEndTime, `${data.startNumber}; ${data.time}\n`)
+    .then(() => console.log("Saved time"))
+    .catch((err) => console.error(err))
+  res.status(201).json(data)
+})
 
 if (process.env.NODE_ENV === 'production') {
   app.get('/*', function (req, res) {
@@ -49,11 +94,63 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.listen(port, () => {
-  createAndLoadFile()
+  createAndLoadNameFile()
+  createAndLoadStartFile()
+  createAndLoadEndFile()
   console.log(`App listening on port ${port}`)
 })
 
-function createAndLoadFile() {
+function createAndLoadStartFile() {
+  if (fs.existsSync(pathStartTime)) {
+    console.log(`StartTime file already exist at ${pathStartTime}`)
+    fs.promises.readFile(pathStartTime, "utf-8")
+      .then((contents) => {
+        contents.split(/\r?\n/).forEach((line, index) => {
+          if (line !== "") {
+            const [startNumber, time] = line.split("; ");
+            startTimes.push({
+              startNumber: parseInt(startNumber),
+              time: time
+            })
+          }
+        })
+      })
+  } else {
+    fs.promises.writeFile(pathStartTime, "")
+      .then(() => console.log(`Created StartTime file at ${pathStartTime}`))
+      .catch((err) => {
+        console.error(err)
+        process.exit(1)
+      })
+  }
+}
+
+function createAndLoadEndFile() {
+  if (fs.existsSync(pathEndTime)) {
+    console.log(`StartTime file already exist at ${pathEndTime}`)
+    fs.promises.readFile(pathEndTime, "utf-8")
+      .then((contents) => {
+        contents.split(/\r?\n/).forEach((line, index) => {
+          if (line !== "") {
+            const [startNumber, time] = line.split("; ");
+            endTimes.push({
+              startNumber: parseInt(startNumber),
+              time: time
+            })
+          }
+        })
+      })
+  } else {
+    fs.promises.writeFile(pathEndTime, "")
+      .then(() => console.log(`Created StartTime file at ${pathEndTime}`))
+      .catch((err) => {
+        console.error(err)
+        process.exit(1)
+      })
+  }
+}
+
+function createAndLoadNameFile() {
   if (fs.existsSync(pathDrivers)) {
     console.log(`Drivers file already exist at ${pathDrivers}`)
     fs.promises.readFile(pathDrivers, "utf-8")
