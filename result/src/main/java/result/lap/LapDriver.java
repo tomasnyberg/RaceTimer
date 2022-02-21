@@ -8,27 +8,44 @@ import java.util.List;
 import result.AbstractDriver;
 import result.config.Config;
 
+/**
+ * Class for representing one driver in a lap race
+ */
 public class LapDriver extends AbstractDriver {
     private List<String> lapTimes = new ArrayList<>();
     private int maxLaps = 0;
 
-    // När man hittar ett drivernumber man inte sett innan skapar man en ny
-    // lapDriver
+    /**
+     *
+     * @param driverNumber string with drivernumber
+     * @param config a config file
+     */
     public LapDriver(String driverNumber, Config config) {
         super(driverNumber, config);
         this.driverNumber = driverNumber;
         this.config = config;
     }
 
+    /**
+     *
+     * @return Amount of laps driven by the driver
+     */
     public int getAmountOfLaps() {
         return this.lapTimes.size() + (Math.min(1, this.goalTimes.size()));
     }
 
-    // Ange hur många varv som är max för att formatera toString korrekt
+    /**
+     * set maximum laps for a race
+      * @param max maximum of laps
+     */
     public void setMaxLaps(int max) {
         this.maxLaps = max;
     }
 
+    /**
+     * Adds a goal time to the race
+     * @param goalTime string of the chosen goal time
+     */
     public void addGoalTime(String goalTime) {
         if (!LocalTime.parse(config.getLap().getRaceEndTime()).isAfter(LocalTime.parse(goalTime)))
             goalTimes.add(goalTime);
@@ -36,6 +53,10 @@ public class LapDriver extends AbstractDriver {
             lapTimes.add(goalTime);
     }
 
+    /**
+     *
+     * @return the lap times for a driver
+     */
     private List<String> generateLapTimes() {
         List<String> times = new ArrayList<>();
         times.add(getStartTime());
@@ -53,7 +74,10 @@ public class LapDriver extends AbstractDriver {
         return result;
     }
 
-    // Return all the endtimes except for the last one
+    /**
+     * Returns all the lap times
+      */
+
     private List<String> getLappings() {
         List<String> result = new ArrayList<>(lapTimes);
         while (result.size() < maxLaps - 1) {
@@ -62,6 +86,12 @@ public class LapDriver extends AbstractDriver {
         return result;
     }
 
+    /**
+     * Adds an error to the StringBuilder
+     * @param times a list of all the invalid times
+     * @param errorString a string of the specific error
+     * @param sb a StringBuilder
+     */
     private void errorAppender(List<String> times, String errorString, StringBuilder sb) {
         sb.append(errorString);
         for (int i = 1; i < times.size(); ++i) {
@@ -70,9 +100,10 @@ public class LapDriver extends AbstractDriver {
         }
     }
 
-    // Append to the end of the toString, in the last column any errors
-    // Example: 3; Chris Csson; 3; 01:03:06; 00:20:00; 00:20:00; 00:23:06; 12:02:00;
-    // 12:22:00; 12:42:00; 13:05:06; Flera starttider? 12:05:00
+    /**
+     *  Creates an error string to append to the end of the toString, in the last column
+     * @return a string of an error with the invalid times
+     */
     public String getErrors() {
 
         boolean first = true;
@@ -103,11 +134,9 @@ public class LapDriver extends AbstractDriver {
         return sb.toString().trim();
     }
 
-    /*
-     * StartNr; Namn; #Varv; Totaltid; Varv1; Varv2; Varv3; Start; Varvning1;
-     * Varvning2; Mål
-     * Exempel på vad denna returnerar:
-     * "1; Anders Asson; 3; 01:23:34; 00:30:00; 00:30:00; 00:23:34; 12:00:00; 12:30:00; 13:00:00; 13:23:34"
+    /**
+     * The main part of this class. Creates the result row for the result file corresponding to this driver
+     * @return A result row for a driver
      */
     @Override
     public String toString() {
@@ -139,6 +168,11 @@ public class LapDriver extends AbstractDriver {
         return result;
     }
 
+    /**
+     *
+     * @param other an AbstractDriver
+     * @return a comparison of amount of laps, total times and errors between two Lap drivers
+     */
     @Override
     public int compareTo(AbstractDriver other) {
         if (!isErrors() && other.isErrors())

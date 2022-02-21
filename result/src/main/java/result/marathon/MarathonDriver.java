@@ -7,14 +7,25 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for representing one driver in a marathon race
+ */
+
 public class MarathonDriver extends AbstractDriver {
 
   protected static final String impossibleTotalTime = "Omöjlig Totaltid?";
-
+  /**
+   * @param driverNumber String with a drivernumber
+   * @param config  a config file
+   */
   public MarathonDriver(String driverNumber, Config config) {
     super(driverNumber, config);
   }
 
+  /**
+   *
+   * @return String of an error
+   */
   @Override
   public String getErrors() {
     List<String> errors = new ArrayList<>();
@@ -72,10 +83,19 @@ public class MarathonDriver extends AbstractDriver {
     return errorBuilder.toString().trim();
   }
 
+  /**
+   *
+   * @return True if driver is missing start time or goal time. False otherwise
+   */
   private boolean missingStartOrGoal() {
     return getStartTime().equals(missingStartTime) || getGoalTime().equals(missingGoalTime);
   }
 
+
+  /**
+   * The main part of this class. Creates the result row for the result file corresponding to this driver
+   * @return A result row for a driver
+   */
   @Override
   public String toString() {
     List<String> columns = new ArrayList<>();
@@ -105,6 +125,11 @@ public class MarathonDriver extends AbstractDriver {
     return result;
   }
 
+  /**
+   *
+   * @param other an AbstractDriver
+   * @return a comparison of total times and errors between two Marathon drivers
+   */
   @Override
   public int compareTo(AbstractDriver other) {
     if (isErrors() && !other.isErrors()) return 1;

@@ -9,12 +9,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Class for generating a result for a marathon race
+ */
 public class MarathonResult extends AbstractResult {
-
+    /**
+     *
+     * @param config a config file
+     */
     public MarathonResult(Config config) {
         super(config);
     }
 
+    /**
+     * Method for generating the result. Generates a result.txt file
+     */
     @Override
     public void generateResult() {
         String topLine;
@@ -50,17 +59,26 @@ public class MarathonResult extends AbstractResult {
         }
     }
 
+    /**
+     *
+     * @param driverNumber String with a drivernumber
+     * @param config    a config file
+     * @return Generates a MarathonDriver
+     */
     protected AbstractDriver newDriver(String driverNumber, Config config) {
         return new MarathonDriver(driverNumber, config);
     }
 
+    /**
+     * Method for reading start times from a text file
+     */
     public void readStartTimes() {
         readTimes(config.getMarathon().getStartTimesFile(), true);
     }
 
-    // Reads endtimes from a file, and adds the end times for the respective driver
-    // number
-    // If we have not seen this drivernumber so far, we create a new driver
+    /**
+     * Method for reading end times from a text file
+     */
     public void readEndTimes() {
         readTimes(config.getMarathon().getGoalTimesFile(), false);
     }
