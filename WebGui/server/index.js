@@ -4,7 +4,7 @@ const cors = require('cors')
 const app = express()
 const port = 4000
 const pathDrivers = 'drivers.txt'
-const pathResult = 'resultatMarathon.txt'
+const pathResult = './output/resultat.txt'
 
 app.use(cors())
 app.use(express.json())
@@ -14,8 +14,15 @@ const result = []
 let resultHeader = []
 
 app.get('/results', async (req, res) => {
-  await readResultFile();
-  res.status(200).json({header: resultHeader, results:result});
+  var child = require('child_process').spawn('java', ['-jar', 'result-v0.1b.jar']);
+  child.on('exit', async (code) => {
+    if(child.exitCode === 0){
+      await readResultFile();
+      res.status(200).json({header: resultHeader, results:result});
+    } else {
+      console.log("problem with running java result program");
+    }
+  })
 })
 
 app.get('/drivers', (req, res) => {
