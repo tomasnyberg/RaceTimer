@@ -40,7 +40,7 @@ def test_directory(dir):
 
     if os.path.isfile(output_file):
         if platform.system() == 'Windows':
-            os.system(f'diff (cat input/{EXPECTED_RESULT_FILE}) (cat output{RESULT_FILE})')
+            os.system(f'fc input\\{EXPECTED_RESULT_FILE} output\\{RESULT_FILE}')
             sys.stdout.flush()
         else:
             os.system(f'diff -y input/{EXPECTED_RESULT_FILE} output/{RESULT_FILE}')
