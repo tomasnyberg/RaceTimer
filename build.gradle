@@ -30,7 +30,11 @@ task myDist(type: Zip){
         // readme and release info
         from 'docs/README'
         from 'docs/config.yaml'
+        from 'docs/start.bat'
         from 'docs/release-info.txt'
+        from 'Web/package.json'
+        from 'Web/package-lock.json'
+        from 'Web/server/index.js'
 
         into("input"){
             from 'result/input'
@@ -40,6 +44,10 @@ task myDist(type: Zip){
         into("output"){
             from 'result/output'
         }
+        
+        into("web") {
+            from 'Web/build'
+        }
 
 
         // all other documentation
@@ -48,6 +56,7 @@ task myDist(type: Zip){
             exclude 'release-info.txt'
             exclude 'README'
             exclude 'config.yaml'
+            exclude 'start.bat'
         }
     }
 }
