@@ -11,9 +11,7 @@ const pathEndTime = './input/maltider.txt'
 
 app.use(cors())
 app.use(express.json())
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'web')));
-}
+app.use(express.static(path.join(__dirname, 'web')));
 
 const drivers = []
 const startTimes = []
@@ -45,8 +43,6 @@ app.post('/drivers', (req, res) => {
     .catch((err) => console.error(err))
   res.status(201).json(data)
 })
-// localhost:4000/drivers
-// [Get, Post, Put, Delete]
 
 app.get('/start', (req, res) => {
   res.status(200).json(startTimes)
@@ -87,11 +83,9 @@ app.post('/end', (req, res) => {
   res.status(201).json(data)
 })
 
-if (process.env.NODE_ENV === 'production') {
-  app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'web', 'index.html'));
-  });
-}
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'web', 'index.html'));
+});
 
 app.listen(port, () => {
   createAndLoadNameFile()
