@@ -21,6 +21,11 @@ export default function Layout({children}) {
                 textDecoration: isActive ? 'underline' : 'none'
               };
             }} to="/registration">Registration</NavLink>
+            <NavLink style={({ isActive }) => {
+              return {
+                textDecoration: isActive ? 'underline' : 'none'
+              };
+            }} to="/time-registration">Time Registration</NavLink>
           </HStack>
           <IconButton icon={icon} onClick={toggleColorMode} />
         </HStack>
