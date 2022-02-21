@@ -67,3 +67,21 @@ build {
     // make the build task also run our custom distribution
     finalizedBy(myDist)
 }
+
+task testTask(type:Exec) {
+  workingDir '.'
+
+//   //on windows:
+//   commandLine 'cmd', '/c', 'stop.bat'
+
+  //on linux
+  commandLine 'echo a'
+
+//   //store the output instead of printing to the console:
+//   standardOutput = new ByteArrayOutputStream()
+
+//   //extension method stopTomcat.output() can be used to obtain the output:
+//   ext.output = {
+//     return standardOutput.toString()
+}
+
