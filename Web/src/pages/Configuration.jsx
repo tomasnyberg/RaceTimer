@@ -1,6 +1,5 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Switch, Button, Box, Input, SimpleGrid, Center, RadioGroup, Stack, Radio } from '@chakra-ui/react'
-import { useEffect } from 'react'
 
 
 export default function Configuration() {
@@ -10,20 +9,6 @@ export default function Configuration() {
   const [namePath, setNamePath] = useState("input/namnfil.txt")
   const [sorting, setSorting] = useState(false)
   const [type, setType] = useState("marathon")
-  let test;
-
-  useEffect(() => {
-    console.log("blahblashvseklhgjs")
-    if (type == "marathon")
-      test = <div>hej</div>;
-    else
-      test = <div>hejdå</div>
-  }, [type])
-
-  function onTypeChanged(event) {
-    console.log("Helloooosfvskfvnköeflknm")
-    setType(value)
-  }
 
   function onSubmit(event) {
     event.preventDefault();
@@ -85,7 +70,7 @@ export default function Configuration() {
             Tävlingstyp
           </Box>
           <Box height='30px'>
-            <RadioGroup onChange={(event) => onTypeChanged(event.target.value))}>
+            <RadioGroup onChange={setType} defaultValue={type}>
               <Stack direction='row'>
                 <Radio value='marathon'>Maraton</Radio>
                 <Radio value='lap'>Varvlopp</Radio>
@@ -94,7 +79,27 @@ export default function Configuration() {
           </Box>
 
           {/* Marathon form or lap form depending on competition type */}
-          { test }
+          { type === "lap" ?
+            <React.Fragment>
+              {/* Sort result */}
+              <Box height='30px'>
+                Sortering av resultat
+              </Box>
+              <Box height='30px'>
+                <Switch size='lg' colorScheme='yellow' value={sorting} onChange={(event) => setSorting(!sorting)} />
+              </Box>
+            </React.Fragment>
+            :
+            <React.Fragment>
+              {/* Sort result */}
+              <Box height='30px'>
+                Sortering av resultat 2
+              </Box>
+              <Box height='30px'>
+                <Switch size='lg' colorScheme='yellow' value={sorting} onChange={(event) => setSorting(!sorting)} />
+              </Box>
+            </React.Fragment>
+          }
 
 
           {/* Save config */}
