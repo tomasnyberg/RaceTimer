@@ -1,47 +1,62 @@
 package result;
 
-import result.marathon.MarathonResultExporter;
-import result.marathon.MarathonResultSorter;
-import result.marathon.MarathonResult;
-import result.marathon.MarathonFileReader;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import result.lap.LapResult;
+import result.marathon.*;
+import result.config.*;
 
 import java.io.IOException;
-import java.util.List;
-import java.time.LocalTime;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-/** The main program. TODO! */
+/** The main program.*/
 public class ResultProgram {
-// ./gradlew :result:run --args='00:00:00 input/namnfil.txt input/starttider.txt input/maltider.txt output/resultatFil.txt true'
-  public static void main(String[] args) {
-    String nameFile = "input/namnfil.txt";
-    String startTimeFile = "input/starttider.txt";
-    String endTimeFile = "input/maltider.txt";
-    String outFile = "output/resultatFil.txt";
-    String minimumTime = "00:00:00";
-    boolean shouldSort = true;
 
-    try {
-      minimumTime = args[0];
-      nameFile = args[1];
-      startTimeFile = args[2];
-      endTimeFile = args[3];
-      outFile = args[4];
-      shouldSort = args[5].equals("true");
-      LocalTime.parse(minimumTime);
-    } catch (Exception e) {
-      System.out.println(
-          "Invalid arguments. Arguments should follow format: minimumTime: <hh:mm:ss> nameFile: <File path with file extension> startTimeFile: <File path with file extension> endTimeFile: <File path with file extension> resultFile <File path with file extension>");
-      System.exit(0);
+  /**
+   * The main method for the program
+   * If no arguments are passed, the program will use the config file as standard. If arguments are passed, they need to follow this format:
+   * @param args minimumTime: <hh:mm:ss>> nameFile: <File path with file extension> startTimeFile: <File path with file extension> endTimeFile: <File path with file extension> resultFile <File path with file extension>
+   */
+  public static void main(String[] args) {
+    Config config = new Config();
+
+    if (args.length > 0) {
+      try {
+        config.setMarathon(new Marathon(args[0], args[2], args[3]));
+        config.setNameFile(args[1]);
+        config.setResultFile(args[4]);
+        config.setSorting(args[5].equals("true"));
+      } catch (Exception e) {
+        System.out.println(
+            "Invalid arguments. Arguments should follow format: minimumTime: <hh:mm:ss> nameFile: <File path with file extension> startTimeFile: <File path with file extension> endTimeFile: <File path with file extension> resultFile <File path with file extension>");
+        System.exit(0);
+      }
+    } else {
+      ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+      try {
+        String configFile = Files.readString(Paths.get("config.yaml"));
+        config = mapper.readValue(configFile, Config.class);
+      } catch (JsonProcessingException e) {
+        System.out.println(e.getMessage());
+        System.exit(0);
+      } catch (IOException e) {
+        e.printStackTrace();
+        System.exit(0);
+      }
     }
 
-    List<MarathonResult> fileResults =
-        MarathonFileReader.result(nameFile, startTimeFile, endTimeFile, minimumTime);
-    fileResults = shouldSort ? new MarathonResultSorter().sortResults(fileResults) : fileResults; // sort if should sort
-
-    try {
-      MarathonResultExporter.export(outFile, fileResults, shouldSort);
-    } catch (IOException e) {
-      e.printStackTrace();
+    if (config.getType().equals("marathon")) {
+      System.out.println("Programmet är inställt för Marathon");
+      MarathonResult marathonResult = new MarathonResult(config);
+      marathonResult.generateResult();
+    } else if (config.getType().equals("lap")) {
+      System.out.println("Programmet är inställt för Varvlopp");
+      LapResult lap = new LapResult(config);
+      lap.generateResult();
+    } else {
+      System.out.println("Ingen accepterad programtyp är vald");
     }
 
     System.out.println("This is the result program!");

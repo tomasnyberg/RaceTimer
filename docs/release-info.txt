@@ -1,20 +1,24 @@
 
-Release 1 of team05.
+Release 2 of team05.
 Date: 2022-01-31
 
 
 New stories in this release:
- - F1, F2, F3, F4, F5
+ - V1, V2, V3, V4, V5, G13, G6, G1, G7, G5, X4, X2, X3, X1, X6, X5, XE (extra from customer), G3 (updated)
 
 
 All stories included:
  - M1, M2, M3, M4.1, M4.2, M4.5, M5, M6, G3, G5(Marathon), G8, F1, F2, F3, F4, F5
+   V1, V2, V3, V4, V5, G13, G6, G1, G7, G5, X4, X2, X3, X1, X6, X5, XE (extra from customer), G3 (updated)
 
 Files included:
+ - config.yaml is the config file
+ - README which includes a HOW-TO instruction
+ - Input includes all input test files
+ - output includes all the output test files
  - register-v0.1b.jar is the register program.
  - result-v0.1b.jar is the result program.
  - The user manual is in docs/manual.pdf
- - Acceptance tests are under directory acceptanstester/
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

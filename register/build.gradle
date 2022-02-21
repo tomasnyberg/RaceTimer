@@ -10,6 +10,8 @@ ext {
 
 dependencies {
     implementation project(':result')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
 application {
@@ -30,6 +32,9 @@ jar {
             "Developers": gradle.ext.devName
         )
     }
+
+    //Added to fix build, not entirely certain that it won't break.
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
