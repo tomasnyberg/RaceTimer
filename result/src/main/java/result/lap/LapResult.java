@@ -53,10 +53,7 @@ public class LapResult extends AbstractResult {
       topLine += "Varvning" + i + "; ";
     }
     topLine += "Mål";
-<<<<<<< HEAD
-=======
 
->>>>>>> ac79b69742e32ba1f38e56ebfa5e643611e57037
     if (config.isSorting()) {
       topLine = "Rank; " + topLine;
       dumpList.add(topLine);
