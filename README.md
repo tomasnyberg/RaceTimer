@@ -1,3 +1,16 @@
+Web:
+### To run: ./gradlew build
+
+### To run En komplett version av projektet finns nu i mappen "/build/distributions/team05-race-clock-vXX.zip"
+
+### To run Unzippa filen till lämplig plats.
+
+### To run Stega in i den unzippade mappen.
+
+### To run Kör ./start.sh on Linux , ./start.bat on Windows
+
+
+Java:
 ### To run: ./gradlew run
 
 ### To run / build the register subproject : ./gradlew :register:run
