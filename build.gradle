@@ -67,14 +67,3 @@ build {
     // make the build task also run our custom distribution
     finalizedBy(myDist)
 }
-
-import org.apache.tools.ant.taskdefs.condition.Os
-task testTask(type:Exec) {
-  workingDir '.'
-  if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-    commandLine 'cmd', '/c' , 'py', 'Acceptanstester/acceptanceTests.py', '-nb' ,'M/4'
-  }
-  else {
-    commandLine 'python3', 'Acceptanstester/acceptanceTests.py', '-nb' ,'M'
-  }
-}
