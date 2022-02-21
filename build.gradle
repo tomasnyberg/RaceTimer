@@ -45,7 +45,7 @@ task myDist(type: Zip){
         into("output"){
             from 'result/output'
         }
-        
+
         into("web") {
             from 'Web/build'
         }
@@ -75,7 +75,7 @@ task testTask(type:Exec) {
 //   commandLine 'cmd', '/c', 'stop.bat'
 
   //on linux
-  commandLine 'echo a'
+  commandLine 'cmd', 'echo', 'a'
 
 //   //store the output instead of printing to the console:
 //   standardOutput = new ByteArrayOutputStream()
