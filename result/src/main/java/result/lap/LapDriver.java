@@ -118,7 +118,10 @@ public class LapDriver extends AbstractDriver {
         columns.add(getStartTime());
         columns.addAll(getLappings());
         columns.add(getGoalTime());
-        columns.add(getErrors());
+
+        if (!config.isSorting()) {
+            columns.add(getErrors());
+        }
 
         StringBuilder sb = new StringBuilder();
         for (var column : columns) {

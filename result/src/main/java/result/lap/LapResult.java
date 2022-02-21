@@ -71,14 +71,7 @@ public class LapResult extends AbstractResult {
       dumpList.add(topLine);
       Collections.sort(drivers);
       for (int i = 0; i < drivers.size(); i++) {
-        String driverLine = Integer.toString(i + 1) + "; ";
-        AbstractDriver driver = drivers.get(i);
-        if (!(driver.getErrors().length() == 0)) {
-          driverLine += driver.toString().substring(0, driver.toString().length() - driver.getErrors().length() - 2);
-        } else {
-          driverLine += driver.toString();
-        }
-        dumpList.add(driverLine);
+        dumpList.add(Integer.toString(i + 1) + "; " + drivers.get(i).toString());
       }
     } else {
       dumpList.add(topLine);
