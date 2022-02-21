@@ -72,7 +72,7 @@ import org.apache.tools.ant.taskdefs.condition.Os
 task testTask(type:Exec) {
   workingDir '.'
   if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-    commandLine 'cmd', '/c' , 'echo', 'asdlfkjasdflöjkasdlf'
+    commandLine 'cmd', '/c' , 'py', 'Acceptanstester/acceptanceTests.py', '-nb' ,'M/4'
   }
   else {
     commandLine 'echo', 'a'
