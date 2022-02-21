@@ -53,12 +53,17 @@ public class LapResult extends AbstractResult {
       topLine += "Varvning" + i + "; ";
     }
     topLine += "Mål";
+<<<<<<< HEAD
+=======
+
+>>>>>>> ac79b69742e32ba1f38e56ebfa5e643611e57037
     if (config.isSorting()) {
       topLine = "Rank; " + topLine;
       dumpList.add(topLine);
       Collections.sort(drivers);
       for (int i = 0; i < drivers.size(); i++) {
-        dumpList.add(Integer.toString(i + 1) + "; " + drivers.get(i).toString());
+        String prefix = drivers.get(i).isErrors() ? "" : Integer.toString(i + 1);
+        dumpList.add(prefix + "; " + drivers.get(i).toString());
       }
     } else {
       dumpList.add(topLine);
