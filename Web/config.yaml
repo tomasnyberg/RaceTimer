@@ -1,5 +1,5 @@
 # Type of race. Valid values: lap, marathon
-type: lap
+type: marathon
 # Title of the race
 title: Coolt race - 8 feb 2022
 # Footer for result file
@@ -9,12 +9,12 @@ sorting: true
 # File path to result file
 resultFile: output/resultat.txt
 # File path to name input file
-nameFile: input/namnfil.txt
+nameFile: drivers.txt
 
 # Marathon related configurations
 marathon:
   # Minimum time for marathon race
-  minimumTime: 00:15:00
+  minimumTime: 00:05:00
   # File path to start times
   startTimesFile: input/starttider.txt
   # File path to goal times
@@ -23,7 +23,7 @@ marathon:
 # Lap race related configurations
 lap:
   # Minimum time for one lap
-  minimumTime: 00:15:00
+  minimumTime: 00:05:00
   # Mass start enabled
   massStart: false
   # Time to set all drivers starttime to for mass start
@@ -32,7 +32,6 @@ lap:
   startTimesFile: input/starttider.txt
   # File path to goal times
   goalTimesFiles:
-    - input/maltider1.txt
-    - input/maltider2.txt
+    - input/maltider.txt
   # Race end time
   raceEndTime: 14:00:00
