@@ -9,8 +9,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import util.FileWriter;
 
+/**
+ * Class for generating a result for a marathon race
+ */
 public class LapResult extends AbstractResult {
-
+  /**
+   *
+   * @param config
+   */
   public LapResult(Config config) {
     super(config);
   }
