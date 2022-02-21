@@ -28,7 +28,6 @@ task myDist(type: Zip){
         fileMode = 0755
 
         // readme and release info
-        from 'docs/README'
         from 'docs/config.yaml'
         from 'docs/start.bat'
         from 'docs/start.sh'
