@@ -8,7 +8,8 @@ New stories in this release:
 
 
 All stories included:
- - M1, M2, M3, M4.1, M4.2, M4.5, M5, M6, G3, G5(Marathon), G8, F1, F2, F3, F4, F5, V1, V2, V3, V4, V5, G13, G6, G1, G7, G5, X4, X2, X3, X1, X6, X5, XE (extra från kunden), G3 (updaterad)
+ - M1, M2, M3, M4.1, M4.2, M4.5, M5, M6, G3, G5(Marathon), G8, F1, F2, F3, F4, F5
+   V1, V2, V3, V4, V5, G13, G6, G1, G7, G5, X4, X2, X3, X1, X6, X5, XE (extra from customer), G3 (updated)
 
 Files included:
  - config.yaml is the config file
