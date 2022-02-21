@@ -56,7 +56,7 @@ function Registration() {
           title: 'There was a problem',
           description: err.message,
           status: 'error',
-          duration: 9000,
+          duration: 6000,
           isClosable: true,
         })
       })
@@ -65,7 +65,7 @@ function Registration() {
         title: 'There was a problem',
         description: "Name cannot be empty",
         status: 'error',
-        duration: 9000,
+        duration: 6000,
         isClosable: true,
       })
     }
