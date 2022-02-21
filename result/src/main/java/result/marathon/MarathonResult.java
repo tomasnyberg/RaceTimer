@@ -22,9 +22,9 @@ public class MarathonResult extends AbstractResult {
         dumpList.add(config.getTitle());
         dumpList.add("");
 
+        readNames();
         readStartTimes();
         readEndTimes();
-        readNames();
 
         if (config.isSorting()) {
             topLine = "Rank; StartNr; Namn; Totaltid; Start; Mål";
