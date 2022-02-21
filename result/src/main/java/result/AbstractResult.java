@@ -18,6 +18,16 @@ public abstract class AbstractResult {
 
   public abstract void generateResult();
 
+  private String[] formatChecker(String string, String fileName) {
+    String[] split = string.split(";");
+    if (split.length != 2) {
+      throw new RuntimeException(fileName + " has the wrong format!" + "\n" + string);
+    }
+    split[0] = split[0].trim();
+    split[1] = split[1].trim();
+    return split;
+  }
+
   // both read start times and end times read the times, so we have a method for
   // the common things
   // returns something that the other methods can use to fill in the info for the
@@ -25,7 +35,7 @@ public abstract class AbstractResult {
   protected void readTimes(String filePath, boolean start) {
     List<String> lines = readFile(filePath);
     for (String line : lines) {
-      String[] split = line.split("; ");
+      String[] split = formatChecker(line, filePath);
       String time = split[1];
       String driverNumber = split[0];
       boolean found = false;
@@ -68,7 +78,7 @@ public abstract class AbstractResult {
   public void readNames() {
     List<String> lines = readFile(config.getNameFile());
     for (int i = 1; i < lines.size(); i++) {
-      String[] split = lines.get(i).split("; ");
+      String[] split = formatChecker(lines.get(i), config.getNameFile());
       String driverNumber = split[0];
       String name = split[1];
       boolean found = false;
