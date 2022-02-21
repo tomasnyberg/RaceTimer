@@ -12,8 +12,13 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 
+/**
+ * The class which implements all the logic for the swing GUI
+ */
 public class GUI {
-
+  /**
+   * The method doing all the work
+   */
   public static void run() {
     // General interface settings
     int width = 800;
@@ -143,12 +148,22 @@ public class GUI {
     frame.getRootPane().setDefaultButton(button);
   }
 
+  /**
+   * Updating the GUI after input
+   * @param resultTable
+   * @param input
+   */
   private static void updateTableView(JTable resultTable, JTextField input) {
     resultTable.repaint();
     input.setText("");
     input.requestFocusInWindow();
   }
 
+  /**
+   * A file writer
+   * @param filepath the file path
+   * @param stringToSave the string to write
+   */
   private static void writeToFile(String filepath, String stringToSave) {
     try {
       Files.write(
