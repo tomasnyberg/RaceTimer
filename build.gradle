@@ -29,13 +29,25 @@ task myDist(type: Zip){
 
         // readme and release info
         from 'docs/README'
+        from 'docs/config.yaml'
         from 'docs/release-info.txt'
+
+        into("input"){
+            from 'result/input'
+        }
+
+
+        into("output"){
+            from 'result/output'
+        }
+
 
         // all other documentation
         into("docs") {
             from 'docs/'
             exclude 'release-info.txt'
             exclude 'README'
+            exclude 'config.yaml'
         }
     }
 }
