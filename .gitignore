@@ -4,16 +4,17 @@
 
 # Start Node
 # dependencies
-WebGui/drivers.txt
-WebGui/node_modules
-WebGui/.pnp
+Web/drivers.txt
+Web/node_modules
+Web/.pnp
 .pnp.js
 
+
 # testing
-WebGui/coverage
+Web/coverage
 
 # production
-WebGui/build
+Web/build
 
 # misc
 .DS_Store
