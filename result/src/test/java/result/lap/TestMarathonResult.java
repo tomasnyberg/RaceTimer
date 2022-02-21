@@ -6,16 +6,14 @@ import result.AbstractDriver;
 import result.config.Config;
 import result.config.Marathon;
 import result.marathon.MarathonResult;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestMarathonResult {
   private MarathonResult mr;
   Config config;
-  String startTimes = "../Acceptanstester/M/1/input/starttider.txt";
-  String endTimes = "../Acceptanstester/M/1/input/maltider.txt";
+  String startTimes = "../Acceptanstester/M/4/input/starttider.txt";
+  String endTimes = "../Acceptanstester/M/4/input/maltider.txt";
 
   @BeforeEach
   public void setup() {
@@ -28,38 +26,47 @@ public class TestMarathonResult {
   @Test
   public void testReadStartTimes() {
     mr.readStartTimes();
-    assertEquals(5, mr.drivers.size());
-    String startTimesString = """
-                            1; 12:00:00
-                            2; 12:01:00
-                            3; 12:02:00
-                            4; 12:03:00
-                            5; 12:04:00
-                            """;
-    assertEquals(mr.toString(), startTimesString);
+    assertEquals(4, mr.drivers.size());
   }
 
-//   @Test
-//   public void testReadEndTimes() {
-//     lr.readEndTimes();
-//     assertEquals(5, lr.drivers.size());
-//   }
+  @Test
+  public void testReadEndTimes() {
+    mr.readEndTimes();
+    assertEquals(4, mr.drivers.size());
+  }
 
-//   @Test
-//   public void testReadStartAndEndTimes() {
-//     lr.readStartTimes();
-//     lr.readEndTimes();
-//     assertEquals(5, lr.drivers.size());
-//   }
+  @Test
+  public void testReadStartAndEndTimes() {
+    mr.readStartTimes();
+    mr.readEndTimes();
+    assertEquals(5, mr.drivers.size());
+  }
 
-//   @Test
-//   public void testReadNames() {
-//     lr.readNames();
-//     assertEquals(5, lr.drivers.size());
-//     lr.readStartTimes();
-//     lr.readEndTimes();
-//     for (AbstractDriver vd : lr.drivers) {
-//       System.out.println(vd.toString());
-//     }
-  
+  @Test
+  public void testReadNames() {
+    mr.readNames();
+    assertEquals(5, mr.drivers.size());
+    mr.readEndTimes();
+    mr.readStartTimes();
+    for (AbstractDriver vd : mr.drivers) {
+      System.out.println(vd.toString());
+    }
+  }
+
+  @Test
+  public void testGenerateResult() {
+      mr.generateResult();
+      String finalResultString = """
+        1; Anders Asson; --:--:--; 12:00:00; Slut?
+        2; Bengt Bsson; --:--:--; Start?; 13:15:16
+        3; Chris Csson; 01:03:06; 12:02:00; 13:05:06; Flera måltider? 13:07:08
+        4; David Dsson; 01:09:07; 12:03:00; 13:12:07; Flera starttider? 12:12:00
+        5; Erik Esson; 00:12:07; 12:04:00; 12:16:07; Omöjlig Totaltid?
+        """;
+        String mrResultString = "";
+        for (AbstractDriver driver : mr.drivers) {
+            mrResultString += driver.toString() + "\n";
+        }
+        assertEquals(finalResultString, mrResultString);
+  }
 }

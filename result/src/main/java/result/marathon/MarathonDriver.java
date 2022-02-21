@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MarathonDriver extends AbstractDriver {
 
-    protected static final String impossibleTotalTime = "Omöjlig totaltid?";
+    protected static final String impossibleTotalTime = "Omöjlig Totaltid?";
 
     public MarathonDriver(String driverNumber, Config config) {
         super(driverNumber, config);
