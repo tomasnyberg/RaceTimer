@@ -4,33 +4,33 @@ import platform
 
 ROOT_DIR = os.getcwd()
 ACCEPTANCE_TESTS_DIR = os.path.join(ROOT_DIR, 'Acceptanstester')
-EXECUTABLE = os.path.join(ROOT_DIR, 'result/build/libs/result-v0.1.jar')
+EXECUTABLE = os.path.join(ROOT_DIR, 'result/build/libs/result-v0.1b.jar')
 
 EXPECTED_RESULT_FILE = 'resultat.txt'
-RESULT_FILE = 'resultatFil.txt'
+RESULT_FILE = 'resultat.txt'
 
 def test_directory(dir):
     if not os.path.isdir(dir):
         print(f'directory: {dir} does not exist')
         return
-    
+
     subdirectories = [os.path.join(dir, o) for o in os.listdir(dir) 
                       if os.path.isdir(os.path.join(dir, o))]
     if os.path.join(dir, 'input') not in subdirectories:
         for subdir in subdirectories:
             test_directory(os.path.join(dir, subdir))
         return
-    
+
     cwd = os.getcwd()
     os.chdir(dir)
-    
+
     output_file = os.path.join(dir, 'output', RESULT_FILE)
     if os.path.isfile(output_file):
         os.remove(output_file)
 
     print('=========================================')
     print(f'running test {dir}')
-    os.system(f'java -jar {EXECUTABLE} 00:15:00')
+    os.system(f'java -jar {EXECUTABLE}')
 
     if os.path.isfile(output_file):
         if platform.system() == 'Windows':
