@@ -71,23 +71,10 @@ build {
 import org.apache.tools.ant.taskdefs.condition.Os
 task testTask(type:Exec) {
   workingDir '.'
-
-//   //on windows:
   if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-    commandLine 'cmd', 'echo', 'a'
+    commandLine 'cmd', '/c' , 'echo', 'asdlfkjasdflöjkasdlf'
   }
   else {
     commandLine 'echo', 'a'
   }
-
-  //on linux
-  // commandLine 'cmd', 'echo', 'a'
-
-//   //store the output instead of printing to the console:
-//   standardOutput = new ByteArrayOutputStream()
-
-//   //extension method stopTomcat.output() can be used to obtain the output:
-//   ext.output = {
-//     return standardOutput.toString()
 }
-
