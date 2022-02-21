@@ -1,6 +1,7 @@
 const express = require('express')
 const fs = require('fs')
 const cors = require('cors')
+const path = require('path')
 const app = express()
 const port = 4000
 const pathDrivers = 'drivers.txt'
@@ -8,6 +9,9 @@ const pathResult = './output/resultat.txt'
 
 app.use(cors())
 app.use(express.json())
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'web')));
+}
 
 const drivers = []
 const result = []
@@ -37,6 +41,12 @@ app.post('/drivers', (req, res) => {
     .catch((err) => console.error(err))
   res.status(201).json(data)
 })
+
+if (process.env.NODE_ENV === 'production') {
+  app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'web', 'index.html'));
+  });
+}
 
 app.listen(port, () => {
   createAndLoadFile()

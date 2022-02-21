@@ -1,1 +1,1 @@
-npm i && node index.js
+npm i && npm start
