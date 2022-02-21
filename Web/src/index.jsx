@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Registration from './Registration';
-import Result from './Result';
+import Registration from './pages/Registration';
+import TimeRegistration from './pages/TimeRegistration';
+import Result from './pages/Result';
 import Layout from './Layout';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from '@chakra-ui/react'
@@ -15,6 +16,7 @@ ReactDOM.render(
           <Routes>
             <Route path="/" element={<Result />} />
             <Route path="/registration" element={<Registration />}/>
+            <Route path="/time-registration" element={<TimeRegistration />}/>
           </Routes>
         </Layout>
       </ChakraProvider>
