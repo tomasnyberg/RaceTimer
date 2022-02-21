@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Switch, Button, Box, Input, SimpleGrid, Center, RadioGroup, Stack, Radio } from '@chakra-ui/react'
+import { useEffect } from 'react'
 
 
 export default function Configuration() {
@@ -9,6 +10,20 @@ export default function Configuration() {
   const [namePath, setNamePath] = useState("input/namnfil.txt")
   const [sorting, setSorting] = useState(false)
   const [type, setType] = useState("marathon")
+  let test;
+
+  useEffect(() => {
+    console.log("blahblashvseklhgjs")
+    if (type == "marathon")
+      test = <div>hej</div>;
+    else
+      test = <div>hejdå</div>
+  }, [type])
+
+  function onTypeChanged(event) {
+    console.log("Helloooosfvskfvnköeflknm")
+    setType(value)
+  }
 
   function onSubmit(event) {
     event.preventDefault();
@@ -25,7 +40,7 @@ export default function Configuration() {
       <Center>
         <SimpleGrid columns={2} spacingY={10} maxW="500px">
 
-          {/* Tävlingstitel */}
+          {/* Competition title */}
           <Box height='30px'>
             Tävlingstitel
           </Box>
@@ -33,7 +48,7 @@ export default function Configuration() {
             <Input size="md" placeholder="Tävlingstitel" value={title} onChange={(event) => setTitle(event.target.value)} />
           </Box>
 
-          {/* Footer text för resultatfil */}
+          {/* Footer text for result file */}
           <Box height='30px'>
             Footer-text för resultatfil
           </Box>
@@ -41,7 +56,7 @@ export default function Configuration() {
             <Input size="md" placeholder="Textexempel i footer" value={footer} onChange={(event) => setFooter(event.target.value)} />
           </Box>
           
-          {/* Path till resultatfil i server */}
+          {/* Path to result file in server */}
           <Box height='30px'>
             Path till resultatfil i server
           </Box>
@@ -49,7 +64,7 @@ export default function Configuration() {
             <Input size="md" value={resultPath} onChange={(event) => setResultPath(event.target.value)} />
           </Box>
 
-          {/* Path till namnfil i server */}
+          {/* Path to name file in server */}
           <Box height='30px'>
             Path till namnfil i server
           </Box>
@@ -57,7 +72,7 @@ export default function Configuration() {
             <Input size="md" value={namePath} onChange={(event) => setNamePath(event.target.value)} />
           </Box>
 
-          {/* Sortering av resultat */}
+          {/* Sort result */}
           <Box height='30px'>
             Sortering av resultat
           </Box>
@@ -65,12 +80,12 @@ export default function Configuration() {
             <Switch size='lg' colorScheme='yellow' value={sorting} onChange={(event) => setSorting(!sorting)} />
           </Box>
 
-          {/* Välja tävlingstyp */}
+          {/* Choose competition type */}
           <Box height='30px'>
-            Sortering av resultat
+            Tävlingstyp
           </Box>
           <Box height='30px'>
-            <RadioGroup onChange={setType}>
+            <RadioGroup onChange={(event) => onTypeChanged(event.target.value))}>
               <Stack direction='row'>
                 <Radio value='marathon'>Maraton</Radio>
                 <Radio value='lap'>Varvlopp</Radio>
@@ -78,7 +93,11 @@ export default function Configuration() {
             </RadioGroup>
           </Box>
 
-          {/* Spara ändringar */}
+          {/* Marathon form or lap form depending on competition type */}
+          { test }
+
+
+          {/* Save config */}
           <Box height='30px'>
             <Button colorScheme='yellow' size='md' type="submit">Spara</Button>
           </Box>
