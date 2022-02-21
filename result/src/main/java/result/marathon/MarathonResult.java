@@ -40,8 +40,8 @@ public class MarathonResult extends AbstractResult {
             Collections.sort(drivers);
             dumpList.add(topLine);
             for (int i = 0; i < drivers.size(); i++) {
-                String rank = Integer.toString(i + 1);
-                dumpList.add(rank + "; " + drivers.get(i).toString());
+                String prefix = drivers.get(i).isErrors() ? "" : Integer.toString(i + 1);
+                dumpList.add(prefix + "; " + drivers.get(i).toString());
             }
         } else {
             topLine = "StartNr; Namn; Totaltid; Start; Mål";
