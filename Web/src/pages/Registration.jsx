@@ -44,8 +44,8 @@ function Registration() {
           setName("");
           fetchDrivers();
           toast({
-            title: 'Driver was added',
-            description: `${data.name} with Start Number: ${data.startNumber} was registered`,
+            title: 'Förare var tillagd',
+            description: `${data.name} med start nummer: ${data.startNumber} var registrerad`,
             status: 'success',
             duration: 3000,
             isClosable: true,
@@ -53,7 +53,7 @@ function Registration() {
         })
       }).catch((err) => {
         toast({
-          title: 'There was a problem',
+          title: 'Det uppstod ett problem',
           description: err.message,
           status: 'error',
           duration: 6000,
@@ -62,8 +62,8 @@ function Registration() {
       })
     } else {
       toast({
-        title: 'There was a problem',
-        description: "Name cannot be empty",
+        title: 'Det uppstod ett problem',
+        description: "Namn kan inte vara tomt",
         status: 'error',
         duration: 6000,
         isClosable: true,
