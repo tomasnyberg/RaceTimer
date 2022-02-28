@@ -107,7 +107,7 @@ public abstract class AbstractResult {
    */
   protected List<String> readFile(String path) {
     try {
-      BufferedReader reader = new BufferedReader(new FileReader(path, StandardCharsets.UTF_8));
+      BufferedReader reader = new BufferedReader(new FileReader(path));
       List<String> list = new ArrayList<>();
       String line = reader.readLine();
       while (line != null) {
