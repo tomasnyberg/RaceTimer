@@ -5,7 +5,7 @@ nameFile: ./input/namnfil.txt
 sorting: true
 type: marathon
 marathon:
-  minimumTime: '00:05:01'
+  minimumTime: '00:05:02'
   startTimesFile: ./input/starttider.txt
   goalTimesFile: ./input/maltider1.txt
 lap:

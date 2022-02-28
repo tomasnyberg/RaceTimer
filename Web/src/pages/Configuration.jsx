@@ -14,7 +14,7 @@ export default function Configuration() {
     marathon: {
       minimumTime: "",
       startTimesFile: "input/starttider.txt",
-      goalTimesFile: "input/maltider1.txt"
+      goalTimesFile: "input/maltider1.txt",
     },
     lap: {
       minimumTime: "",
@@ -22,13 +22,13 @@ export default function Configuration() {
       timeForMassStart: "",
       startTimesFile: "input/starttider.txt",
       goalTimesFiles: "",
-      raceEndTime: ""
-    }
-  })
+      raceEndTime: "",
+    },
+  });
 
   useEffect(() => {
     fetchConfig();
-  }, [])
+  }, []);
 
   function fetchConfig() {
     fetch('http://localhost:4000/config')
@@ -100,55 +100,70 @@ export default function Configuration() {
   }
 
   function onTypeSpecificDataChanged(currentType, key, value) {
-    let updatedValue = typeSpecificData
+    let updatedValue = typeSpecificData;
 
-    if(currentType === "lap" && key === "goalTimesFiles") {
-      updatedValue[currentType][key] = value.split(",")
+    if (currentType === "lap" && key === "goalTimesFiles") {
+      updatedValue[currentType][key] = value.split(",");
     } else {
       updatedValue[currentType][key] = value;
     }
-    
-    setTypeSpecificData(typeSpecificData => ({
+
+    setTypeSpecificData((typeSpecificData) => ({
       ...typeSpecificData,
-      ...updatedValue
+      ...updatedValue,
     }));
   }
 
   return (
     <form onSubmit={onSubmit}>
       <Center>
-        <SimpleGrid columns={2} spacingY={10} spacingX={20} maxW="750px" style={{marginBottom: 50}}>
-
+        <SimpleGrid
+          columns={2}
+          spacingY={10}
+          spacingX={20}
+          maxW="750px"
+          style={{ marginBottom: 50 }}
+        >
           {/* Competition title */}
-          <Box height='30px'>
-            Tävlingstitel
-          </Box>
-          <Box height='30px'>
-            <Input size="md" placeholder="Tävlingstitel" value={title} onChange={(event) => setTitle(event.target.value)} />
+          <Box height="30px">Tävlingstitel</Box>
+          <Box height="30px">
+            <Input
+              size="md"
+              placeholder="Tävlingstitel"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+            />
           </Box>
 
           {/* Footer text for result file */}
-          <Box height='30px'>
-            Footer-text för resultatfil
+          <Box height="30px">Footer-text för resultatfil</Box>
+          <Box height="30px">
+            <Input
+              size="md"
+              placeholder="Textexempel i footer"
+              value={footer}
+              onChange={(event) => setFooter(event.target.value)}
+            />
           </Box>
-          <Box height='30px'>
-            <Input size="md" placeholder="Textexempel i footer" value={footer} onChange={(event) => setFooter(event.target.value)} />
-          </Box>
-          
+
           {/* Path to result file in server */}
-          <Box height='30px'>
-            Filväg till resultatfil i server
-          </Box>
-          <Box height='30px'>
-            <Input size="md" value={resultFile} onChange={(event) => setResultFile(event.target.value)} />
+          <Box height="30px">Filväg till resultatfil i server</Box>
+          <Box height="30px">
+            <Input
+              size="md"
+              value={resultFile}
+              onChange={(event) => setResultFile(event.target.value)}
+            />
           </Box>
 
           {/* Path to name file in server */}
-          <Box height='30px'>
-            Filväg till namnfil i server
-          </Box>
-          <Box height='30px'>
-            <Input size="md" value={nameFile} onChange={(event) => setNameFile(event.target.value)} />
+          <Box height="30px">Filväg till namnfil i server</Box>
+          <Box height="30px">
+            <Input
+              size="md"
+              value={nameFile}
+              onChange={(event) => setNameFile(event.target.value)}
+            />
           </Box>
 
           {/* Sort result */}
@@ -173,17 +188,24 @@ export default function Configuration() {
           </Box>
 
           {/* Marathon form or lap form depending on competition type */}
-          { type === "lap" ?
-
+          {type === "lap" ? (
             // Lap
             <React.Fragment>
-
               {/* Minimum time for lap */}
-              <Box height='30px'>
-                Minimumtid per varv
-              </Box>
-              <Box height='30px'>
-                <Input size="md" placeholder="Använd formatet hh:mm:ss" value={typeSpecificData[type].minimumTime} onChange={(event) => onTypeSpecificDataChanged(type, "minimumTime", event.target.value)} />
+              <Box height="30px">Minimumtid per varv</Box>
+              <Box height="30px">
+                <Input
+                  size="md"
+                  placeholder="Använd formatet hh:mm:ss"
+                  value={typeSpecificData[type].minimumTime}
+                  onChange={(event) =>
+                    onTypeSpecificDataChanged(
+                      type,
+                      "minimumTime",
+                      event.target.value
+                    )
+                  }
+                />
               </Box>
 
               {/* Mass start true or false */}
@@ -195,79 +217,134 @@ export default function Configuration() {
               </Box>
 
               {/* Time for mass start */}
-              <Box height='30px'>
-                Tid för mass-start
-              </Box>
-              <Box height='30px'>
-                <Input size="md" placeholder="Använd formatet hh:mm:ss" value={typeSpecificData[type].timeForMassStart} onChange={(event) => onTypeSpecificDataChanged(type, "timeForMassStart", event.target.value)} />
+              <Box height="30px">Tid för mass-start</Box>
+              <Box height="30px">
+                <Input
+                  size="md"
+                  placeholder="Använd formatet hh:mm:ss"
+                  value={typeSpecificData[type].timeForMassStart}
+                  onChange={(event) =>
+                    onTypeSpecificDataChanged(
+                      type,
+                      "timeForMassStart",
+                      event.target.value
+                    )
+                  }
+                />
               </Box>
 
               {/* Start time file */}
-              <Box height='30px'>
-                Filväg till fil med starttider i server
-              </Box>
-              <Box height='30px'>
-                <Input size="md" value={typeSpecificData[type].startTimesFile} onChange={(event) => onTypeSpecificDataChanged(type, "startTimesFile", event.target.value)} />
+              <Box height="30px">Filväg till fil med starttider i server</Box>
+              <Box height="30px">
+                <Input
+                  size="md"
+                  value={typeSpecificData[type].startTimesFile}
+                  onChange={(event) =>
+                    onTypeSpecificDataChanged(
+                      type,
+                      "startTimesFile",
+                      event.target.value
+                    )
+                  }
+                />
               </Box>
 
               {/* End time file */}
-              <Box height='30px'>
-                Filväg till fil med måltider i server
-              </Box>
-              <Box height='30px'>
-                <Input size="md"  placeholder="T.ex: fil1.txt" value={typeSpecificData[type].goalTimesFiles} onChange={(event) => onTypeSpecificDataChanged(type, "goalTimesFiles", event.target.value)} />
+              <Box height="30px">Filväg till fil med måltider i server</Box>
+              <Box height="30px">
+                <Input
+                  size="md"
+                  placeholder="T.ex: fil1.txt"
+                  value={typeSpecificData[type].goalTimesFiles}
+                  onChange={(event) =>
+                    onTypeSpecificDataChanged(
+                      type,
+                      "goalTimesFiles",
+                      event.target.value
+                    )
+                  }
+                />
               </Box>
 
               {/* Race end time */}
-              <Box height='30px'>
-                Slut-tid för lopp
+              <Box height="30px">Sluttid för lopp</Box>
+              <Box height="30px">
+                <Input
+                  size="md"
+                  placeholder="Använd formatet hh:mm:ss"
+                  value={typeSpecificData[type].raceEndTime}
+                  onChange={(event) =>
+                    onTypeSpecificDataChanged(
+                      type,
+                      "raceEndTime",
+                      event.target.value
+                    )
+                  }
+                />
               </Box>
-              <Box height='30px'>
-                <Input size="md" placeholder="Använd formatet hh:mm:ss" value={typeSpecificData[type].raceEndTime} onChange={(event) => onTypeSpecificDataChanged(type, "raceEndTime", event.target.value)} />
-              </Box>
-            
             </React.Fragment>
-
-            :
-
+          ) : (
             // Marathon
             <React.Fragment>
-
               {/* Minimum time for race */}
-              <Box height='30px'>
-                Minimumtid för helt lopp
-              </Box>
-              <Box height='30px'>
-                <Input size="md" placeholder="Använd formatet hh:mm:ss" value={typeSpecificData[type].minimumTime} onChange={(event) => onTypeSpecificDataChanged(type, "minimumTime", event.target.value)} />
+              <Box height="30px">Minimumtid för helt lopp</Box>
+              <Box height="30px">
+                <Input
+                  size="md"
+                  placeholder="Använd formatet hh:mm:ss"
+                  value={typeSpecificData[type].minimumTime}
+                  onChange={(event) =>
+                    onTypeSpecificDataChanged(
+                      type,
+                      "minimumTime",
+                      event.target.value
+                    )
+                  }
+                />
               </Box>
 
               {/* Start time file */}
-              <Box height='30px'>
-                Filväg till fil med starttider i server
-              </Box>
-              <Box height='30px'>
-                <Input size="md" value={typeSpecificData[type].startTimesFile} onChange={(event) => onTypeSpecificDataChanged(type, "startTimesFile", event.target.value)} />
+              <Box height="30px">Filväg till fil med starttider i server</Box>
+              <Box height="30px">
+                <Input
+                  size="md"
+                  value={typeSpecificData[type].startTimesFile}
+                  onChange={(event) =>
+                    onTypeSpecificDataChanged(
+                      type,
+                      "startTimesFile",
+                      event.target.value
+                    )
+                  }
+                />
               </Box>
 
               {/* End time file */}
-              <Box height='30px'>
-                Filväg till fil med måltider i server
+              <Box height="30px">Filväg till fil med måltider i server</Box>
+              <Box height="30px">
+                <Input
+                  size="md"
+                  value={typeSpecificData[type].goalTimesFile}
+                  onChange={(event) =>
+                    onTypeSpecificDataChanged(
+                      type,
+                      "goalTimesFile",
+                      event.target.value
+                    )
+                  }
+                />
               </Box>
-              <Box height='30px'>
-                <Input size="md" value={typeSpecificData[type].goalTimesFile} onChange={(event) => onTypeSpecificDataChanged(type, "goalTimesFile", event.target.value)} />
-              </Box>
-            
             </React.Fragment>
-
-          }
-
+          )}
 
           {/* Save config */}
-          <Box height='30px'>
-            <Button colorScheme='yellow' size='md' type="submit">Spara</Button>
+          <Box height="30px">
+            <Button colorScheme="yellow" size="md" type="submit">
+              Spara
+            </Button>
           </Box>
         </SimpleGrid>
       </Center>
     </form>
-  )
+  );
 }
