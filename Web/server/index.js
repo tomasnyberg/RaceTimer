@@ -1,23 +1,48 @@
 const express = require('express')
 const fs = require('fs')
+const yaml = require('js-yaml');
 const cors = require('cors')
-const path = require('path')
+const path = require('path');
+const { config } = require('process');
 const app = express()
-const port = 4000
-const pathDrivers = './namnfil.txt'
-const pathResult = './resultat.txt'
-const pathStartTime = './starttider.txt'
-const pathEndTime = './maltider.txt'
 
 app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'web')));
 
+var port = 4000; // Fallback
 let drivers = []
 let startTimes = []
 let endTimes = []
-const result = []
+let result = []
 let resultHeader = []
+var pathDrivers = './input/namnfil.txt' // Fallback
+var pathResult = './output/resultat.txt' // Fallback
+var pathStartTime = './input/starttider.txt' // Fallback
+var pathGoalTime = './input/maltider.txt' // Fallback
+var configData = {}
+
+// Get document, or throw exception on error
+try {
+  configData = yaml.load(fs.readFileSync('config.yaml', 'utf8'), { json: true });
+  port = configData.port;
+  pathDrivers = String(configData.nameFile)
+  pathResult = String(configData.resultFile)
+
+  if(configData.type === "marathon") {
+    pathStartTime = String(configData.marathon.startTimesFile);
+    pathGoalTime = String(configData.marathon.goalTimesFile);
+  } else {
+    pathStartTime = configData.lap.startTimesFile;
+    pathGoalTime = configData.lap.goalTimesFiles[0];
+  }
+} catch (e) {
+  console.log(e);
+}
+
+app.get('/config', async (req, res) => {
+  res.status(200).json(configData);
+})
 
 app.get('/results', async (req, res) => {
   var child = require('child_process').spawn('java', ['-jar', 'result-v0.2.jar']);
@@ -64,7 +89,7 @@ app.get('/end', (req, res) => {
 app.post('/end', (req, res) => {
   const data = {startNumber: req.body.startNumber, time: req.body.time}
   endTimes.push(data)
-  fs.promises.appendFile(pathEndTime, `${data.startNumber}; ${data.time}\n`)
+  fs.promises.appendFile(pathGoalTime, `${data.startNumber}; ${data.time}\n`)
     .then(() => console.log("Saved time"))
     .catch((err) => console.error(err))
   res.status(201).json(data)
@@ -91,9 +116,9 @@ fs.watchFile(pathStartTime, (curr, prev) => {
   loadTimeFiles(pathStartTime, "start")
 });
 
-fs.watchFile(pathEndTime, (curr, prev) => {
+fs.watchFile(pathGoalTime, (curr, prev) => {
   endTimes = []
-  loadTimeFiles(pathEndTime, "end")
+  loadTimeFiles(pathGoalTime, "end")
 });
 
 function loadTimeFiles(path, type) {
@@ -134,11 +159,11 @@ function createAndLoadStartFile() {
 }
 
 function createAndLoadEndFile() {
-  if (fs.existsSync(pathEndTime)) {
-    loadTimeFiles(pathEndTime, "end")
+  if (fs.existsSync(pathGoalTime)) {
+    loadTimeFiles(pathGoalTime, "end")
   } else {
-    fs.promises.writeFile(pathEndTime, "")
-      .then(() => console.log(`Created StartTime file at ${pathEndTime}`))
+    fs.promises.writeFile(pathGoalTime, "")
+      .then(() => console.log(`Created StartTime file at ${pathGoalTime}`))
       .catch((err) => {
         console.error(err)
         process.exit(1)

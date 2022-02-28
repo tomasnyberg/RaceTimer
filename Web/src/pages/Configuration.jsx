@@ -147,12 +147,12 @@ export default function Configuration() {
                 <Input size="md" value={typeSpecificData[type].startTimesFile} onChange={(event) => onTypeSpecificDataChanged("startTimesFile", event.target.value)} />
               </Box>
 
-              {/* End time files */}
+              {/* End time file */}
               <Box height='30px'>
-                Filväg till filer med måltider i server
+                Filväg till fil med måltider i server
               </Box>
               <Box height='30px'>
-                <Input size="md"  placeholder="T.ex: fil1.txt,fil2.txt" value={typeSpecificData[type].goalTimesFiles} onChange={(event) => onTypeSpecificDataChanged("goalTimesFiles", event.target.value)} />
+                <Input size="md"  placeholder="T.ex: fil1.txt" value={typeSpecificData[type].goalTimesFiles} onChange={(event) => onTypeSpecificDataChanged("goalTimesFiles", event.target.value)} />
               </Box>
 
               {/* Race end time */}
