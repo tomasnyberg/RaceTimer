@@ -10,38 +10,39 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'web')));
 
-var port = 4000; // Fallback
+let port = 4000; // Fallback
 let drivers = []
 let startTimes = []
 let endTimes = []
 let result = []
 let resultHeader = []
-var pathDrivers = './input/namnfil.txt' // Fallback
-var pathResult = './output/resultat.txt' // Fallback
-var pathStartTime = './input/starttider.txt' // Fallback
-var pathGoalTime = './input/maltider.txt' // Fallback
-var configData = {}
+let pathDrivers = './input/namnfil.txt' // Fallback
+let pathResult = './output/resultat.txt' // Fallback
+let pathStartTime = './input/starttider.txt' // Fallback
+let pathGoalTime = './input/maltider.txt' // Fallback
+const configPath = 'config.yaml'
+let configData = {}
 
-// Get document, or throw exception on error
-try {
-  configData = yaml.load(fs.readFileSync('config.yaml', 'utf8'), { json: true });
-  port = configData.port;
-  pathDrivers = String(configData.nameFile)
-  pathResult = String(configData.resultFile)
-
-  if(configData.type === "marathon") {
-    pathStartTime = String(configData.marathon.startTimesFile);
-    pathGoalTime = String(configData.marathon.goalTimesFile);
-  } else {
-    pathStartTime = configData.lap.startTimesFile;
-    pathGoalTime = configData.lap.goalTimesFiles[0];
-  }
-} catch (e) {
-  console.log(e);
-}
+loadConfig();
 
 app.get('/config', async (req, res) => {
   res.status(200).json(configData);
+})
+
+app.put('/config', async (req, res) => {
+  let updatedConfigData = req.body;
+  updatedConfigData.port = configData.port;
+  const updatedYamlData = yaml.dump(updatedConfigData)
+  fs.promises.writeFile(configPath, updatedYamlData)
+    .then(() => {
+      console.log(`Updated config file at ${configPath}`)
+      loadConfig();
+      res.status(201).send({ message: "Updated config" });
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(500).send(err)
+    })
 })
 
 app.get('/results', async (req, res) => {
@@ -215,5 +216,25 @@ async function readResultFile(){
     })
   } else {
     console.error("result file does not exist at " + pathResult);
+  }
+}
+
+function loadConfig() {
+  // Get config, or throw exception on error
+  try {
+    configData = yaml.load(fs.readFileSync(configPath, 'utf8'), { json: true });
+    port = configData.port;
+    pathDrivers = String(configData.nameFile)
+    pathResult = String(configData.resultFile)
+
+    if(configData.type === "marathon") {
+      pathStartTime = String(configData.marathon.startTimesFile);
+      pathGoalTime = String(configData.marathon.goalTimesFile);
+    } else {
+      pathStartTime = configData.lap.startTimesFile;
+      pathGoalTime = configData.lap.goalTimesFiles[0];
+    }
+  } catch (e) {
+    console.log(e);
   }
 }

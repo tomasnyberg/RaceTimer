@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Switch, Button, Box, Input, SimpleGrid, Center, RadioGroup, Stack, Radio } from '@chakra-ui/react'
+import { Switch, useToast, Button, Box, Input, SimpleGrid, Center, RadioGroup, Stack, Radio } from '@chakra-ui/react'
 
 
 export default function Configuration() {
+  const toast = useToast();
   const [title, setTitle] = useState("")
   const [footer, setFooter] = useState("")
   const [resultFile, setResultFile] = useState("output/resultat.txt")
@@ -34,6 +35,7 @@ export default function Configuration() {
       .then((res) => {
         res.json()
           .then((data) => {
+            console.log(data)
             setTitle(data.title);
             setFooter(data.footer);
             setResultFile(data.resultFile);
@@ -53,20 +55,48 @@ export default function Configuration() {
             onTypeSpecificDataChanged("lap", "startTimesFile", data.lap.startTimesFile)
             onTypeSpecificDataChanged("lap", "goalTimesFiles", data.lap.goalTimesFiles[0])
             onTypeSpecificDataChanged("lap", "raceEndTime", data.lap.raceEndTime)
-          });
 
+            console.log("hellooo")
+            console.log(sorting);
+          });
       });
   }
 
   function onSubmit(event) {
     event.preventDefault();
-    console.log(title)
-    console.log(footer)
-    console.log(resultFile)
-    console.log(nameFile)
-    console.log(sorting)
-    console.log(type)
-    console.log(typeSpecificData)
+    var dataToServer = {
+      title: title,
+      footer: footer,
+      resultFile: resultFile,
+      nameFile: nameFile,
+      sorting: sorting,
+      type: type,
+      marathon: typeSpecificData.marathon,
+      lap: typeSpecificData.lap
+    }
+    
+    fetch('http://localhost:4000/config', { 
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' }, 
+      body: JSON.stringify(dataToServer)
+    }).then((res) => {
+      res.json().then((data) => {
+        toast({
+          title: 'Konfigurationen uppdaterades',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+      })
+    }).catch((err) => {
+      toast({
+        title: 'Det uppstod ett problem',
+        description: err.message,
+        status: 'error',
+        duration: 6000,
+        isClosable: true,
+      })
+    })
   }
 
   function onTypeSpecificDataChanged(currentType, key, value) {
@@ -126,7 +156,7 @@ export default function Configuration() {
             Sortering av resultat
           </Box>
           <Box height='30px'>
-            <Switch size='lg' colorScheme='yellow' value={sorting} onChange={(event) => setSorting(!sorting)} />
+            <Switch size='lg' colorScheme='yellow' isChecked={sorting} value={sorting} onChange={(event) => setSorting(!sorting)} />
           </Box>
 
           {/* Choose competition type */}
@@ -134,7 +164,7 @@ export default function Configuration() {
             Tävlingstyp
           </Box>
           <Box height='30px'>
-            <RadioGroup onChange={setType} defaultValue={type}>
+            <RadioGroup onChange={setType} value={type}>
               <Stack direction='row'>
                 <Radio value='marathon'>Maraton</Radio>
                 <Radio value='lap'>Varvlopp</Radio>
@@ -161,7 +191,7 @@ export default function Configuration() {
                 Mass-start
               </Box>
               <Box height='30px'>
-                <Switch size='lg' colorScheme='yellow' value={typeSpecificData[type].massStart} onChange={(event) => setSorting(!typeSpecificData[type].massStart)} />
+                <Switch size='lg' colorScheme='yellow' isChecked={typeSpecificData[type].massStart} value={typeSpecificData[type].massStart} onChange={(event) => onTypeSpecificDataChanged(type, "massStart", !typeSpecificData[type].massStart)} />
               </Box>
 
               {/* Time for mass start */}
