@@ -10,7 +10,7 @@ export default function Result() {
   const [results, setResults] = useState([])
 
   const { hasCopied, onCopy } = useClipboard(resultText)
-  
+
   useEffect(() => {
     fetch('http://localhost:4000/results')
     .then((res) => {
@@ -69,7 +69,10 @@ export default function Result() {
             </Box>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="yellow" onClick={onCopy}>
+            <Button colorScheme="green" mr="1rem" onClick={onCopy}>
+            <a href={"mailto:ulf.asklund@cs.lth.se?subject=PVG - Resultat Team 05&body=" + encodeURIComponent(resultText)}>Skicka email till Ulf</a>
+            </Button>
+            <Button colorScheme="yellow">
               {hasCopied ? 'Kopierad' : 'Kopiera'}
             </Button>
           </ModalFooter>
