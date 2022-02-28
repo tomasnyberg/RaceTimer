@@ -97,7 +97,7 @@ app.post('/end', (req, res) => {
 })
 
 app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'web', 'index.html'));
 });
 
 app.listen(port, () => {
