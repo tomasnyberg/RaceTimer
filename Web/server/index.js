@@ -57,19 +57,6 @@ app.post('/start', (req, res) => {
   res.status(201).json(data)
 })
 
-app.get('/start', (req, res) => {
-  res.status(200).json(startTimes)
-})
-
-app.post('/start', (req, res) => {
-  const data = {startNumber: req.body.startNumber, time: req.body.time}
-  startTimes.push(data)
-  fs.promises.appendFile(pathStartTime, `${data.startNumber}; ${data.time}\n`)
-    .then(() => console.log("Saved time"))
-    .catch((err) => console.error(err))
-  res.status(201).json(data)
-})
-
 app.get('/end', (req, res) => {
   res.status(200).json(endTimes)
 })
@@ -99,7 +86,7 @@ function createAndLoadStartFile() {
     console.log(`StartTime file already exist at ${pathStartTime}`)
     fs.promises.readFile(pathStartTime, "utf-8")
       .then((contents) => {
-        contents.split(/\r?\n/).forEach((line, index) => {
+        contents.split(/\r?\n/).forEach((line) => {
           if (line !== "") {
             const [startNumber, time] = line.split("; ");
             startTimes.push({
