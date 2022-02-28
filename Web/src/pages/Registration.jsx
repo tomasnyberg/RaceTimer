@@ -51,7 +51,7 @@ function Registration() {
             fetchDrivers();
             toast({
               title: "Förare var tillagd",
-              description: `${data.name} med start nummer: ${data.startNumber} var registrerad`,
+              description: `${data.name} med startnummer: ${data.startNumber} var registrerad`,
               status: "success",
               duration: 3000,
               isClosable: true,
@@ -99,7 +99,7 @@ function Registration() {
               <VStack spacing="1rem">
                 <Input
                   value={name}
-                  placeholder="Name"
+                  placeholder="Namn"
                   size="lg"
                   onChange={(event) => handleNameChange(event.target.value)}
                 />
@@ -114,7 +114,7 @@ function Registration() {
           <Table variant="striped">
             <Thead>
               <Tr>
-                <Th>Start Nummer</Th>
+                <Th>Startnummer</Th>
                 <Th>Namn</Th>
               </Tr>
             </Thead>
