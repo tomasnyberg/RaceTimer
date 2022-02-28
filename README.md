@@ -1,21 +1,26 @@
 Web:
-### To run: ./gradlew build
+### To Run: 
 
-### To run En komplett version av projektet finns nu i mappen "/build/distributions/team05-race-clock-vXX.zip"
+### Type ./gradlew build
 
-### To run Unzippa filen till lämplig plats.
 
-### To run Stega in i den unzippade mappen.
+### A complete version of project exist in the map: "/build/distributions/team05-race-clock-vXX.zip"
 
-### To run Kör ./start.sh on Linux , ./start.bat on Windows
+### Unzip the file.
+
+### Step inside the unzipped file.
+
+### Type ./start.sh on Linux , ./start.bat on Windows
 
 
 Java:
-### To run: ./gradlew run
+### To Run:
 
-### To run / build the register subproject : ./gradlew :register:run
+### Type ./gradlew run
 
-### To run / build result project you have to specify arguments: ./gradlew :result:run --args='hh:mm:ss nameFilePath startTimesPath endTimesPath resultPath shouldSort'
+### Build the register subproject : ./gradlew :register:run
+
+### Build result project you have to specify arguments: ./gradlew :result:run --args='hh:mm:ss nameFilePath startTimesPath endTimesPath resultPath shouldSort'
 
 ### Example: ./gradlew :result:run --args='00:00:00 input/namnfil.txt input/starttider.txt input/maltider.txt output/resultatFil.txt true'
 
