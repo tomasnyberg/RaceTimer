@@ -16,8 +16,8 @@ ReactDOM.render(
         <Layout>
           <Routes>
             <Route path="/" element={<Result />} />
-            <Route path="/registration" element={<Registration />}/>
-            <Route path="/time-registration" element={<TimeRegistration />}/>
+            <Route path="/registrering" element={<Registration />}/>
+            <Route path="/tids-registrering" element={<TimeRegistration />}/>
             <Route path="/konfiguration" element={<Configuration />}/>
           </Routes>
         </Layout>

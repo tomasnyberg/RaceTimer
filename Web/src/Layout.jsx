@@ -15,17 +15,17 @@ export default function Layout({children}) {
               return {
                 textDecoration: isActive ? 'underline' : 'none'
               };
-            }} to="/">Result</NavLink>
+            }} to="/">Resultat</NavLink>
             <NavLink style={({ isActive }) => {
               return {
                 textDecoration: isActive ? 'underline' : 'none'
               };
-            }} to="/registration">Registration</NavLink>
+            }} to="/registrering">Förar Registrering</NavLink>
             <NavLink style={({ isActive }) => {
               return {
                 textDecoration: isActive ? 'underline' : 'none'
               };
-            }} to="/time-registration">Time Registration</NavLink>
+            }} to="/tids-registrering">Tids Registrering</NavLink>
             <NavLink style={({ isActive }) => {
               return {
                 textDecoration: isActive ? 'underline' : 'none'

@@ -74,7 +74,7 @@ export default function Configuration() {
           
           {/* Path to result file in server */}
           <Box height='30px'>
-            Path till resultatfil i server
+            Filväg till resultatfil i server
           </Box>
           <Box height='30px'>
             <Input size="md" value={resultFile} onChange={(event) => setResultFile(event.target.value)} />
@@ -82,7 +82,7 @@ export default function Configuration() {
 
           {/* Path to name file in server */}
           <Box height='30px'>
-            Path till namnfil i server
+            Filväg till namnfil i server
           </Box>
           <Box height='30px'>
             <Input size="md" value={nameFile} onChange={(event) => setNameFile(event.target.value)} />
@@ -141,7 +141,7 @@ export default function Configuration() {
 
               {/* Start time file */}
               <Box height='30px'>
-                Path till fil med starttider i server
+                Filväg till fil med starttider i server
               </Box>
               <Box height='30px'>
                 <Input size="md" value={typeSpecificData[type].startTimesFile} onChange={(event) => onTypeSpecificDataChanged("startTimesFile", event.target.value)} />
@@ -149,7 +149,7 @@ export default function Configuration() {
 
               {/* End time files */}
               <Box height='30px'>
-                Path till filer med måltider i server
+                Filväg till filer med måltider i server
               </Box>
               <Box height='30px'>
                 <Input size="md"  placeholder="T.ex: fil1.txt,fil2.txt" value={typeSpecificData[type].goalTimesFiles} onChange={(event) => onTypeSpecificDataChanged("goalTimesFiles", event.target.value)} />
@@ -157,7 +157,7 @@ export default function Configuration() {
 
               {/* Race end time */}
               <Box height='30px'>
-                Slut-tid för race
+                Slut-tid för lopp
               </Box>
               <Box height='30px'>
                 <Input size="md" placeholder="Använd formatet hh:mm:ss" value={typeSpecificData[type].raceEndTime} onChange={(event) => onTypeSpecificDataChanged("raceEndTime", event.target.value)} />
@@ -180,7 +180,7 @@ export default function Configuration() {
 
               {/* Start time file */}
               <Box height='30px'>
-                Path till fil med starttider i server
+                Filväg till fil med starttider i server
               </Box>
               <Box height='30px'>
                 <Input size="md" value={typeSpecificData[type].startTimesFile} onChange={(event) => onTypeSpecificDataChanged("startTimesFile", event.target.value)} />
@@ -188,7 +188,7 @@ export default function Configuration() {
 
               {/* End time file */}
               <Box height='30px'>
-                Path till fil med måltider i server
+                Filväg till fil med måltider i server
               </Box>
               <Box height='30px'>
                 <Input size="md" value={typeSpecificData[type].goalTimesFile} onChange={(event) => onTypeSpecificDataChanged("goalTimesFile", event.target.value)} />

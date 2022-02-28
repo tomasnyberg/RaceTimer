@@ -77,11 +77,11 @@ function Registration() {
       <SimpleGrid columns={{sm: 1, md: 2}}>
         <Box width="100%" height={{sm: "auto", md: "88vh"}} display="flex" alignItems="center" justifyContent="center">
           <Box width="80%">
-            <Heading textAlign="center" marginY="2rem">Register Driver</Heading>
+            <Heading textAlign="center" marginY="2rem">Registrera Förare</Heading>
             <form onSubmit={(event) => onSubmit(event)} style={{ marginBottom: '2rem' }}>
               <VStack spacing="1rem">
               <Input value={name} placeholder="Name" size="lg" onChange={(event) => handleNameChange(event.target.value)} />
-              <Button type="submit" size="lg" colorScheme="yellow">Add Driver</Button>
+              <Button type="submit" size="lg" colorScheme="yellow">Lägg till förare</Button>
               </VStack>
             </form>
           </Box>
@@ -90,8 +90,8 @@ function Registration() {
           <Table variant="striped">
             <Thead>
               <Tr>
-                <Th>Start Number</Th>
-                <Th>Name</Th>
+                <Th>Start Nummer</Th>
+                <Th>Namn</Th>
               </Tr>
             </Thead>
             <Tbody>
