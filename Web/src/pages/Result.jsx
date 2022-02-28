@@ -17,6 +17,7 @@ export default function Result() {
       .then((data) => {
         setHeader(data.header);
         setResults(data.results);
+        setTitle(data.title)
       })
     })
   }, [])
@@ -33,7 +34,7 @@ export default function Result() {
     
   return (
     <Box>
-      <HStack justifyContent="space-between" my="1rem">
+      <HStack alignContent="center" justifyContent="space-between" my="1rem">
         <Heading>{title}</Heading>
         <Button colorScheme="yellow" onClick={onOpen}>Resultat i text</Button>
       </HStack>

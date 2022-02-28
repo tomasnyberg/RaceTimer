@@ -54,7 +54,7 @@ app.get('/results', async (req, res) => {
   child.on('exit', async (code) => {
     if(child.exitCode === 0){
       await readResultFile();
-      res.status(200).json({header: resultHeader, results:result});
+      res.status(200).json({ title: configData.title, header: resultHeader, results:result});
     } else {
       console.log("problem with running java result program");
     }
