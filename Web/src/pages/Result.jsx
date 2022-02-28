@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import { Table, Thead, Tbody, Modal, useToast, useClipboard, ModalOverlay, ModalContent, ModalCloseButton, ModalFooter, ModalBody, ModalHeader, Tr, Th, Td, Box, HStack, Heading, Button, useDisclosure} from '@chakra-ui/react'
-
+import basePath from '..'
 
 export default function Result() {
   const { isOpen, onOpen, onClose } = useDisclosure()
