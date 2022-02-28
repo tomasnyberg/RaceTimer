@@ -20,24 +20,29 @@ var pathDrivers = './input/namnfil.txt' // Fallback
 var pathResult = './output/resultat.txt' // Fallback
 var pathStartTime = './input/starttider.txt' // Fallback
 var pathGoalTime = './input/maltider.txt' // Fallback
+var configData = {}
 
 // Get document, or throw exception on error
 try {
-  const config = yaml.load(fs.readFileSync('config.yaml', 'utf8'));
-  port = config.port;
-  pathDrivers = String(config.nameFile)
-  pathResult = String(config.resultFile)
+  configData = yaml.load(fs.readFileSync('config.yaml', 'utf8'), json=true);
+  port = configData.port;
+  pathDrivers = String(configData.nameFile)
+  pathResult = String(configData.resultFile)
 
-  if(config.type === "marathon") {
-    pathStartTime = String(config.marathon.startTimesFile);
-    pathGoalTime = String(config.marathon.goalTimesFile);
+  if(configData.type === "marathon") {
+    pathStartTime = String(configData.marathon.startTimesFile);
+    pathGoalTime = String(configData.marathon.goalTimesFile);
   } else {
-    pathStartTime = config.lap.startTimesFile;
-    pathGoalTime = config.lap.goalTimesFiles[0];
+    pathStartTime = configData.lap.startTimesFile;
+    pathGoalTime = configData.lap.goalTimesFiles[0];
   }
 } catch (e) {
   console.log(e);
 }
+
+app.get('/config', async (req, res) => {
+  res.status(200).json(configData);
+})
 
 app.get('/results', async (req, res) => {
   var child = require('child_process').spawn('java', ['-jar', 'result-v0.2.jar']);
