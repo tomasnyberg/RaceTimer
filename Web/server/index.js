@@ -11,10 +11,10 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, 'web')));
 
 var port = 4000; // Fallback
-const drivers = []
-const startTimes = []
-const endTimes = []
-const result = []
+let drivers = []
+let startTimes = []
+let endTimes = []
+let result = []
 let resultHeader = []
 var pathDrivers = './input/namnfil.txt' // Fallback
 var pathResult = './output/resultat.txt' // Fallback
@@ -24,7 +24,7 @@ var configData = {}
 
 // Get document, or throw exception on error
 try {
-  configData = yaml.load(fs.readFileSync('config.yaml', 'utf8'), json=true);
+  configData = yaml.load(fs.readFileSync('config.yaml', 'utf8'), { json: true });
   port = configData.port;
   pathDrivers = String(configData.nameFile)
   pathResult = String(configData.resultFile)
@@ -45,7 +45,7 @@ app.get('/config', async (req, res) => {
 })
 
 app.get('/results', async (req, res) => {
-  var child = require('child_process').spawn('java', ['-jar', 'result-v0.2.jar']);
+  var child = require('child_process').spawn('java', ['-jar', 'result.jar']);
   child.on('exit', async (code) => {
     if(child.exitCode === 0){
       await readResultFile();
@@ -106,21 +106,48 @@ app.listen(port, () => {
   console.log(`App listening on port ${port}`)
 })
 
-function createAndLoadStartFile() {
-  if (fs.existsSync(pathStartTime)) {
-    console.log(`StartTime file already exist at ${pathStartTime}`)
-    fs.promises.readFile(pathStartTime, "utf-8")
+fs.watchFile(pathDrivers, (curr, prev) => {
+  drivers = []
+  loadNameFile()
+});
+
+fs.watchFile(pathStartTime, (curr, prev) => {
+  startTimes = []
+  loadTimeFiles(pathStartTime, "start")
+});
+
+fs.watchFile(pathGoalTime, (curr, prev) => {
+  endTimes = []
+  loadTimeFiles(pathGoalTime, "end")
+});
+
+function loadTimeFiles(path, type) {
+  if (fs.existsSync(path)) {
+    fs.promises.readFile(path, "utf-8")
       .then((contents) => {
         contents.split(/\r?\n/).forEach((line) => {
           if (line !== "") {
             const [startNumber, time] = line.split("; ");
-            startTimes.push({
-              startNumber: parseInt(startNumber),
-              time: time
-            })
+            if (type === "start")
+              startTimes.push({
+                startNumber: parseInt(startNumber),
+                time: time
+              })
+            else if (type === "end") {
+              endTimes.push({
+                startNumber: parseInt(startNumber),
+                time: time
+              })
+            }
           }
         })
       })
+  }
+}
+
+function createAndLoadStartFile() {
+  if (fs.existsSync(pathStartTime)) {
+    loadTimeFiles(pathStartTime, "start")
   } else {
     fs.promises.writeFile(pathStartTime, "")
       .then(() => console.log(`Created StartTime file at ${pathStartTime}`))
@@ -133,19 +160,7 @@ function createAndLoadStartFile() {
 
 function createAndLoadEndFile() {
   if (fs.existsSync(pathGoalTime)) {
-    console.log(`StartTime file already exist at ${pathGoalTime}`)
-    fs.promises.readFile(pathGoalTime, "utf-8")
-      .then((contents) => {
-        contents.split(/\r?\n/).forEach((line, index) => {
-          if (line !== "") {
-            const [startNumber, time] = line.split("; ");
-            endTimes.push({
-              startNumber: parseInt(startNumber),
-              time: time
-            })
-          }
-        })
-      })
+    loadTimeFiles(pathGoalTime, "end")
   } else {
     fs.promises.writeFile(pathGoalTime, "")
       .then(() => console.log(`Created StartTime file at ${pathGoalTime}`))
@@ -156,10 +171,8 @@ function createAndLoadEndFile() {
   }
 }
 
-function createAndLoadNameFile() {
-  if (fs.existsSync(pathDrivers)) {
-    console.log(`Drivers file already exist at ${pathDrivers}`)
-    fs.promises.readFile(pathDrivers, "utf-8")
+function loadNameFile() {
+  fs.promises.readFile(pathDrivers, "utf-8")
       .then((contents) => {
         contents.split(/\r?\n/).forEach((line, index) => {
           if (index !== 0 && line !== "") {
@@ -171,6 +184,12 @@ function createAndLoadNameFile() {
           }
         })
       })
+}
+
+function createAndLoadNameFile() {
+  if (fs.existsSync(pathDrivers)) {
+    console.log(`Drivers file already exist at ${pathDrivers}`)
+    loadNameFile()
   } else {
     fs.promises.appendFile(pathDrivers, "StartNr; Namn\n")
       .then(() => console.log(`Created driver file at ${pathDrivers}`))

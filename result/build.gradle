@@ -5,7 +5,7 @@ plugins {
 // define variable with main class, used further down
 ext {
     javaMainClass = "result.ResultProgram"
-    project.version = gradle.ext.version
+    project.version = ""
 }
 
 application {

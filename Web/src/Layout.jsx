@@ -20,12 +20,12 @@ export default function Layout({children}) {
               return {
                 textDecoration: isActive ? 'underline' : 'none'
               };
-            }} to="/registrering">Förar Registrering</NavLink>
+            }} to="/registrering">Förarregistrering</NavLink>
             <NavLink style={({ isActive }) => {
               return {
                 textDecoration: isActive ? 'underline' : 'none'
               };
-            }} to="/tids-registrering">Tids Registrering</NavLink>
+            }} to="/tids-registrering">Tidsregistrering</NavLink>
             <NavLink style={({ isActive }) => {
               return {
                 textDecoration: isActive ? 'underline' : 'none'
