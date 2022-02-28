@@ -1,12 +1,13 @@
 import {useEffect, useState} from 'react'
 import { Table, Thead, Tbody, Tr, Th, Td, Box} from '@chakra-ui/react'
+import basePath from '..'
 
 
 export default function Result() {
   const [header, setHeader] = useState([])
   const [results, setResults] = useState([])
   useEffect(() => {
-    fetch('http://localhost:4000/results')
+    fetch(basePath + '/results')
     .then((res) => {
       res.json()
       .then((data) => {

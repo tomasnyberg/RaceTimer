@@ -13,6 +13,7 @@ import {
   Td,
   useToast,
 } from "@chakra-ui/react";
+import basePath from '..'
 
 export default function TimeRegisterPanel({ type }) {
   const toast = useToast();
@@ -25,7 +26,7 @@ export default function TimeRegisterPanel({ type }) {
   }, []);
 
   function fetchTimes() {
-    fetch("http://localhost:4000/" + type).then((res) => {
+    fetch(basePath + "/" + type).then((res) => {
       res.json().then((data) => {
         setTimeEntries(data.reverse());
       });
@@ -47,7 +48,7 @@ export default function TimeRegisterPanel({ type }) {
       startNumber: startNumber,
       time: formatTime(date),
     };
-    fetch("http://localhost:4000/" + type, {
+    fetch(basePath + "/" + type, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
