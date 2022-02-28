@@ -1,5 +1,12 @@
 Coolt race - 8 feb 2022
 
 Rank; StartNr; Namn; #Varv; Totaltid; Start; Mål
+; 3; sadnjgfdsfhguksdflghdfsghÃ¶s; 0; --:--:--; 10:44:31; --:--:--
+; 4; MISSING; 0; --:--:--; 10:44:32; --:--:--
+; 7; MISSING; 0; --:--:--; 10:44:32; --:--:--
+; 1; joel; 0; --:--:--; 10:44:34; --:--:--
+; 5; MISSING; 0; --:--:--; 10:44:58; --:--:--
+; 456; MISSING; 0; --:--:--; 10:47:07; --:--:--
+; 2; hej; 0; --:--:--; --:--:--; --:--:--
 
 Resultat genererat av Team 05
