@@ -29,6 +29,11 @@ task myDist(type: Zip){
         from 'release_files/start.sh'
         fileMode = 0755
 
+		into("acceptanstester"){
+			from "acceptanstester"
+			exclude "acceptanceTests.py"
+		}
+
         into("input"){
             from 'result/input'
         }

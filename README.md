@@ -1,27 +1,21 @@
 Web:
-### To Run: 
+### To Run:
 
-### Type ./gradlew build
+### During development, use "npm run dev" in the Web directory.
 
+### To build, run ./build.sh on Linux and ./build.bat on Windows.
 
-### A complete version of project exist in the map: "/build/distributions/team05-race-clock-vXX.zip"
+### A complete version of project exists in the map: "/build/distributions/team05-race-clock-vX.X.zip"
 
 ### Unzip the file.
 
-### Step inside the unzipped file.
+### Step inside the unzipped directory.
 
-### Type ./start.sh on Linux , ./start.bat on Windows
-
+### Type ./start.sh on Linux, ./start.bat on Windows
 
 Java:
 ### To Run:
 
-### Type ./gradlew run
+### To run the result subproject: ./gradlew :result:run
 
-### Build the register subproject : ./gradlew :register:run
-
-### Build result project you have to specify arguments: ./gradlew :result:run --args='hh:mm:ss nameFilePath startTimesPath endTimesPath resultPath shouldSort'
-
-### Example: ./gradlew :result:run --args='00:00:00 input/namnfil.txt input/starttider.txt input/maltider.txt output/resultatFil.txt true'
-
-### Currently no docs file in the repo like before, also some slight changes in the gradle files / structure from the other zero feature release
+### To run the register subproject: ./gradlew :register:run
