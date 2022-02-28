@@ -45,7 +45,7 @@ app.get('/config', async (req, res) => {
 })
 
 app.get('/results', async (req, res) => {
-  var child = require('child_process').spawn('java', ['-jar', 'result-v0.2.jar']);
+  var child = require('child_process').spawn('java', ['-jar', 'result.jar']);
   child.on('exit', async (code) => {
     if(child.exitCode === 0){
       await readResultFile();
