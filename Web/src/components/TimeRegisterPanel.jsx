@@ -73,14 +73,14 @@ export default function TimeRegisterPanel({ type }) {
         <form onSubmit={onSubmit}>
           <HStack spacing="2">
             <Input w="68vw" placeholder="Start Number" type="number" value={startNumber} onChange={(event) => onStartNumberChanged(event.target.value)} />
-            <Button colorScheme='yellow' size='md' type="submit">Register</Button>
+            <Button colorScheme='yellow' size='md' type="submit">Registrera</Button>
           </HStack>
         </form>
         <Table variant="striped">
           <Thead>
           <Tr>
-              <Th>Start Number</Th>
-              <Th>Time</Th>
+              <Th>Start Nummer</Th>
+              <Th>Tid</Th>
           </Tr>
           </Thead>
           <Tbody>

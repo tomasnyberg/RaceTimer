@@ -10,6 +10,8 @@ sorting: true
 resultFile: output/resultat.txt
 # File path to name input file
 nameFile: input/namnfil.txt
+# Port used by the server
+port: 4000
 
 # Marathon related configurations
 marathon:

@@ -6,8 +6,8 @@ export default function TimeRegistration() {
   return (
     <Tabs variant='soft-rounded' colorScheme='yellow'>
       <TabList>
-        <Tab>Start Times</Tab>
-        <Tab>Goal Times</Tab>
+        <Tab>Start Tider</Tab>
+        <Tab>Mål Tider</Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
