@@ -20,6 +20,6 @@ public class FileWriter {
    * @throws java.io.IOException
    */
   public static void dump(Config config, List<String> lines) throws java.io.IOException {
-    Files.write(Paths.get(config.getResultFile()), lines.stream().map(s -> OSString.convert(s)).collect(Collectors.toList()), StandardCharsets.UTF_8);
+    Files.write(Paths.get(config.getResultFile()), lines, StandardCharsets.UTF_8);
   }
 }
