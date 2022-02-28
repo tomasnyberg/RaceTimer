@@ -1,6 +1,7 @@
 package result;
 
 import result.config.Config;
+import util.OSString;
 import util.TimeUtils;
 
 import java.time.Duration;
@@ -17,7 +18,7 @@ public abstract class AbstractDriver implements Comparable<AbstractDriver> {
     protected static final String missingStartTime = "Start?";
     protected static final String missingGoalTime = "Slut?";
     protected static final String multipleStartTimes = "Flera starttider?";
-    protected static final String multipleGoalTimes = "Flera måltider?";
+    protected static final String multipleGoalTimes = OSString.convert("Flera måltider?");
     protected static final String SEP = ";";
     protected static final String ERROR_SEP = ",";
 

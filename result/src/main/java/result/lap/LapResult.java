@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import util.FileWriter;
+import util.OSString;
 
 /**
  * Class for generating a result for a lap race
@@ -52,7 +53,7 @@ public class LapResult extends AbstractResult {
     for (int i = 1; i < max; i++) {
       topLine += "Varvning" + i + "; ";
     }
-    topLine += "Mål";
+    topLine += OSString.convert("Mål");
 
     if (config.isSorting()) {
       topLine = "Rank; " + topLine;
