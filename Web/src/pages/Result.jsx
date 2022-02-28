@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import { Table, Thead, Tbody, Modal, useToast, useClipboard, ModalOverlay, ModalContent, ModalCloseButton, ModalFooter, ModalBody, ModalHeader, Tr, Th, Td, Box, HStack, Heading, Button, useDisclosure} from '@chakra-ui/react'
-
+import basePath from '..'
 
 export default function Result() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -12,7 +12,7 @@ export default function Result() {
   const { hasCopied, onCopy } = useClipboard(resultText)
 
   useEffect(() => {
-    fetch('http://localhost:4000/results')
+    fetch(basePath + '/results')
     .then((res) => {
       res.json()
       .then((data) => {

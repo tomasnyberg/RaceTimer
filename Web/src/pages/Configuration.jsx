@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Switch, useToast, Button, Box, Input, SimpleGrid, Center, RadioGroup, Stack, Radio } from '@chakra-ui/react'
-
+import basePath from '..'
 
 export default function Configuration() {
   const toast = useToast();
@@ -31,11 +31,10 @@ export default function Configuration() {
   }, []);
 
   function fetchConfig() {
-    fetch('http://localhost:4000/config')
+    fetch(basePath + '/config')
       .then((res) => {
         res.json()
           .then((data) => {
-            console.log(data)
             setTitle(data.title);
             setFooter(data.footer);
             setResultFile(data.resultFile);
@@ -55,9 +54,6 @@ export default function Configuration() {
             onTypeSpecificDataChanged("lap", "startTimesFile", data.lap.startTimesFile)
             onTypeSpecificDataChanged("lap", "goalTimesFiles", data.lap.goalTimesFiles[0])
             onTypeSpecificDataChanged("lap", "raceEndTime", data.lap.raceEndTime)
-
-            console.log("hellooo")
-            console.log(sorting);
           });
       });
   }
@@ -75,7 +71,7 @@ export default function Configuration() {
       lap: typeSpecificData.lap
     }
     
-    fetch('http://localhost:4000/config', { 
+    fetch(basePath + '/config', { 
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' }, 
       body: JSON.stringify(dataToServer)
