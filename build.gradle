@@ -34,14 +34,6 @@ task myDist(type: Zip){
             exclude "acceptanceTests.py"
         }
 
-        into("input"){
-            from 'result/input'
-        }
-
-        into("output"){
-            from 'result/output'
-        }
-
         // all other documentation
         into("docs") {
             from 'docs/'
