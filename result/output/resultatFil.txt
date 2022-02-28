@@ -1,6 +1,0 @@
-Rank; StartNr; Namn; Totaltid; Start; Mål
-1; 26; David Dsson; 00:04:20; 10:30:37; 10:34:57
-2; 27; Erik Esson; 00:04:20; 10:30:39; 10:34:59
-3; 24; Bengt Bsson; 00:04:21; 10:30:33; 10:34:54
-4; 25; Chris Csson; 00:04:21; 10:30:35; 10:34:56
-5; 23; Anders Asson; --:--:--; 10:30:30; --:--:--
