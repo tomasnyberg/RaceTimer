@@ -45,6 +45,10 @@ app.put('/config', async (req, res) => {
     })
 })
 
+app.get('/text', async (req, res) => {
+  res.status(200).send(await getResultText());
+})
+
 app.get('/results', async (req, res) => {
   var child = require('child_process').spawn('java', ['-jar', 'result.jar']);
   child.on('exit', async (code) => {
@@ -200,6 +204,16 @@ function createAndLoadNameFile() {
       })
   }
 }
+
+async function getResultText() {
+  if (fs.existsSync(pathResult)) {
+    const contents = await fs.promises.readFile(pathResult, "utf-8")
+    return contents;
+  } else {
+    return "Inget resultat";
+  }
+}
+
 
 async function readResultFile(){
   result.splice(0, result.length);
