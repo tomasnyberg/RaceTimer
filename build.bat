@@ -1,4 +1,4 @@
-cd Web
+cd ./Web
 npm i
 npm run build
 cd ..
