@@ -6,6 +6,7 @@ import result.config.Config;
 import result.config.Lap;
 import result.config.Marathon;
 import result.lap.LapDriver;
+import util.OSString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +72,7 @@ public class TestMarathonDriver {
     driver.addGoalTime("15:30:00");
     driver.addGoalTime("16:00:00");
     assertEquals(
-        "1; MISSING; 03:00:00; 12:00:00; 15:00:00; Flera måltider? 15:30:00 16:00:00",
+        OSString.convert("1; MISSING; 03:00:00; 12:00:00; 15:00:00; Flera måltider? 15:30:00 16:00:00"),
         driver.toString());
     System.out.println(driver);
   }
@@ -84,7 +85,7 @@ public class TestMarathonDriver {
     driver.addGoalTime("15:30:00");
     driver.addGoalTime("16:00:00");
     assertEquals(
-        "1; MISSING; 03:00:00; 12:00:00; 15:00:00; Flera starttider? 13:00:00, Flera måltider? 15:30:00 16:00:00",
+        OSString.convert("1; MISSING; 03:00:00; 12:00:00; 15:00:00; Flera starttider? 13:00:00, Flera måltider? 15:30:00 16:00:00"),
         driver.toString());
     System.out.println(driver);
   }
@@ -93,7 +94,7 @@ public class TestMarathonDriver {
   public void testMinimumTime() {
     driver.addStartTime("12:00:00");
     driver.addGoalTime("12:10:00");
-    assertEquals("1; MISSING; 00:10:00; 12:00:00; 12:10:00; Omöjlig Totaltid?", driver.toString());
+    assertEquals(OSString.convert("1; MISSING; 00:10:00; 12:00:00; 12:10:00; Omöjlig Totaltid?"), driver.toString());
     System.out.println(driver);
   }
 

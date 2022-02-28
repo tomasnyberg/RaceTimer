@@ -1,4 +1,4 @@
-package result.lap;
+package result.marathon;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,6 +6,7 @@ import result.AbstractDriver;
 import result.config.Config;
 import result.config.Marathon;
 import result.marathon.MarathonResult;
+import util.OSString;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,9 +59,9 @@ public class TestMarathonResult {
     mr.generateResult();
     String finalResultString = "1; Anders Asson; --:--:--; 12:00:00; Slut?\n"
                              + "2; Bengt Bsson; --:--:--; Start?; 13:15:16\n"
-                             + "3; Chris Csson; 01:03:06; 12:02:00; 13:05:06; Flera måltider? 13:07:08\n"
+                             + OSString.convert("3; Chris Csson; 01:03:06; 12:02:00; 13:05:06; Flera måltider? 13:07:08\n")
                              + "4; David Dsson; 01:09:07; 12:03:00; 13:12:07; Flera starttider? 12:12:00\n"
-                             + "5; Erik Esson; 00:12:07; 12:04:00; 12:16:07; Omöjlig Totaltid?\n";
+                             + OSString.convert("5; Erik Esson; 00:12:07; 12:04:00; 12:16:07; Omöjlig Totaltid?\n");
     String mrResultString = "";
     for (AbstractDriver driver : mr.drivers) {
       mrResultString += driver.toString() + "\n";

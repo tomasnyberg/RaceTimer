@@ -16,35 +16,21 @@ public class ResultProgram {
 
   /**
    * The main method for the program
-   * If no arguments are passed, the program will use the config file as standard. If arguments are passed, they need to follow this format:
-   * @param args minimumTime: <hh:mm:ss>> nameFile: <File path with file extension> startTimeFile: <File path with file extension> endTimeFile: <File path with file extension> resultFile <File path with file extension>
+   * The program uses a config file named config.yaml in the working directory.
    */
   public static void main(String[] args) {
     Config config = new Config();
 
-    if (args.length > 0) {
-      try {
-        config.setMarathon(new Marathon(args[0], args[2], args[3]));
-        config.setNameFile(args[1]);
-        config.setResultFile(args[4]);
-        config.setSorting(args[5].equals("true"));
-      } catch (Exception e) {
-        System.out.println(
-            "Invalid arguments. Arguments should follow format: minimumTime: <hh:mm:ss> nameFile: <File path with file extension> startTimeFile: <File path with file extension> endTimeFile: <File path with file extension> resultFile <File path with file extension>");
-        System.exit(0);
-      }
-    } else {
-      ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-      try {
-        String configFile = Files.readString(Paths.get("config.yaml"));
-        config = mapper.readValue(configFile, Config.class);
-      } catch (JsonProcessingException e) {
-        System.out.println(e.getMessage());
-        System.exit(0);
-      } catch (IOException e) {
-        e.printStackTrace();
-        System.exit(0);
-      }
+    ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+    try {
+      String configFile = Files.readString(Paths.get("config.yaml"));
+      config = mapper.readValue(configFile, Config.class);
+    } catch (JsonProcessingException e) {
+      System.out.println(e.getMessage());
+      System.exit(0);
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(0);
     }
 
     if (config.getType().equals("marathon")) {
