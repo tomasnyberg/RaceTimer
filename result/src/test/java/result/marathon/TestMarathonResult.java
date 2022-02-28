@@ -1,4 +1,4 @@
-package result.lap;
+package result.marathon;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
