@@ -45,6 +45,7 @@ public class MarathonResult extends AbstractResult {
             }
         } else {
             topLine = "StartNr; Namn; Totaltid; Start; Mål";
+            topLine += drivers.stream().anyMatch(d -> d.isErrors()) ? "; Fel":""; 
             dumpList.add(topLine);
             for (int i = 0; i < drivers.size(); i++) {
                 dumpList.add(drivers.get(i).toString());
