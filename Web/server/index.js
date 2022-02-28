@@ -4,10 +4,10 @@ const cors = require('cors')
 const path = require('path')
 const app = express()
 const port = 4000
-const pathDrivers = 'drivers.txt'
-const pathResult = './output/resultat.txt'
-const pathStartTime = './input/starttider.txt'
-const pathEndTime = './input/maltider.txt'
+const pathDrivers = '../input/namnfil.txt'
+const pathResult = '../output/resultat.txt'
+const pathStartTime = '../input/starttider.txt'
+const pathEndTime = '../input/maltider.txt'
 
 app.use(cors())
 app.use(express.json())
