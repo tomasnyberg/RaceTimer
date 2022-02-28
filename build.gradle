@@ -29,6 +29,11 @@ task myDist(type: Zip){
         from 'release_files/start.sh'
         fileMode = 0755
 
+        into("acceptanstester"){
+            from "acceptanstester"
+            exclude "acceptanceTests.py"
+        }
+
         into("input"){
             from 'result/input'
         }
@@ -41,7 +46,6 @@ task myDist(type: Zip){
         into("docs") {
             from 'docs/'
             exclude 'release-info.txt'
-            exclude 'README'
         }
 
         // hide files from user
