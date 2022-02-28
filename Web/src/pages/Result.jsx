@@ -1,15 +1,16 @@
 import {useEffect, useState} from 'react'
-import { Table, Thead, Tbody, Modal, useToast, Input, ModalOverlay, ModalContent, ModalCloseButton, ModalFooter, ModalBody, ModalHeader, Tr, Th, Td, Box, HStack, Heading, Button, useDisclosure} from '@chakra-ui/react'
+import { Table, Thead, Tbody, Modal, useToast, useClipboard, ModalOverlay, ModalContent, ModalCloseButton, ModalFooter, ModalBody, ModalHeader, Tr, Th, Td, Box, HStack, Heading, Button, useDisclosure} from '@chakra-ui/react'
 
 
 export default function Result() {
-  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [title, setTitle] = useState("Titel")
   const [resultText, setResultText] = useState("")
-  const [email, setEmail] = useState('')
   const [header, setHeader] = useState([])
   const [results, setResults] = useState([])
+
+  const { hasCopied, onCopy } = useClipboard(resultText)
+  
   useEffect(() => {
     fetch('http://localhost:4000/results')
     .then((res) => {
@@ -67,6 +68,11 @@ export default function Result() {
               </pre>
             </Box>
           </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="yellow" onClick={onCopy}>
+              {hasCopied ? 'Kopierad' : 'Kopiera'}
+            </Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </Box>
