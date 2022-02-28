@@ -1,5 +1,5 @@
 # Type of race. Valid values: lap, marathon
-type: marathon
+type: lap
 # Title of the race
 title: Coolt race - 8 feb 2022
 # Footer for result file
