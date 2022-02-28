@@ -9,6 +9,12 @@ import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+// Base path
+const basePath = "http://localhost:4000"; // Dev
+// const basePath = "" // Prod
+export default basePath
+
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

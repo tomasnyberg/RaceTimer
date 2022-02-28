@@ -14,6 +14,7 @@ import {
   Td,
   Box,
 } from "@chakra-ui/react";
+import basePath from '..'
 
 function Registration() {
   const toast = useToast();
@@ -25,7 +26,7 @@ function Registration() {
   }, []);
 
   function fetchDrivers() {
-    fetch("http://localhost:4000/drivers").then((res) => {
+    fetch(basePath + "/drivers").then((res) => {
       res.json().then((data) => setDrivers(data.reverse()));
     });
   }
@@ -40,7 +41,7 @@ function Registration() {
       const data = {
         name: name,
       };
-      fetch("http://localhost:4000/drivers", {
+      fetch(basePath + "/drivers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
