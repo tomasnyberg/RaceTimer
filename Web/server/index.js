@@ -113,19 +113,17 @@ app.listen(port, async () => {
 
 async function createFolders() {
   try {
-    if (!fs.existsSync('./input')) {
-      fs.mkdirSync('./input')
+    if (!fs.existsSync(pathStartTime.split("/").slice(0, -1).join("/")+"/")) {
+      fs.mkdirSync(pathStartTime.split("/").slice(0, -1).join("/")+"/")
     }
   } catch (err) {
-    console.error(err)
   }
 
   try {
-    if (!fs.existsSync('./output')) {
-      fs.mkdirSync('./output')
+    if (!fs.existsSync(pathResult.split("/").slice(0, -1).join("/")+"/")) {
+      fs.mkdirSync(pathResult.split("/").slice(0, -1).join("/")+"/")
     }
   } catch (err) {
-    console.error(err)
   }
 }
 
