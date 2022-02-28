@@ -20,7 +20,7 @@ marathon:
   # File path to start times
   startTimesFile: ../input/starttider.txt
   # File path to goal times
-  goalTimesFile: ../input/maltider1.txt
+  goalTimesFile: ../input/maltider.txt
 
 # Lap race related configurations
 lap:
