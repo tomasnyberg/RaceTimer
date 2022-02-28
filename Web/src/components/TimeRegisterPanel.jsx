@@ -1,10 +1,11 @@
 import {useEffect, useState} from 'react'
-import { VStack, HStack, Input, Button, Table, Thead, Tr, Th, Tbody, Td, useToast } from '@chakra-ui/react'
+import { VStack, Text, HStack, Input, Button, Table, Thead, Tr, Th, Tbody, Td, useToast } from '@chakra-ui/react'
 
 export default function TimeRegisterPanel({ type }) {
   const toast = useToast();
   const [startNumber, setStartNumber] = useState("")
   const [timeEntries, setTimeEntries] = useState([])
+  const [time, setTime] = useState(undefined)
 
   useEffect(() => {
     fetchTimes();
@@ -15,19 +16,16 @@ export default function TimeRegisterPanel({ type }) {
     .then((res) => {
       res.json()
       .then((data) => {
-        setTimeEntries(data);
+        setTimeEntries(data.reverse());
       })
     })
   }
-  
-  function onStartNumberChanged(value) {
-    setStartNumber(value);
+
+  function onRemoveClick() {
+    setTime(undefined)
   }
 
-  function onSubmit(event) {
-    event.preventDefault();
-    if (startNumber) {
-      const date = new Date();
+  function postTime(date) {
       const data = {
         startNumber: startNumber,
         time: `${(date.getHours()<10?'0':'') + date.getHours()}:${(date.getMinutes()<10?'0':'') + date.getMinutes()}:${(date.getSeconds()<10?'0':'') + date.getSeconds()}`
@@ -41,8 +39,8 @@ export default function TimeRegisterPanel({ type }) {
           setStartNumber("");
           fetchTimes();
           toast({
-            title: 'Time was added',
-            description: `#${data.startNumber} with time: ${data.time} was added`,
+            title: 'Tid laddes till',
+            description: `#${data.startNumber} med tid: ${data.time} laddes till`,
             status: 'success',
             duration: 3000,
             isClosable: true,
@@ -50,21 +48,38 @@ export default function TimeRegisterPanel({ type }) {
         })
       }).catch((err) => {
         toast({
-          title: 'There was a problem',
+          title: 'Det uppstod ett problem',
           description: err.message,
           status: 'error',
           duration: 6000,
           isClosable: true,
         })
       })
+  }
+  
+  function onStartNumberChanged(value) {
+    setStartNumber(value);
+  }
+
+  function onSubmit(event) {
+    event.preventDefault();
+    if (time) {
+      if (startNumber) {
+        postTime(time)
+        setTime(undefined)
+      } else {
+        toast({
+          title: 'Det uppstod ett problem',
+          description: 'Saknar start nummer',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
+    } else if (startNumber) {
+      postTime(new Date())
     } else {
-      toast({
-        title: 'There was a problem',
-        description: "Start number cannot be empty",
-        status: 'error',
-        duration: 6000,
-        isClosable: true,
-      })
+      setTime(new Date())
     }
   }
 
@@ -72,9 +87,11 @@ export default function TimeRegisterPanel({ type }) {
     <VStack alignItems="center">
         <form onSubmit={onSubmit}>
           <HStack spacing="2">
-            <Input w="68vw" placeholder="Start Number" type="number" value={startNumber} onChange={(event) => onStartNumberChanged(event.target.value)} />
+            <Input w="60vw" placeholder="Start Number" type="number" value={startNumber} onChange={(event) => onStartNumberChanged(event.target.value)} />
             <Button colorScheme='yellow' size='md' type="submit">Registrera</Button>
+            {time && <Button colorScheme='red' onClick={onRemoveClick} size='md'>Ta bort tom</Button>}
           </HStack>
+          {time && <Text textAlign="center" fontSize="2xl" mt="0.5rem">Det finns en tid registrerad utan start nummer</Text>}
         </form>
         <Table variant="striped">
           <Thead>

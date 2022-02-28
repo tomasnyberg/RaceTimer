@@ -63,6 +63,7 @@ public class LapResult extends AbstractResult {
         dumpList.add(prefix + "; " + drivers.get(i).toString());
       }
     } else {
+      topLine += drivers.stream().anyMatch(d -> d.isErrors()) ? "; Fel":""; 
       dumpList.add(topLine);
       for (AbstractDriver driver : drivers) {
         dumpList.add(driver.toString());
