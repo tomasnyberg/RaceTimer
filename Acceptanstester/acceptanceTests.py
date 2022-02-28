@@ -5,7 +5,7 @@ import sys
 
 ROOT_DIR = os.getcwd()
 ACCEPTANCE_TESTS_DIR = os.path.join(ROOT_DIR, 'Acceptanstester')
-EXECUTABLE = os.path.join(ROOT_DIR, 'result/build/libs/result-v0.2.jar')
+EXECUTABLE = os.path.join(ROOT_DIR, 'result/build/libs/result.jar')
 
 EXPECTED_RESULT_FILE = 'resultat.txt'
 RESULT_FILE = 'resultat.txt'
