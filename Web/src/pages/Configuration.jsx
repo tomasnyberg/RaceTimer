@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Switch, Button, Box, Input, SimpleGrid, Center, RadioGroup, Stack, Radio } from '@chakra-ui/react'
 
 
@@ -8,7 +8,7 @@ export default function Configuration() {
   const [resultFile, setResultFile] = useState("output/resultat.txt")
   const [nameFile, setNameFile] = useState("input/namnfil.txt")
   const [sorting, setSorting] = useState(false)
-  const [type, setType] = useState("marathon")
+  const [type, setType] = useState("lap")
   const [typeSpecificData, setTypeSpecificData] = useState({
     marathon: {
       minimumTime: "",
@@ -25,6 +25,39 @@ export default function Configuration() {
     }
   })
 
+  useEffect(() => {
+    fetchConfig();
+  }, [])
+
+  function fetchConfig() {
+    fetch('http://localhost:4000/config')
+      .then((res) => {
+        res.json()
+          .then((data) => {
+            setTitle(data.title);
+            setFooter(data.footer);
+            setResultFile(data.resultFile);
+            setNameFile(data.nameFile);
+            setSorting(data.sorting);
+            setType(data.type);
+            
+            // Marathon
+            onTypeSpecificDataChanged("marathon", "minimumTime", data.marathon.minimumTime)
+            onTypeSpecificDataChanged("marathon", "startTimesFile", data.marathon.startTimesFile)
+            onTypeSpecificDataChanged("marathon", "goalTimesFile", data.marathon.goalTimesFile)
+
+            // Lap
+            onTypeSpecificDataChanged("lap", "minimumTime", data.lap.minimumTime)
+            onTypeSpecificDataChanged("lap", "massStart", data.lap.massStart)
+            onTypeSpecificDataChanged("lap", "timeForMassStart", data.lap.timeForMassStart)
+            onTypeSpecificDataChanged("lap", "startTimesFile", data.lap.startTimesFile)
+            onTypeSpecificDataChanged("lap", "goalTimesFiles", data.lap.goalTimesFiles[0])
+            onTypeSpecificDataChanged("lap", "raceEndTime", data.lap.raceEndTime)
+          });
+
+      });
+  }
+
   function onSubmit(event) {
     event.preventDefault();
     console.log(title)
@@ -36,13 +69,13 @@ export default function Configuration() {
     console.log(typeSpecificData)
   }
 
-  function onTypeSpecificDataChanged(key, value) {
+  function onTypeSpecificDataChanged(currentType, key, value) {
     let updatedValue = typeSpecificData
 
-    if(type === "lap" && key === "goalTimesFiles") {
-      updatedValue[type][key] = value.split(",")
+    if(currentType === "lap" && key === "goalTimesFiles") {
+      updatedValue[currentType][key] = value.split(",")
     } else {
-      updatedValue[type][key] = value;
+      updatedValue[currentType][key] = value;
     }
     
     setTypeSpecificData(typeSpecificData => ({
@@ -120,7 +153,7 @@ export default function Configuration() {
                 Minimumtid per varv
               </Box>
               <Box height='30px'>
-                <Input size="md" placeholder="Använd formatet hh:mm:ss" value={typeSpecificData[type].minimumTime} onChange={(event) => onTypeSpecificDataChanged("minimumTime", event.target.value)} />
+                <Input size="md" placeholder="Använd formatet hh:mm:ss" value={typeSpecificData[type].minimumTime} onChange={(event) => onTypeSpecificDataChanged(type, "minimumTime", event.target.value)} />
               </Box>
 
               {/* Mass start true or false */}
@@ -136,7 +169,7 @@ export default function Configuration() {
                 Tid för mass-start
               </Box>
               <Box height='30px'>
-                <Input size="md" placeholder="Använd formatet hh:mm:ss" value={typeSpecificData[type].timeForMassStart} onChange={(event) => onTypeSpecificDataChanged("timeForMassStart", event.target.value)} />
+                <Input size="md" placeholder="Använd formatet hh:mm:ss" value={typeSpecificData[type].timeForMassStart} onChange={(event) => onTypeSpecificDataChanged(type, "timeForMassStart", event.target.value)} />
               </Box>
 
               {/* Start time file */}
@@ -144,7 +177,7 @@ export default function Configuration() {
                 Filväg till fil med starttider i server
               </Box>
               <Box height='30px'>
-                <Input size="md" value={typeSpecificData[type].startTimesFile} onChange={(event) => onTypeSpecificDataChanged("startTimesFile", event.target.value)} />
+                <Input size="md" value={typeSpecificData[type].startTimesFile} onChange={(event) => onTypeSpecificDataChanged(type, "startTimesFile", event.target.value)} />
               </Box>
 
               {/* End time file */}
@@ -152,7 +185,7 @@ export default function Configuration() {
                 Filväg till fil med måltider i server
               </Box>
               <Box height='30px'>
-                <Input size="md"  placeholder="T.ex: fil1.txt" value={typeSpecificData[type].goalTimesFiles} onChange={(event) => onTypeSpecificDataChanged("goalTimesFiles", event.target.value)} />
+                <Input size="md"  placeholder="T.ex: fil1.txt" value={typeSpecificData[type].goalTimesFiles} onChange={(event) => onTypeSpecificDataChanged(type, "goalTimesFiles", event.target.value)} />
               </Box>
 
               {/* Race end time */}
@@ -160,7 +193,7 @@ export default function Configuration() {
                 Slut-tid för lopp
               </Box>
               <Box height='30px'>
-                <Input size="md" placeholder="Använd formatet hh:mm:ss" value={typeSpecificData[type].raceEndTime} onChange={(event) => onTypeSpecificDataChanged("raceEndTime", event.target.value)} />
+                <Input size="md" placeholder="Använd formatet hh:mm:ss" value={typeSpecificData[type].raceEndTime} onChange={(event) => onTypeSpecificDataChanged(type, "raceEndTime", event.target.value)} />
               </Box>
             
             </React.Fragment>
@@ -175,7 +208,7 @@ export default function Configuration() {
                 Minimumtid för helt lopp
               </Box>
               <Box height='30px'>
-                <Input size="md" placeholder="Använd formatet hh:mm:ss" value={typeSpecificData[type].minimumTime} onChange={(event) => onTypeSpecificDataChanged("minimumTime", event.target.value)} />
+                <Input size="md" placeholder="Använd formatet hh:mm:ss" value={typeSpecificData[type].minimumTime} onChange={(event) => onTypeSpecificDataChanged(type, "minimumTime", event.target.value)} />
               </Box>
 
               {/* Start time file */}
@@ -183,7 +216,7 @@ export default function Configuration() {
                 Filväg till fil med starttider i server
               </Box>
               <Box height='30px'>
-                <Input size="md" value={typeSpecificData[type].startTimesFile} onChange={(event) => onTypeSpecificDataChanged("startTimesFile", event.target.value)} />
+                <Input size="md" value={typeSpecificData[type].startTimesFile} onChange={(event) => onTypeSpecificDataChanged(type, "startTimesFile", event.target.value)} />
               </Box>
 
               {/* End time file */}
@@ -191,7 +224,7 @@ export default function Configuration() {
                 Filväg till fil med måltider i server
               </Box>
               <Box height='30px'>
-                <Input size="md" value={typeSpecificData[type].goalTimesFile} onChange={(event) => onTypeSpecificDataChanged("goalTimesFile", event.target.value)} />
+                <Input size="md" value={typeSpecificData[type].goalTimesFile} onChange={(event) => onTypeSpecificDataChanged(type, "goalTimesFile", event.target.value)} />
               </Box>
             
             </React.Fragment>
