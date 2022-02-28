@@ -3,7 +3,6 @@ const fs = require('fs')
 const yaml = require('js-yaml');
 const cors = require('cors')
 const path = require('path');
-const { config } = require('process');
 const app = express()
 
 app.use(cors())
@@ -104,12 +103,31 @@ app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'web', 'index.html'));
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
+  await createFolders()
   createAndLoadNameFile()
   createAndLoadStartFile()
   createAndLoadEndFile()
   console.log(`App listening on port ${port}`)
 })
+
+async function createFolders() {
+  try {
+    if (!fs.existsSync('./input')) {
+      fs.mkdirSync('./input')
+    }
+  } catch (err) {
+    console.error(err)
+  }
+
+  try {
+    if (!fs.existsSync('./output')) {
+      fs.mkdirSync('./output')
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 fs.watchFile(pathDrivers, (curr, prev) => {
   drivers = []
