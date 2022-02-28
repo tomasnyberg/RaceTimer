@@ -4,6 +4,7 @@ import result.AbstractDriver;
 import result.AbstractResult;
 import result.config.Config;
 import util.FileWriter;
+import util.OSString;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,7 +37,7 @@ public class MarathonResult extends AbstractResult {
         readEndTimes();
 
         if (config.isSorting()) {
-            topLine = "Rank; StartNr; Namn; Totaltid; Start; Mål";
+            topLine = OSString.convert( "Rank; StartNr; Namn; Totaltid; Start; Mål");
             Collections.sort(drivers);
             dumpList.add(topLine);
             for (int i = 0; i < drivers.size(); i++) {
@@ -44,7 +45,8 @@ public class MarathonResult extends AbstractResult {
                 dumpList.add(prefix + "; " + drivers.get(i).toString());
             }
         } else {
-            topLine = "StartNr; Namn; Totaltid; Start; Mål";
+            topLine = OSString.convert("StartNr; Namn; Totaltid; Start; Mål");
+            topLine += drivers.stream().anyMatch(d -> d.isErrors()) ? "; Fel":""; 
             dumpList.add(topLine);
             for (int i = 0; i < drivers.size(); i++) {
                 dumpList.add(drivers.get(i).toString());

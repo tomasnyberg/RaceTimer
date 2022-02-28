@@ -2,6 +2,7 @@ package result.marathon;
 
 import result.AbstractDriver;
 import result.config.Config;
+import util.OSString;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class MarathonDriver extends AbstractDriver {
 
-  protected static final String impossibleTotalTime = "Omöjlig Totaltid?";
+  protected static final String impossibleTotalTime = OSString.convert("Omöjlig Totaltid?");
   /**
    * @param driverNumber String with a drivernumber
    * @param config  a config file

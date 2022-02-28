@@ -1,9 +1,11 @@
 package result;
 
 import result.config.Config;
+import util.OSString;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,7 +108,7 @@ public abstract class AbstractResult {
    */
   protected List<String> readFile(String path) {
     try {
-      BufferedReader reader = new BufferedReader(new FileReader(path));
+      BufferedReader reader = new BufferedReader(new FileReader(path, StandardCharsets.UTF_8));
       List<String> list = new ArrayList<>();
       String line = reader.readLine();
       while (line != null) {

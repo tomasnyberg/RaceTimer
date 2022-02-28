@@ -5,9 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import result.config.Config;
 import result.config.Lap;
+import util.OSString;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.crypto.OctetStreamData;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -121,7 +124,7 @@ public class TestLapDriver {
     driver.addGoalTime("15:00:00");
     driver.addGoalTime("15:30:00");
     driver.addGoalTime("16:00:00");
-    assertEquals("1; MISSING; 1; 03:00:00; 03:00:00; ; ; 12:00:00; ; ; 15:00:00; Flera måltider? 15:30:00 16:00:00",
+    assertEquals(OSString.convert("1; MISSING; 1; 03:00:00; 03:00:00; ; ; 12:00:00; ; ; 15:00:00; Flera måltider? 15:30:00 16:00:00"),
         driver.toString());
     System.out.println(driver);
   }
@@ -135,7 +138,7 @@ public class TestLapDriver {
     driver.addGoalTime("15:30:00");
     driver.addGoalTime("16:00:00");
     assertEquals(
-        "1; MISSING; 1; 03:00:00; 03:00:00; ; ; 12:00:00; ; ; 15:00:00; Flera starttider? 13:00:00, Flera måltider? 15:30:00 16:00:00",
+        OSString.convert("1; MISSING; 1; 03:00:00; 03:00:00; ; ; 12:00:00; ; ; 15:00:00; Flera starttider? 13:00:00, Flera måltider? 15:30:00 16:00:00"),
         driver.toString());
     System.out.println(driver);
   }
@@ -148,7 +151,7 @@ public class TestLapDriver {
     driver.addGoalTime("13:10:00");
     driver.addGoalTime("15:00:00");
     assertEquals(
-        "1; MISSING; 3; 03:00:00; 01:00:00; 00:10:00; 01:50:00; 12:00:00; 13:00:00; 13:10:00; 15:00:00; Omöjlig varvtid?",
+        OSString.convert("1; MISSING; 3; 03:00:00; 01:00:00; 00:10:00; 01:50:00; 12:00:00; 13:00:00; 13:10:00; 15:00:00; Omöjlig varvtid?"),
         driver.toString());
     System.out.println(driver);
   }
@@ -215,7 +218,7 @@ public class TestLapDriver {
     driver.addGoalTime("14:30:00");
     driver.addGoalTime("15:00:00");
     assertEquals(
-        "1; MISSING; 3; 01:45:00; 00:-15:00; 01:30:00; 00:30:00; 13:15:00; 13:00:00; 14:30:00; 15:00:00; Omöjlig varvtid?",
+        OSString.convert("1; MISSING; 3; 01:45:00; 00:-15:00; 01:30:00; 00:30:00; 13:15:00; 13:00:00; 14:30:00; 15:00:00; Omöjlig varvtid?"),
         driver.toString());
     System.out.println(driver);
   }
@@ -228,7 +231,7 @@ public class TestLapDriver {
     driver.addGoalTime("14:30:00");
     driver.addGoalTime("15:00:00");
     assertEquals(
-        "1; MISSING; 3; -1:-15:00; -3:-15:00; 01:30:00; 00:30:00; 16:15:00; 13:00:00; 14:30:00; 15:00:00; Omöjlig varvtid?",
+        OSString.convert("1; MISSING; 3; -1:-15:00; -3:-15:00; 01:30:00; 00:30:00; 16:15:00; 13:00:00; 14:30:00; 15:00:00; Omöjlig varvtid?"),
         driver.toString());
     System.out.println(driver);
   }

@@ -20,45 +20,45 @@ task myDist(type: Zip){
     def baseDir = {archiveFileName.get() - '.zip'}
     into(baseDir){
 
-        // include jar files from both sub projects
-        // and make them executable
-        from { project(':register').jar }
-        fileMode = 0755
-        from { project(':result').jar }
-        fileMode = 0755
-
         // readme and release info
-        from 'docs/README'
-        from 'docs/config.yaml'
-        from 'docs/start.bat'
-        from 'docs/start.sh'
         from 'docs/release-info.txt'
-        from 'Web/package.json'
-        from 'Web/package-lock.json'
-        from 'Web/server/index.js'
 
-        into("input"){
-            from 'result/input'
+        // start scripts
+        from 'release_files/start.bat'
+        fileMode = 0755
+        from 'release_files/start.sh'
+        fileMode = 0755
+
+        into("acceptanstester"){
+            from "acceptanstester"
+            exclude "acceptanceTests.py"
         }
-
-
-        into("output"){
-            from 'result/output'
-        }
-        
-        into("web") {
-            from 'Web/build'
-        }
-
 
         // all other documentation
         into("docs") {
             from 'docs/'
             exclude 'release-info.txt'
-            exclude 'README'
-            exclude 'config.yaml'
-            exclude 'start.bat'
-            exclude 'start.sh'
+        }
+
+        // hide files from user
+        into("program") {
+            // include jar files from both sub projects
+            // and make them executable
+            from { project(':register').jar }
+            fileMode = 0755
+            from { project(':result').jar }
+            fileMode = 0755
+
+            // web
+            from 'Web/package.json'
+            from 'Web/package-lock.json'
+            from 'Web/server/index.js'
+
+            from 'release_files/config.yaml'
+
+            into("web") {
+                from 'Web/build'
+            }
         }
     }
 }

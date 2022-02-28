@@ -1,22 +1,11 @@
-Web:
-### To run: ./gradlew build
+## Web
+* During development, use "npm run dev" in the Web directory
 
-### To run En komplett version av projektet finns nu i mappen "/build/distributions/team05-race-clock-vXX.zip"
+## Java
+* To run the result subproject: ./gradlew :result:run
+* To run the register subproject: ./gradlew :register:run
 
-### To run Unzippa filen till lämplig plats.
-
-### To run Stega in i den unzippade mappen.
-
-### To run Kör ./start.sh on Linux , ./start.bat on Windows
-
-
-Java:
-### To run: ./gradlew run
-
-### To run / build the register subproject : ./gradlew :register:run
-
-### To run / build result project you have to specify arguments: ./gradlew :result:run --args='hh:mm:ss nameFilePath startTimesPath endTimesPath resultPath shouldSort'
-
-### Example: ./gradlew :result:run --args='00:00:00 input/namnfil.txt input/starttider.txt input/maltider.txt output/resultatFil.txt true'
-
-### Currently no docs file in the repo like before, also some slight changes in the gradle files / structure from the other zero feature release
+## Integration
+* To build, run ./build.sh on Linux and ./build.bat on Windows
+* The complete project ends up in a zip file: "/build/distributions/team05-race-clock-vX.X.zip"
+* After unzipping, run ./start.sh on Linux, ./start.bat on Windows to start the server

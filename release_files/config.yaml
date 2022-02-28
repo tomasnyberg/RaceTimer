@@ -7,34 +7,33 @@ footer: Resultat genererat av Team 05
 # True if result file should be sorted according to placement, false if sorting should be disabled
 sorting: true
 # File path to result file
-resultFile: output/resultat.txt
+resultFile: ../output/resultat.txt
 # File path to name input file
-nameFile: input/namnfil.txt
+nameFile: ../input/namnfil.txt
 # Port used by the server
 port: 4000
 
 # Marathon related configurations
 marathon:
   # Minimum time for marathon race
-  minimumTime: 00:15:00
+  minimumTime: 00:05:00
   # File path to start times
-  startTimesFile: input/starttider.txt
+  startTimesFile: ../input/starttider.txt
   # File path to goal times
-  goalTimesFile: input/maltider.txt
+  goalTimesFile: ../input/maltider.txt
 
 # Lap race related configurations
 lap:
   # Minimum time for one lap
-  minimumTime: 00:15:00
+  minimumTime: 00:05:00
   # Mass start enabled
   massStart: false
   # Time to set all drivers starttime to for mass start
   timeForMassStart: 13:00:00
   # File path to start times
-  startTimesFile: input/starttider.txt
+  startTimesFile: ../input/starttider.txt
   # File path to goal times
   goalTimesFiles:
-    - input/maltider1.txt
-    - input/maltider2.txt
+    - ../input/maltider.txt
   # Race end time
   raceEndTime: 14:00:00

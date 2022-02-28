@@ -7,6 +7,7 @@ import java.util.List;
 
 import result.AbstractDriver;
 import result.config.Config;
+import util.OSString;
 
 /**
  * Class for representing one driver in a lap race
@@ -114,7 +115,7 @@ public class LapDriver extends AbstractDriver {
                         || LocalTime.parse(config.getLap().getMinimumTime()).isAfter(LocalTime.parse(x)))) {
             if (first)
                 first = false;
-            sb.append("Omöjlig varvtid?");
+            sb.append(OSString.convert("Omöjlig varvtid?"));
         }
 
         if (startTimes.size() > 1) {

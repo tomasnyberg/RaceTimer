@@ -2,11 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Registration from './pages/Registration';
 import TimeRegistration from './pages/TimeRegistration';
+import Configuration from './pages/Configuration';
 import Result from './pages/Result';
 import Layout from './Layout';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+// Base path
+const basePath = "http://localhost:4000"; // Dev
+// const basePath = "" // Prod
+export default basePath
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,8 +22,9 @@ ReactDOM.render(
         <Layout>
           <Routes>
             <Route path="/" element={<Result />} />
-            <Route path="/registration" element={<Registration />}/>
-            <Route path="/time-registration" element={<TimeRegistration />}/>
+            <Route path="/registrering" element={<Registration />}/>
+            <Route path="/tids-registrering" element={<TimeRegistration />}/>
+            <Route path="/konfiguration" element={<Configuration />}/>
           </Routes>
         </Layout>
       </ChakraProvider>

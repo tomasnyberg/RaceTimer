@@ -12,6 +12,7 @@ public class Config {
   private boolean sorting;
   private String resultFile;
   private String nameFile;
+  private int port;
   private Marathon marathon;
   private Lap lap;
 
@@ -26,6 +27,7 @@ public class Config {
       boolean sorting,
       String resultFile,
       String nameFile,
+      int port,
       Marathon marathon,
       Lap lap) {
     this.type = type;
@@ -34,6 +36,7 @@ public class Config {
     this.sorting = sorting;
     this.resultFile = resultFile;
     this.nameFile = nameFile;
+    this.port = port;
     this.marathon = marathon;
     this.lap = lap;
   }
@@ -100,5 +103,13 @@ public class Config {
 
   public void setResultFile(String resultFile) {
     this.resultFile = resultFile;
+  }
+
+  public int getPort() {
+    return port;
+  }
+
+  public void setPort(int port) {
+    this.port = port;
   }
 }
